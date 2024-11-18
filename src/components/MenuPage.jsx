@@ -28,7 +28,7 @@ const MenuPage = () => {
     }
   };
 
-  const handleCategoryClick = (categoryId) => {
+  const handleCategoryClick = (categoryName) => {
     navigate(`/category/${categoryId}`);
   };
 
