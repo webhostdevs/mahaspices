@@ -153,7 +153,6 @@
 // };
 
 // export default AddCategory;
-
 import React, { useState } from 'react';
 import { Upload, X } from 'lucide-react';
 
@@ -184,37 +183,44 @@ const AddCategory = () => {
     setIsSubmitting(true);
     setMessage({ type: '', text: '' });
 
+    const formDataWithFiles = new FormData();
+    formDataWithFiles.append('categoryName', formData.categoryName);
+    if (formData.categoryImage) {
+      formDataWithFiles.append('categoryImage', formData.categoryImage);
+    }
+
     try {
-      const formDataWithFiles = new FormData();
-      formDataWithFiles.append('categoryName', formData.categoryName);
-      if (formData.categoryImage) {
-        formDataWithFiles.append('categoryImage', formData.categoryImage);
-      }
+      // First, let's try a test request to check if the server is reachable
+      const testResponse = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
+        method: 'OPTIONS'
+      });
+      console.log('CORS pre-flight response:', testResponse.status);
 
-      // Add error handling and debugging
-      console.log('Sending request to server...');
-      console.log('Category Name:', formData.categoryName);
-      console.log('Image File:', formData.categoryImage);
-
+      // Now let's make the actual request
       const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
         method: "POST",
         body: formDataWithFiles,
-        // Remove headers when sending FormData
-        // headers will be set automatically by the browser
+        mode: 'cors', // Explicitly set CORS mode
+        credentials: 'same-origin'
       });
 
-      // Log the raw response for debugging
       console.log('Response status:', response.status);
+      console.log('Response headers:', [...response.headers.entries()]);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const responseText = await response.text();
       console.log('Raw response:', responseText);
 
-      // Try to parse the response as JSON
       let data;
       try {
         data = JSON.parse(responseText);
-      } catch (error) {
-        console.error('Failed to parse JSON:', error);
-        throw new Error('Invalid response from server');
+        console.log('Parsed response data:', data);
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        throw new Error('Invalid JSON response from server');
       }
 
       if (data.success) {
@@ -222,21 +228,24 @@ const AddCategory = () => {
         setFormData({ categoryName: '', categoryImage: null });
         setPreviewURL('');
       } else {
-        throw new Error(data.message || 'Failed to add category');
+        throw new Error(data.message || 'Server returned unsuccessful response');
       }
     } catch (error) {
-      console.error('Error details:', error);
-      setMessage({ 
-        type: 'error', 
-        text: `Error: ${error.message || 'An unexpected error occurred'}`
+      console.error('Detailed error:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+      
+      setMessage({
+        type: 'error',
+        text: `Submission failed: ${error.message}. Please check console for details.`
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-
-  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16 px-4">
       <div className="w-full max-w-md">
@@ -244,6 +253,15 @@ const AddCategory = () => {
           <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">
             Add New Category
           </h2>
+
+          {/* Debug Info */}
+          <div className="mb-4 p-2 bg-gray-100 rounded text-xs">
+            <p>Server Status: {isSubmitting ? 'Submitting...' : 'Ready'}</p>
+            <p>Form Data: {JSON.stringify({
+              categoryName: formData.categoryName,
+              hasImage: !!formData.categoryImage
+            }, null, 2)}</p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -334,4 +352,3 @@ const AddCategory = () => {
 };
 
 export default AddCategory;
-
