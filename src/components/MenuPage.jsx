@@ -42,7 +42,7 @@ const MenuPage = () => {
   const getImageUrl = (imageUrl) => {
     // If the image URL is relative, construct the full URL
     if (imageUrl && !imageUrl.startsWith('http')) {
-      return `ttps://bookmycater.freewebhostmost.com/${imageUrl}`;
+      return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
     }
     return imageUrl;
   };
