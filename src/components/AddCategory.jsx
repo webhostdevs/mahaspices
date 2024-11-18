@@ -14,7 +14,7 @@ function AddCategory() {
 
     // Send form data to the backend using fetch
     try {
-  const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
+  const response = await fetch("https://bookmycater.freewebhostmost.com/submitCategory.php", {
     method: "POST",
     body: formData,
   });
