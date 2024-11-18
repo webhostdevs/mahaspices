@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, X } from 'react-feather'; // Assuming you're using Feather icons
+import { Upload, X } from 'lucide-react'; // Assuming you're using Feather icons
 
 const AddCategory = () => {
   const [formData, setFormData] = useState({ categoryName: '', categoryImage: null });
