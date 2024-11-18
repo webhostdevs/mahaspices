@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+  // import React, { useState } from 'react';
 // import { Upload, X } from 'lucide-react';
 
 // const AddCategory = () => {
@@ -197,12 +197,11 @@ const AddCategory = () => {
       console.log('CORS pre-flight response:', testResponse.status);
 
       // Now let's make the actual request
-      const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
-        method: "POST",
-        body: formDataWithFiles,
-        mode: 'cors', // Explicitly set CORS mode
-        credentials: 'same-origin'
+      const response = await fetch("https://bookmycater.freewebhostmost.com/submitCategory.php", {
+          method: "POST",
+          body: formDataWithFiles,
       });
+
 
       console.log('Response status:', response.status);
       console.log('Response headers:', [...response.headers.entries()]);
