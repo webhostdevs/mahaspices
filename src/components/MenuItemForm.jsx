@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { CheckSquare, Square, PlusCircle } from "lucide-react";
 
 const MenuItemForm = () => {
   const [itemCount, setItemCount] = useState(0);
@@ -78,13 +76,25 @@ const MenuItemForm = () => {
       })
       .then((data) => {
         console.log(data);
-        // Add success notification here
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
-        // Add error notification here
       });
   };
+
+  const CustomCheckbox = ({ checked, onChange, label, className = "" }) => (
+    <div 
+      className={`flex items-center space-x-2 cursor-pointer ${className}`}
+      onClick={() => onChange(!checked)}
+    >
+      {checked ? (
+        <CheckSquare className="w-5 h-5 text-green-600" />
+      ) : (
+        <Square className="w-5 h-5 text-gray-400" />
+      )}
+      <span className="text-sm font-medium text-gray-700">{label}</span>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -100,13 +110,13 @@ const MenuItemForm = () => {
               <CardTitle>Number of Items</CardTitle>
             </CardHeader>
             <CardContent>
-              <Input
+              <input
                 type="number"
                 value={itemCount}
                 onChange={handleItemCountChange}
                 placeholder="Enter number of items"
                 min="1"
-                className="max-w-xs"
+                className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors"
               />
             </CardContent>
           </Card>
@@ -121,55 +131,45 @@ const MenuItemForm = () => {
               <CardContent className="space-y-6">
                 {/* Item Name */}
                 <div className="space-y-2">
-                  <Label htmlFor={`item-name-${index}`}>Item Name</Label>
-                  <Input
-                    id={`item-name-${index}`}
+                  <label className="block text-sm font-medium text-gray-700">
+                    Item Name
+                  </label>
+                  <input
                     type="text"
                     onChange={(e) => handleInputChange(index, "itemName", e.target.value)}
                     placeholder="Enter item name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors"
                   />
                 </div>
 
                 {/* Menu Type Selection */}
                 <div className="space-y-4">
-                  <Label className="text-base font-semibold">Menu Type</Label>
-                  <div className="grid gap-4">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Menu Type
+                  </label>
+                  <div className="space-y-4">
                     {Object.keys(menuOptions).map((menuType) => (
                       <div key={menuType} className="space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id={`${menuType}-${index}`}
-                            checked={item?.menuType?.[menuType] || false}
-                            onCheckedChange={(checked) =>
-                              handleCheckboxChange(index, menuType, checked, "menuType")
-                            }
-                          />
-                          <Label
-                            htmlFor={`${menuType}-${index}`}
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {menuType}
-                          </Label>
-                        </div>
+                        <CustomCheckbox
+                          checked={item?.menuType?.[menuType] || false}
+                          onChange={(checked) =>
+                            handleCheckboxChange(index, menuType, checked, "menuType")
+                          }
+                          label={menuType}
+                        />
                         
                         {item?.menuType?.[menuType] && (
-                          <div className="ml-6 grid gap-2">
+                          <div className="ml-6 space-y-2">
                             {menuOptions[menuType].map((subMenu) => (
-                              <div key={subMenu} className="flex items-center space-x-2">
-                                <Checkbox
-                                  id={`${subMenu}-${index}`}
-                                  checked={item?.[menuType]?.[subMenu] || false}
-                                  onCheckedChange={(checked) =>
-                                    handleCheckboxChange(index, subMenu, checked, menuType)
-                                  }
-                                />
-                                <Label
-                                  htmlFor={`${subMenu}-${index}`}
-                                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                  {subMenu}
-                                </Label>
-                              </div>
+                              <CustomCheckbox
+                                key={subMenu}
+                                checked={item?.[menuType]?.[subMenu] || false}
+                                onChange={(checked) =>
+                                  handleCheckboxChange(index, subMenu, checked, menuType)
+                                }
+                                label={subMenu}
+                                className="ml-4"
+                              />
                             ))}
                           </div>
                         )}
@@ -180,50 +180,50 @@ const MenuItemForm = () => {
 
                 {/* Types Selection */}
                 <div className="space-y-4">
-                  <Label className="text-base font-semibold">Types</Label>
-                  <div className="grid gap-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Types
+                  </label>
+                  <div className="space-y-2">
                     {["Beverages", "Mocktails", "Welcome Sweets"].map((type) => (
-                      <div key={type} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`${type}-${index}`}
-                          checked={item?.types?.[type] || false}
-                          onCheckedChange={(checked) =>
-                            handleCheckboxChange(index, type, checked, "types")
-                          }
-                        />
-                        <Label
-                          htmlFor={`${type}-${index}`}
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          {type}
-                        </Label>
-                      </div>
+                      <CustomCheckbox
+                        key={type}
+                        checked={item?.types?.[type] || false}
+                        onChange={(checked) =>
+                          handleCheckboxChange(index, type, checked, "types")
+                        }
+                        label={type}
+                      />
                     ))}
                   </div>
                 </div>
 
                 {/* Price */}
                 <div className="space-y-2">
-                  <Label htmlFor={`price-${index}`}>Price</Label>
-                  <Input
-                    id={`price-${index}`}
+                  <label className="block text-sm font-medium text-gray-700">
+                    Price
+                  </label>
+                  <input
                     type="number"
                     onChange={(e) => handleInputChange(index, "price", e.target.value)}
                     placeholder="Enter price"
                     min="0"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors"
                   />
                 </div>
 
                 {/* Image Upload */}
                 <div className="space-y-2">
-                  <Label htmlFor={`image-${index}`}>Item Image</Label>
-                  <Input
-                    id={`image-${index}`}
-                    type="file"
-                    onChange={(e) => handleInputChange(index, "image", e.target.files[0])}
-                    className="cursor-pointer"
-                    accept="image/*"
-                  />
+                  <label className="block text-sm font-medium text-gray-700">
+                    Item Image
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      onChange={(e) => handleInputChange(index, "image", e.target.files[0])}
+                      accept="image/*"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -231,10 +231,11 @@ const MenuItemForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-4 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-4 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             disabled={formData.length === 0}
           >
-            Submit Menu Items
+            <PlusCircle className="w-5 h-5" />
+            <span>Submit Menu Items</span>
           </button>
         </form>
       </div>
