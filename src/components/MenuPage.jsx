@@ -9,7 +9,7 @@ const MenuPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("https://bookmycater.freewebhostmost.com/getCategories.php");
+        const response = await fetch("https://bookmycater.freewebhostmost.com/getCategory.php");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
