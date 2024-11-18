@@ -8,17 +8,23 @@ const MenuPage = () => {
   useEffect(() => {
     // Fetch categories from the backend
     const fetchCategories = async () => {
-      try {
-        const response = await fetch("https://bookmycater.freewebhostmost.com/getCategories.php");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json(); // Assuming the backend returns an array of category objects
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+  try {
+    const response = await fetch("https://bookmycater.freewebhostmost.com/getCategories.php", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setCategories(data);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    alert("Failed to fetch categories. Please try again later.");
+  }
+};
+
 
     fetchCategories();
   }, []);
