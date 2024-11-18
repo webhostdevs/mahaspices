@@ -1,62 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MenuPage = () => {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
 
-  const menuData = [
-    {
-      id: 1,
-      image: "https://via.placeholder.com/150",
-      category: "North Indian Dawat",
-      details: "2 Starters + 5 Mains + 1 Dessert",
-      price: "₹899",
-    },
-    {
-      id: 2,
-      image: "https://via.placeholder.com/150",
-      category: "North Indian Feast",
-      details: "3 Starters + 4 Mains + 2 Desserts",
-      price: "₹1199",
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1555244162-803834f70033?w=150&h=150&fit=crop",
-      category: "South Indian Splendor",
-      details: "3 Starters + 6 Mains + 2 Desserts",
-      price: "₹1099",
-    },
-  ];
+  useEffect(() => {
+    // Fetch categories from the backend
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("https://bookmycater.freewebhostmost.com/getCategories.php");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json(); // Assuming the backend returns a JSON array of categories
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
     <div className="bg-white py-10 px-5">
       <h1 className="text-3xl font-bold text-green-600 text-center mb-8">
-        Our Menu
+        Explore Our Categories
       </h1>
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {menuData.map((item) => (
-          <div
-            key={item.id}
-            className="border border-green-600 rounded-lg shadow-lg p-4 bg-white hover:shadow-xl"
-          >
-            <img
-              src={item.image}
-              alt={item.category}
-              className="w-full h-40 object-cover rounded-md mb-4"
-            />
-            <h2 className="text-xl font-semibold text-green-600 mb-2">
-              {item.category}
-            </h2>
-            <p className="text-black mb-2">{item.details}</p>
-            <p className="text-black font-bold mb-4">{item.price}</p>
-            <button
-              onClick={() => navigate(`/menu/${item.id}`)}
-              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+
+      {/* Category grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <div
+              key={category.id}
+              className="p-4 bg-gray-100 rounded-lg shadow hover:shadow-md cursor-pointer transition-shadow"
+              onClick={() => navigate(`/category/${category.id}`)} // Navigate to category-specific page
             >
-              View More
-            </button>
-          </div>
-        ))}
+              <img
+                src={category.image_url} // Assuming `image_url` is the key for the category image in the backend
+                alt={category.name}
+                className="w-full h-40 object-cover rounded-lg mb-3"
+              />
+              <h2 className="text-lg font-semibold text-gray-700 text-center">
+                {category.name}
+              </h2>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500 text-center col-span-full">
+            No categories available.
+          </p>
+        )}
       </div>
     </div>
   );
