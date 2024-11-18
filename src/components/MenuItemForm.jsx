@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CheckSquare, Square, PlusCircle } from "lucide-react";
 
 const MenuItemForm = () => {
@@ -94,6 +93,25 @@ const MenuItemForm = () => {
       )}
       <span className="text-sm font-medium text-gray-700">{label}</span>
     </div>
+  );
+
+  // Custom Card component to replace the imported Card components
+  const Card = ({ children, className = "" }) => (
+    <div className={`bg-white p-6 rounded-lg shadow-md ${className}`}>
+      {children}
+    </div>
+  );
+
+  const CardHeader = ({ children }) => (
+    <div className="border-b pb-4 mb-4">{children}</div>
+  );
+
+  const CardTitle = ({ children }) => (
+    <h3 className="text-xl font-semibold text-gray-800">{children}</h3>
+  );
+
+  const CardContent = ({ children }) => (
+    <div className="space-y-4">{children}</div>
   );
 
   return (
