@@ -14,17 +14,23 @@ function AddCategory() {
 
     // Send form data to the backend using fetch
     try {
-      const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
-        method: "POST",
-        body: formData,
-      });
+  const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
+    method: "POST",
+    body: formData,
+  });
 
-      const result = await response.text();
-      alert(result);  // Show server response
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
-    } catch (error) {
-      alert("Error submitting the form: " + error);
-    }
+  const result = await response.text();
+  alert(result);  // Show server response
+
+} catch (error) {
+  console.error("Error:", error);
+  alert("Error submitting the form: " + error.message);
+}
+
   };
 
   return (
