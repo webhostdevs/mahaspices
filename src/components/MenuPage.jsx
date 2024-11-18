@@ -13,7 +13,7 @@ const MenuPage = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json(); // Assuming the backend returns a JSON array of categories
+        const data = await response.json(); // Assuming the backend returns an array of category objects
         setCategories(data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -26,7 +26,7 @@ const MenuPage = () => {
   return (
     <div className="bg-white py-10 px-5">
       <h1 className="text-3xl font-bold text-green-600 text-center mb-8">
-        Explore Our Categories
+        Discover Our Categories
       </h1>
 
       {/* Category grid */}
@@ -39,7 +39,7 @@ const MenuPage = () => {
               onClick={() => navigate(`/category/${category.id}`)} // Navigate to category-specific page
             >
               <img
-                src={category.image_url} // Assuming `image_url` is the key for the category image in the backend
+                src={`https://bookmycater.freewebhostmost.com/${category.img_location}`} // Construct image URL
                 alt={category.name}
                 className="w-full h-40 object-cover rounded-lg mb-3"
               />
