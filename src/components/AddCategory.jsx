@@ -8,12 +8,10 @@ function AddCategory() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Form data with files
     const formData = new FormData();
     formData.append('category_name', categoryName);
     formData.append('category_image', categoryImage);
 
-    // Send form data to the backend using fetch
     try {
       const response = await fetch("https://bookmycater.freewebhostmost.com/submitCategory.php", {
         method: "POST",
@@ -25,7 +23,7 @@ function AddCategory() {
       }
 
       const result = await response.text();
-      alert(result);  // Show server response
+      alert(result);
     } catch (error) {
       console.error("Error:", error);
       alert("Error submitting the form: " + error.message);
@@ -33,12 +31,17 @@ function AddCategory() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-semibold mb-6 text-center text-indigo-600">Add Category</h2>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-center mb-6">Add New Category</h2>
 
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <div className="mb-6">
-          <label htmlFor="category_name" className="block text-gray-700 font-medium">Category Name</label>
+          <label
+            htmlFor="category_name"
+            className="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Category Name
+          </label>
           <input
             type="text"
             id="category_name"
@@ -46,13 +49,21 @@ function AddCategory() {
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
             required
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter category name"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
         </div>
 
         <div className="mb-6">
-          <label htmlFor="category_image" className="block text-gray-700 font-medium">Category Image</label>
-          <div className="flex items-center border border-gray-300 rounded-lg p-3">
+          <label
+            htmlFor="category_image"
+            className="block mb-2 text-sm font-medium text-gray-700"
+          >
+            Category Image
+          </label>
+          <div
+            className="relative border border-dashed border-gray-300 rounded-lg w-full h-36 flex justify-center items-center cursor-pointer hover:border-blue-500 transition-colors"
+          >
             <input
               type="file"
               id="category_image"
@@ -60,18 +71,20 @@ function AddCategory() {
               accept="image/*"
               onChange={(e) => setCategoryImage(e.target.files[0])}
               required
-              className="hidden"
+              className="absolute inset-0 opacity-0 cursor-pointer"
             />
-            <label htmlFor="category_image" className="cursor-pointer text-gray-700 flex items-center gap-2">
-              <Camera className="w-5 h-5 text-gray-500" />
-              {categoryImage ? categoryImage.name : 'Choose an image'}
-            </label>
+            <div className="flex flex-col items-center text-gray-500">
+              <Camera className="w-8 h-8 mb-2" />
+              <span className="text-sm">
+                {categoryImage ? categoryImage.name : 'Click to upload image'}
+              </span>
+            </div>
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Add Category
         </button>
