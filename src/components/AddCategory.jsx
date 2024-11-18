@@ -173,77 +173,46 @@ const AddCategory = () => {
     }
   };
 
-  const clearImage = () => {
-    setFormData((prev) => ({ ...prev, categoryImage: null }));
-    setPreviewURL('');
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  setMessage({ type: '', text: '' });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setMessage({ type: '', text: '' });
+  const formDataWithFiles = new FormData();
+  formDataWithFiles.append('categoryName', formData.categoryName);
+  if (formData.categoryImage) {
+    formDataWithFiles.append('categoryImage', formData.categoryImage);
+  }
 
-    const formDataWithFiles = new FormData();
-    formDataWithFiles.append('categoryName', formData.categoryName);
-    if (formData.categoryImage) {
-      formDataWithFiles.append('categoryImage', formData.categoryImage);
+  try {
+    const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
+      method: "POST",
+      body: formDataWithFiles,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    try {
-      // First, let's try a test request to check if the server is reachable
-      const testResponse = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
-        method: 'OPTIONS'
-      });
-      console.log('CORS pre-flight response:', testResponse.status);
+    const data = await response.json();
 
-      // Now let's make the actual request
-      const response = await fetch("https://bookmycater.freewebhostmost.com/submitCategory.php", {
-          method: "POST",
-          body: formDataWithFiles,
-      });
-
-
-      console.log('Response status:', response.status);
-      console.log('Response headers:', [...response.headers.entries()]);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const responseText = await response.text();
-      console.log('Raw response:', responseText);
-
-      let data;
-      try {
-        data = JSON.parse(responseText);
-        console.log('Parsed response data:', data);
-      } catch (e) {
-        console.error('JSON parse error:', e);
-        throw new Error('Invalid JSON response from server');
-      }
-
-      if (data.success) {
-        setMessage({ type: 'success', text: 'Category added successfully!' });
-        setFormData({ categoryName: '', categoryImage: null });
-        setPreviewURL('');
-      } else {
-        throw new Error(data.message || 'Server returned unsuccessful response');
-      }
-    } catch (error) {
-      console.error('Detailed error:', {
-        name: error.name,
-        message: error.message,
-        stack: error.stack
-      });
-      
-      setMessage({
-        type: 'error',
-        text: `Submission failed: ${error.message}. Please check console for details.`
-      });
-    } finally {
-      setIsSubmitting(false);
+    if (data.success) {
+      setMessage({ type: 'success', text: data.message || 'Category added successfully!' });
+      setFormData({ categoryName: '', categoryImage: null });
+      setPreviewURL('');
+    } else {
+      throw new Error(data.message || 'Server returned unsuccessful response');
     }
-  };
+  } catch (error) {
+    setMessage({
+      type: 'error',
+      text: `Submission failed: ${error.message}`,
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16 px-4">
