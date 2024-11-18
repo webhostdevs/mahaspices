@@ -14,7 +14,7 @@ const MenuDetails = () => {
 
   const fetchMenuItems = async () => {
     try {
-      // Replace with your actual API endpoint
+      
       const response = await fetch(`https://bookmycater.freewebhostmost.com/getMenuItems.php?category_name=${encodeURIComponent(category_name)}`);
       const data = await response.json();
       
