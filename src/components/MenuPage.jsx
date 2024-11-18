@@ -90,11 +90,7 @@ const MenuPage = () => {
                   src={getImageUrl(category.image_url)}
                   alt={category.category_name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  onError={(e) => {
-                    e.target.src = '/placeholder.jpg'; // Your placeholder image
-                    e.target.alt = 'Category image not found';
-                    e.target.className = 'w-full h-full object-contain p-4';
-                  }}
+                  
                 />
                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               </div>
