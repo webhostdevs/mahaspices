@@ -7,6 +7,10 @@ import ContactForm from './components/ContactForm';
 import MenuPage from './components/MenuPage';
 import MenuDetails from './components/MenuDetails';
 import MenuItemForm from './components/MenuItemForm';
+import AddCategory from './components/AddCategory';
+
+
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,7 +26,8 @@ function App() {
             <Route path="contact" element={<ContactForm />} />
             <Route path="menu" element={<MenuPage />} />
             <Route path="/menu/:id" element={<MenuDetails />} />
-            <Route path="/admin" element={<MenuItemForm />} />
+            <Route path="/add-menu" element={<MenuItemForm />} />
+            <Route path="/category" element={<AddCategory />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
