@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="contact" element={<ContactForm />} />
             <Route path="menu" element={<MenuPage />} />
-            <Route path="/menu/:id" element={<MenuDetails />} />
+            <Route path="/category/:categoryName" element={<MenuDetails />} />
             <Route path="/admin" element={<MenuItemForm />} />
             <Route path="/category" element={<AddCategory />} />
             {/* Add more routes as needed */}
