@@ -46,7 +46,7 @@ const MenuItemForm = () => {
     setFormData(updatedData);
   };
 
-  const handleSubmit = (e) => {
+   const handleSubmit = (e) => {
     e.preventDefault();
     
     console.log("Form Data before submit:", formData); // Add this log for debugging
@@ -71,12 +71,15 @@ const MenuItemForm = () => {
       })
       .then((data) => {
         console.log(data); // Process the response data
+        setAlertMessage("Items added successfully!"); // Success alert
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
+        setAlertMessage("There was an error submitting the form. Please try again."); // Error alert
       });
   };
 
+  
   return (
     <form
       onSubmit={handleSubmit}
