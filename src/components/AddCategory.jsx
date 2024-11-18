@@ -173,46 +173,50 @@ const AddCategory = () => {
     }
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-  setMessage({ type: '', text: '' });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setMessage({ type: '', text: '' });
 
-  const formDataWithFiles = new FormData();
-  formDataWithFiles.append('categoryName', formData.categoryName);
-  if (formData.categoryImage) {
-    formDataWithFiles.append('categoryImage', formData.categoryImage);
-  }
-
-  try {
-    const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
-      method: "POST",
-      body: formDataWithFiles,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const formDataWithFiles = new FormData();
+    formDataWithFiles.append('categoryName', formData.categoryName);
+    if (formData.categoryImage) {
+      formDataWithFiles.append('categoryImage', formData.categoryImage);
     }
 
-    const data = await response.json();
+    try {
+      const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
+        method: "POST",
+        body: formDataWithFiles,
+      });
 
-    if (data.success) {
-      setMessage({ type: 'success', text: data.message || 'Category added successfully!' });
-      setFormData({ categoryName: '', categoryImage: null });
-      setPreviewURL('');
-    } else {
-      throw new Error(data.message || 'Server returned unsuccessful response');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage({ type: 'success', text: data.message || 'Category added successfully!' });
+        setFormData({ categoryName: '', categoryImage: null });
+        setPreviewURL('');
+      } else {
+        throw new Error(data.message || 'Server returned unsuccessful response');
+      }
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: `Submission failed: ${error.message}`,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    setMessage({
-      type: 'error',
-      text: `Submission failed: ${error.message}`,
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
+  const clearImage = () => {
+    setFormData((prev) => ({ ...prev, categoryImage: null }));
+    setPreviewURL('');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16 px-4">
