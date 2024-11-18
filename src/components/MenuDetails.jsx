@@ -15,7 +15,7 @@ const MenuDetails = () => {
   const fetchMenuItems = async () => {
     try {
       
-      const response = await fetch(`https://bookmycater.freewebhostmost.com/getMenuItems.php?category_name=${encodeURIComponent(category_name)}`);
+      const response = await fetch(`https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(category_name)}`);
       const data = await response.json();
       
       if (data.status === "success") {
