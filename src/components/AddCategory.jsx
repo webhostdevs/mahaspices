@@ -191,32 +191,52 @@ const AddCategory = () => {
         formDataWithFiles.append('categoryImage', formData.categoryImage);
       }
 
+      // Add error handling and debugging
+      console.log('Sending request to server...');
+      console.log('Category Name:', formData.categoryName);
+      console.log('Image File:', formData.categoryImage);
+
       const response = await fetch("http://bookmycater.freewebhostmost.com/submitCategory.php", {
         method: "POST",
         body: formDataWithFiles,
+        // Remove headers when sending FormData
+        // headers will be set automatically by the browser
       });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
+      // Log the raw response for debugging
+      console.log('Response status:', response.status);
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
 
-      const data = await response.json(); // Replace with `await response.text()` if debugging.
+      // Try to parse the response as JSON
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (error) {
+        console.error('Failed to parse JSON:', error);
+        throw new Error('Invalid response from server');
+      }
 
       if (data.success) {
         setMessage({ type: 'success', text: 'Category added successfully!' });
         setFormData({ categoryName: '', categoryImage: null });
         setPreviewURL('');
       } else {
-        setMessage({ type: 'error', text: data.message || 'Failed to add category' });
+        throw new Error(data.message || 'Failed to add category');
       }
     } catch (error) {
-      console.error('Error:', error);
-      setMessage({ type: 'error', text: error.message || 'An error occurred. Please try again.' });
+      console.error('Error details:', error);
+      setMessage({ 
+        type: 'error', 
+        text: `Error: ${error.message || 'An unexpected error occurred'}`
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+
+  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16 px-4">
       <div className="w-full max-w-md">
