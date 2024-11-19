@@ -235,36 +235,35 @@ const Homepage = () => {
             <p className="text-gray-600">Comprehensive catering solutions for every occasion</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <ChefHat className="w-8 h-8" />,
-                title: "Professional Chefs",
-                description: "Expert chefs specialized in multiple cuisines"
-              },
-              {
-                icon: <Users className="w-8 h-8" />,
-                title: "Event Planning",
-                description: "Complete event management and coordination"
-              },
-              {
-                icon: <Calendar className="w-8 h-8" />,
-                title: "Custom Menus",
-                description: "Personalized menu planning for your events"
-              }
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all"
-              >
-                <div className="text-green-600 mb-4">{service.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    {[
+    {
+      icon: <Users className="w-12 h-12 text-green-600" />,
+      title: "Corporate Services",
+    },
+    {
+      icon: <ChefHat className="w-12 h-12 text-green-600" />,
+      title: "Wedding Services",
+    },
+    {
+      icon: <Calendar className="w-12 h-12 text-green-600" />,
+      title: "Events",
+    },
+    {
+      icon: <MapPin className="w-12 h-12 text-green-600" />,
+      title: "Venues",
+    },
+  ].map((service, index) => (
+    <div
+      key={index}
+      className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
+    >
+      <div className="mb-4">{service.icon}</div>
+      <h3 className="text-lg font-semibold text-gray-800">{service.title}</h3>
+    </div>
+  ))}
+</div>
+
       </section>
 
      
