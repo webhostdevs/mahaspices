@@ -7,6 +7,7 @@ const MenuDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryDetails, setCategoryDetails] = useState(null);
+  const [categoryType, setCategoryType] = useState("");
 
   useEffect(() => {
     fetchMenuItems();
@@ -22,6 +23,7 @@ const MenuDetails = () => {
       if (data.status === "success") {
         setMenuItems(data.data.items || []);
         setCategoryDetails(data.data.category || null);
+        extractCategoryType(data.data.items);
       } else {
         setError(data.message);
       }
@@ -29,6 +31,15 @@ const MenuDetails = () => {
       setError("Failed to fetch menu items");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const extractCategoryType = (items) => {
+    // Assuming the category type is in the 'types' field of the items array
+    const types = items?.[0]?.types;
+    if (types) {
+      const categoryKey = Object.keys(types)[0];
+      setCategoryType(categoryKey);
     }
   };
 
@@ -41,7 +52,7 @@ const MenuDetails = () => {
 
   const getImageUrl = (imageUrl) => {
     if (imageUrl && !imageUrl.startsWith("http")) {
-      return `https://bookmycater.freewebhostmost.com/getMenuItems.php${imageUrl}`;
+      return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
     }
     return imageUrl;
   };
@@ -75,7 +86,7 @@ const MenuDetails = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-green-600 mb-4">
-            {categoryDetails?.category_name || category_name}
+            {categoryDetails?.category_name || categoryName}
           </h1>
           {categoryDetails?.description && (
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -83,6 +94,13 @@ const MenuDetails = () => {
             </p>
           )}
         </div>
+
+        {/* Display Category Type */}
+        {categoryType && (
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-semibold text-green-500">{categoryType}</h2>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.length > 0 ? (
@@ -102,11 +120,6 @@ const MenuDetails = () => {
                       e.target.className = "w-full h-full object-contain p-4";
                     }}
                   />
-                  {item.is_available === 0 && (
-                    <div className="absolute top-0 right-0 bg-red-500 text-white px-3 py-1 m-2 rounded-full text-sm">
-                      Out of Stock
-                    </div>
-                  )}
                 </div>
 
                 <div className="p-6">
@@ -122,32 +135,23 @@ const MenuDetails = () => {
                   <p className="text-gray-600 text-sm mb-4">{item.item_description}</p>
 
                   <div className="flex justify-between items-center">
-                    {item.is_available === 1 ? (
-                      <button
-                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-300 flex items-center gap-2"
-                        onClick={() => {
-                          // Add to cart functionality
-                          alert(`Added ${item.item_name} to cart`);
-                        }}
+                    <button
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-300 flex items-center gap-2"
+                      onClick={() => {
+                        // Add to cart functionality
+                        alert(`Added ${item.item_name} to cart`);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                        </svg>
-                        Add to Cart
-                      </button>
-                    ) : (
-                      <button
-                        className="bg-gray-300 text-gray-500 px-4 py-2 rounded cursor-not-allowed"
-                        disabled
-                      >
-                        Out of Stock
-                      </button>
-                    )}
+                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                      </svg>
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>
