@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Footer from './components/Footer';
 import About from './components/About';
-import Servies from './components/Services';
+import Services from './components/Services';
 import ContactForm from './components/ContactForm';
 import MenuPage from './components/MenuPage';
 import MenuDetails from './components/MenuDetails';
