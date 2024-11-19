@@ -35,7 +35,7 @@ const MenuPage = () => {
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '');
-    navigate(`/category/${urlFriendlyName}`);
+    navigate(`/menu/${urlFriendlyName}`);
   };
 
   // Function to get correct image URL
