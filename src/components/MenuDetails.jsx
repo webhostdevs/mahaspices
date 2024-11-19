@@ -101,11 +101,11 @@ const MenuDetails = () => {
           {menuItems.length > 0 ? (
             menuItems.map((item) => (
               {/* Display Category Type */}
-        {categoryType && (
+        
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold text-green-500">{item.types}</h2>
           </div>
-        )}
+       
               <div
                 key={item.id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
