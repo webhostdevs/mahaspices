@@ -232,14 +232,14 @@ const Homepage = () => {
   <div className="max-w-7xl mx-auto">
     {/* Header Section */}
     <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all">Our Services</h2>
+      <h2 className="text-4xl font-bold text-gray-800 mb-4 ">Our Services</h2>
       <p className="text-gray-600">
         Comprehensive catering solutions for every occasion
       </p>
     </div>
 
     {/* Services Grid */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
       {[
         {
           icon: <Users className="w-12 h-12 text-green-600" />,
