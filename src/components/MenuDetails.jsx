@@ -7,6 +7,7 @@ const MenuDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryDetails, setCategoryDetails] = useState(null);
+  const [selectedItems, setSelectedItems] = useState({}); // Track selected items
 
   useEffect(() => {
     fetchMenuItems();
@@ -44,6 +45,13 @@ const MenuDetails = () => {
       return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
     }
     return imageUrl;
+  };
+
+  const toggleSelection = (itemId) => {
+    setSelectedItems((prev) => ({
+      ...prev,
+      [itemId]: !prev[itemId], // Toggle selection state
+    }));
   };
 
   if (loading) {
@@ -84,21 +92,18 @@ const MenuDetails = () => {
           )}
         </div>
 
-        {/* Beverages Heading */}
         {menuItems.some((item) => item.types === "Beverages") && (
           <h2 className="text-3xl font-bold text-green-600 mb-8 text-center">
             Beverages
           </h2>
         )}
 
-        {/* Menu Items Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
             >
-              {/* Full Image */}
               <img
                 src={getImageUrl(item.item_image)}
                 alt={item.item_name}
@@ -109,21 +114,20 @@ const MenuDetails = () => {
                 }}
               />
 
-              {/* Bottom Details */}
               <div className="p-4 flex flex-col items-center">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {item.item_name}
                 </h3>
-{/*                 <div className="text-green-600 font-bold mb-4">
-                  {formatPrice(item.price)}
-                </div> */}
+
                 <button
-                  className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 transition-colors duration-300"
-                  onClick={() => {
-                    alert(`${item.item_name} Successfully selected`);
-                  }}
+                  className={`w-full py-2 rounded transition-colors duration-300 ${
+                    selectedItems[item.id]
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-green-600 text-white hover:bg-green-700"
+                  }`}
+                  onClick={() => toggleSelection(item.id)}
                 >
-                  Select
+                  {selectedItems[item.id] ? "Selected" : "Select"}
                 </button>
               </div>
             </div>
