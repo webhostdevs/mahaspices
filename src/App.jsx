@@ -29,7 +29,7 @@ function App() {
             <Route path="menu" element={<MenuPage />} />
             <Route path="about" element={<About />} />
             <Route path="services" element={<Services />} />
-            <Route path="/category/:categoryName" element={<MenuDetails />} />
+            <Route path="/menu/:categoryName" element={<MenuDetails />} />
             <Route path="/admin" element={<MenuItemForm />} />
             <Route path="/category" element={<AddCategory />} />
             {/* Add more routes as needed */}
