@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Footer from './components/Footer';
+import About from './components/About';
 import ContactForm from './components/ContactForm';
 import MenuPage from './components/MenuPage';
 import MenuDetails from './components/MenuDetails';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="contact" element={<ContactForm />} />
             <Route path="menu" element={<MenuPage />} />
+            <Route path="about" element={<About />} />
             <Route path="/category/:categoryName" element={<MenuDetails />} />
             <Route path="/admin" element={<MenuItemForm />} />
             <Route path="/category" element={<AddCategory />} />
