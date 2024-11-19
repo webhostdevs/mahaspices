@@ -59,7 +59,7 @@ const MenuItemForm = () => {
       }
     });
 
-    fetch("http://bookmycater.freewebhostmost.com/submititems.php", {
+    fetch("https://bookmycater.freewebhostmost.com/submititems.php", {
       method: "POST",
       body: formDataWithFiles,
     })
