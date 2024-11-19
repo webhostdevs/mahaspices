@@ -10,12 +10,12 @@ const MenuDetails = () => {
 
   useEffect(() => {
     fetchMenuItems();
-  }, [category_name]);
+  }, [categoryName]);
 
   const fetchMenuItems = async () => {
     try {
       const response = await fetch(
-        `https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(category_name)}`
+        `https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(categoryName)}`
       );
       const data = await response.json();
 
