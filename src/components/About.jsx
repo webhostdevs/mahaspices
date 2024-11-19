@@ -3,7 +3,7 @@ import { Users, CheckCircle, Star, Briefcase } from "lucide-react";
 
 const About = () => {
   return (
-    <section className="bg-green-50 py-12">
+    <section className="py-12">
       <div className="container mx-auto px-6 md:px-12">
         <h2 className="text-4xl font-bold text-green-800 text-center mb-6">
           About Maha Spice Catering
