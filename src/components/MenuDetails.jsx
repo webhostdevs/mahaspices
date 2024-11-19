@@ -114,9 +114,9 @@ const MenuDetails = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {item.item_name}
                 </h3>
-                <div className="text-green-600 font-bold mb-4">
+{/*                 <div className="text-green-600 font-bold mb-4">
                   {formatPrice(item.price)}
-                </div>
+                </div> */}
                 <button
                   className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 transition-colors duration-300"
                   onClick={() => {
