@@ -1,5 +1,5 @@
 import React from "react";
-import { Utensils, Glass, Globe, Celebration } from "lucide-react";
+import { Utensils, Cocktail, Globe, Celebration } from "lucide-react";
 
 const Services = () => {
   return (
@@ -21,7 +21,7 @@ const Services = () => {
             </p>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <Glass className="text-green-500 mx-auto mb-4" size={48} />
+            <Cocktail className="text-green-500 mx-auto mb-4" size={48} />
             <h3 className="text-xl font-semibold text-green-800">Cocktail Services</h3>
             <p className="text-green-600">
               Unique and refreshing cocktails to elevate your event.
