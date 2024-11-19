@@ -96,23 +96,21 @@ const MenuDetails = () => {
           {menuItems.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
             >
-              {/* Square Image */}
-              <div className="relative w-full h-0 pb-full overflow-hidden">
-                <img
-                  src={getImageUrl(item.item_image)}
-                  alt={item.item_name}
-                  className="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                  onError={(e) => {
-                    e.target.src = "/placeholder.jpg";
-                    e.target.alt = "Item image not found";
-                  }}
-                />
-              </div>
+              {/* Full Image */}
+              <img
+                src={getImageUrl(item.item_image)}
+                alt={item.item_name}
+                className="w-full h-64 object-cover"
+                onError={(e) => {
+                  e.target.src = "/placeholder.jpg";
+                  e.target.alt = "Item image not found";
+                }}
+              />
 
-              {/* Content */}
-              <div className="p-4">
+              {/* Bottom Details */}
+              <div className="p-4 flex flex-col items-center">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {item.item_name}
                 </h3>
