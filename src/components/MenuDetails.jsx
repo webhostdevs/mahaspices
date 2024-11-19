@@ -120,10 +120,10 @@ const MenuDetails = () => {
                 <button
                   className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700 transition-colors duration-300"
                   onClick={() => {
-                    alert(`Added ${item.item_name} to cart`);
+                    alert(`${item.item_name} Successfully selected`);
                   }}
                 >
-                  Add to Cart
+                  Select
                 </button>
               </div>
             </div>
