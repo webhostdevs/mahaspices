@@ -77,13 +77,12 @@ const Homepage = () => {
     }
   ];
 
-  // Stats data
-  const stats = [
-    { value: "10+", label: "Years of Excellence" },
-    { value: "100K+", label: "Events Catered" },
-    { value: "200+", label: "Expert Chefs" },
-    { value: "100%", label: "Client Satisfaction" }
-  ];
+ const stats = [
+  { value: "10+", label: "Years of Experience" },
+  { value: "158,598", label: "Happy Customers" },
+  { value: "10,000+", label: "Unique Menus/Dishes" },
+  { value: "450", label: "Staff Members" },
+];
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % images.length);
