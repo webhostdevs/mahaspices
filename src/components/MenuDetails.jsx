@@ -7,7 +7,8 @@ const MenuDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryDetails, setCategoryDetails] = useState(null);
-  const [selectedItems, setSelectedItems] = useState({}); // Track selected items
+  const [selectedItems, setSelectedItems] = useState({});
+  const [selectedCount, setSelectedCount] = useState(0);
 
   useEffect(() => {
     fetchMenuItems();
@@ -33,11 +34,38 @@ const MenuDetails = () => {
     }
   };
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-    }).format(price);
+  const toggleSelection = (itemId) => {
+    if (selectedItems[itemId]) {
+      // Deselecting an item
+      setSelectedItems((prev) => {
+        const updated = { ...prev };
+        delete updated[itemId];
+        return updated;
+      });
+      setSelectedCount((prev) => prev - 1);
+    } else {
+      // Attempting to select an item
+      if (selectedCount < 3) {
+        // Within limit
+        setSelectedItems((prev) => ({
+          ...prev,
+          [itemId]: true,
+        }));
+        setSelectedCount((prev) => prev + 1);
+      } else {
+        // Beyond limit - ask for confirmation
+        const confirmExtraCharge = window.confirm(
+          "Limit reached. This item will be charged extra. Do you want to proceed?"
+        );
+        if (confirmExtraCharge) {
+          setSelectedItems((prev) => ({
+            ...prev,
+            [itemId]: true,
+          }));
+          setSelectedCount((prev) => prev + 1);
+        }
+      }
+    }
   };
 
   const getImageUrl = (imageUrl) => {
@@ -45,13 +73,6 @@ const MenuDetails = () => {
       return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
     }
     return imageUrl;
-  };
-
-  const toggleSelection = (itemId) => {
-    setSelectedItems((prev) => ({
-      ...prev,
-      [itemId]: !prev[itemId], // Toggle selection state
-    }));
   };
 
   if (loading) {
