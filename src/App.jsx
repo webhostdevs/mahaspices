@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Footer from './components/Footer';
 import About from './components/About';
+import Servies from './components/Services';
 import ContactForm from './components/ContactForm';
 import MenuPage from './components/MenuPage';
 import MenuDetails from './components/MenuDetails';
@@ -27,6 +28,7 @@ function App() {
             <Route path="contact" element={<ContactForm />} />
             <Route path="menu" element={<MenuPage />} />
             <Route path="about" element={<About />} />
+            <Route path="services" element={<Services />} />
             <Route path="/category/:categoryName" element={<MenuDetails />} />
             <Route path="/admin" element={<MenuItemForm />} />
             <Route path="/category" element={<AddCategory />} />
