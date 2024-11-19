@@ -30,13 +30,18 @@ const MenuPage = () => {
   };
 
   const handleCategoryClick = (categoryName) => {
-    // Convert category name to URL-friendly format
-    const urlFriendlyName = categoryName
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '');
-    navigate(`/menu/${urlFriendlyName}`);
-  };
+  // Convert category name to URL-friendly format with proper capitalization
+  const urlFriendlyName = categoryName
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+    .join(' ') // Join words back with a space
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/[^a-zA-Z0-9-]/g, ''); // Remove non-alphanumeric characters (except hyphens)
+  
+  // Navigate to the formatted URL
+  navigate(`/menu/${urlFriendlyName}`);
+};
+
 
   // Function to get correct image URL
   const getImageUrl = (imageUrl) => {
