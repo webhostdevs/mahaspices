@@ -85,7 +85,7 @@ const MenuPage = () => {
               className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
               onClick={() => handleCategoryClick(category.category_name)}
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-65 overflow-hidden">
                 <img
                   src={getImageUrl(category.image_url)}
                   alt={category.category_name}
