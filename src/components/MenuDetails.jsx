@@ -102,9 +102,9 @@ const MenuDetails = () => {
             menuItems.map((item) => (
               {/* Display Category Type */}
         
-          <div className="text-center mb-6">
+          
             <h2 className="text-2xl font-semibold text-green-500">{item.types}</h2>
-          </div>
+          
        
               <div
                 key={item.id}
