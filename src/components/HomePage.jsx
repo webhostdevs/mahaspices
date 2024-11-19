@@ -232,7 +232,7 @@ const Homepage = () => {
   <div className="max-w-7xl mx-auto">
     {/* Header Section */}
     <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
+      <h2 className="text-4xl font-bold text-gray-800 mb-4 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all">Our Services</h2>
       <p className="text-gray-600">
         Comprehensive catering solutions for every occasion
       </p>
@@ -260,7 +260,7 @@ const Homepage = () => {
       ].map((service, index) => (
         <div
           key={index}
-          className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
+          className="flex flex-col items-center "
         >
           <div className="mb-4">{service.icon}</div>
           <h3 className="text-lg font-semibold text-gray-800">
