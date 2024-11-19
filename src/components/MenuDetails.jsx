@@ -98,7 +98,7 @@ const MenuDetails = () => {
         {/* Display Category Type */}
         {categoryType && (
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold text-green-500">{categoryType}</h2>
+            <h2 className="text-2xl font-semibold text-green-500">{item.types}</h2>
           </div>
         )}
 
@@ -109,7 +109,8 @@ const MenuDetails = () => {
                 key={item.id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 w-48 overflow-hidden mx-auto">
+                  {/* Square Image */}
                   <img
                     src={getImageUrl(item.item_image)}
                     alt={item.item_name}
