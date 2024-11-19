@@ -228,44 +228,51 @@ const Homepage = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Services</h2>
-            <p className="text-gray-600">Comprehensive catering solutions for every occasion</p>
-          </div>
-
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-    {[
-    {
-      icon: <Users className="w-12 h-12 text-green-600" />,
-      title: "Corporate Services",
-    },
-    {
-      icon: <ChefHat className="w-12 h-12 text-green-600" />,
-      title: "Wedding Services",
-    },
-    {
-      icon: <Calendar className="w-12 h-12 text-green-600" />,
-      title: "Events",
-    },
-    {
-      icon: <MapPin className="w-12 h-12 text-green-600" />,
-      title: "Venues",
-    },
-  ].map((service, index) => (
-    <div
-      key={index}
-      className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
-    >
-      <div className="mb-4">{service.icon}</div>
-      <h3 className="text-lg font-semibold text-gray-800">{service.title}</h3>
+      <section className="py-24 px-4 bg-gray-50">
+  <div className="max-w-7xl mx-auto">
+    {/* Header Section */}
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
+      <p className="text-gray-600">
+        Comprehensive catering solutions for every occasion
+      </p>
     </div>
-  ))}
-</div>
 
-      </section>
+    {/* Services Grid */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {[
+        {
+          icon: <Users className="w-12 h-12 text-green-600" />,
+          title: "Corporate Services",
+        },
+        {
+          icon: <ChefHat className="w-12 h-12 text-green-600" />,
+          title: "Wedding Services",
+        },
+        {
+          icon: <Calendar className="w-12 h-12 text-green-600" />,
+          title: "Events",
+        },
+        {
+          icon: <MapPin className="w-12 h-12 text-green-600" />,
+          title: "Venues",
+        },
+      ].map((service, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
+        >
+          <div className="mb-4">{service.icon}</div>
+          <h3 className="text-lg font-semibold text-gray-800">
+            {service.title}
+          </h3>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
+    
      
     </div>
   );
