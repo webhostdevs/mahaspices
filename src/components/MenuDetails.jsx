@@ -7,7 +7,6 @@ const MenuDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categoryDetails, setCategoryDetails] = useState(null);
-  const [categoryType, setCategoryType] = useState("");
 
   useEffect(() => {
     fetchMenuItems();
@@ -16,14 +15,15 @@ const MenuDetails = () => {
   const fetchMenuItems = async () => {
     try {
       const response = await fetch(
-        `https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(categoryName)}`
+        `https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(
+          categoryName
+        )}`
       );
       const data = await response.json();
 
       if (data.status === "success") {
         setMenuItems(data.data.items || []);
         setCategoryDetails(data.data.category || null);
-        extractCategoryType(data.data.items);
       } else {
         setError(data.message);
       }
@@ -31,15 +31,6 @@ const MenuDetails = () => {
       setError("Failed to fetch menu items");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const extractCategoryType = (items) => {
-    // Assuming the category type is in the 'types' field of the items array
-    const types = items?.[0]?.types;
-    if (types) {
-      const categoryKey = Object.keys(types)[0];
-      setCategoryType(categoryKey);
     }
   };
 
@@ -54,7 +45,7 @@ const MenuDetails = () => {
     if (imageUrl && !imageUrl.startsWith("http")) {
       return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
     }
-    return imageUrl;
+    return imageUrl || "/placeholder.jpg";
   };
 
   if (loading) {
@@ -95,23 +86,17 @@ const MenuDetails = () => {
           )}
         </div>
 
-        
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.length > 0 ? (
             menuItems.map((item) => (
-              {/* Display Category Type */}
-        
-          
-            <h2 className="text-2xl font-semibold text-green-500">{item.types}</h2>
-          
-       
               <div
                 key={item.id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
+                <h2 className="text-2xl font-semibold text-green-500 p-4">
+                  {item.types || "General"}
+                </h2>
                 <div className="relative h-48 w-48 overflow-hidden mx-auto">
-                  {/* Square Image */}
                   <img
                     src={getImageUrl(item.item_image)}
                     alt={item.item_name}
@@ -134,15 +119,14 @@ const MenuDetails = () => {
                     </span>
                   </div>
 
-                  <p className="text-gray-600 text-sm mb-4">{item.item_description}</p>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {item.item_description}
+                  </p>
 
                   <div className="flex justify-between items-center">
                     <button
                       className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-300 flex items-center gap-2"
-                      onClick={() => {
-                        // Add to cart functionality
-                        alert(`Added ${item.item_name} to cart`);
-                      }}
+                      onClick={() => alert(`Added ${item.item_name} to cart`)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
