@@ -60,21 +60,22 @@ const MenuItemForm = () => {
     });
 
     fetch("https://bookmycater.freewebhostmost.com/submititems.php", {
-      method: "POST",
-      body: formDataWithFiles,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.text(); // or response.json() depending on the data format
-      })
-      .then((data) => {
-        console.log(data); // Process the response data
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+  method: "POST",
+  body: formDataWithFiles,
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.text(); // or response.json() depending on the data format
+  })
+  .then((data) => {
+    alert("Response Submitted: " + data); // Display the response data in an alert box
+  })
+  .catch((error) => {
+    alert("There was a problem with the fetch operation: " + error.message); // Display the error in an alert box
+  });
+
   };
 
   return (
