@@ -25,6 +25,7 @@ const Navbar = () => {
     { title: 'Contact', path: '/contact' },
     { title: 'admin', path: '/admin' },
     { title: 'Category', path: '/category' },
+    { title: 'Mealbox', path: '/mealbox' },
   ];
 
   return (
