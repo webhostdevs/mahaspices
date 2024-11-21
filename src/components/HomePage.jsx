@@ -215,7 +215,6 @@ const Homepage = () => {
           key={box.id}
           whileHover={{ y: -10 }}
           className="relative bg-white rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-shadow"
-          onClick={() => (window.location.href = box.link)} // Navigate on click
         >
           {/* Image */}
           <img
@@ -228,17 +227,19 @@ const Homepage = () => {
           <div className="p-6 space-y-4">
             <h3 className="text-2xl font-bold text-gray-800">{box.title}</h3>
             <p className="text-gray-600">{box.description}</p>
-            <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition">
+            <Link
+              to={box.link}
+              className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition inline-block"
+            >
               Know More
-            </button>
+            </Link>
           </div>
         </motion.div>
       ))}
     </div>
   </div>
 </section>
-
-
+      
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
         <div className="max-w-7xl mx-auto px-4">
