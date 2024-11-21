@@ -8,7 +8,7 @@ const MealBoxesPage = () => {
       description: "Perfect for individual meals with a balanced selection",
       price: "$12.99",
       courses: 3,
-      image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=600&fit=crop",
+      image: "https://new.caterninja.com/PackedMealBox/3cp.png",
       includes: [
         "Starter",
         "Main Course",
@@ -20,7 +20,7 @@ const MealBoxesPage = () => {
       description: "Great for small gatherings with diverse flavors",
       price: "$19.99",
       courses: 5,
-      image: "https://images.unsplash.com/photo-1600335305573-830a1cf80194?w=800&h=600&fit=crop",
+      image: "https://new.caterninja.com/PackedMealBox/5cp.png",
       includes: [
         "Appetizer",
         "Soup",
@@ -34,7 +34,7 @@ const MealBoxesPage = () => {
       description: "Ultimate dining experience with gourmet selections",
       price: "$29.99",
       courses: 8,
-      image: "https://images.unsplash.com/photo-1556909211-36987c5b5262?w=800&h=600&fit=crop",
+      image: "https://new.caterninja.com/PackedMealBox/8cp.png",
       includes: [
         "Amuse-bouche",
         "Cold Appetizer",
