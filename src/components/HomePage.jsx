@@ -1,281 +1,169 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Utensils, 
-  ChefHat, 
-  Users, 
-  Calendar, 
-  ArrowRight, 
-  MapPin,
-  Phone,
-  Mail,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { FaStar, FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 
-const Homepage = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
+const VENDORS_API_URL = 'https://bookmycater.freewebhostmost.com/getVendors.php';
+const DEFAULT_IMAGE_PATH = '/default-vendor-image.jpg';
 
-  // Carousel images
-  const images = [
-    {
-      url: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
-      title: "Exquisite Catering"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
-      title: "Fine Dining"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=400&fit=crop",
-      title: "Special Events"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=1200&h=400&fit=crop",
-      title: "Corporate Functions"
-    }
-  ];
+const HomePage = () => {
+  const [vendors, setVendors] = useState([]);
+  const [filteredVendors, setFilteredVendors] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('All Locations');
+  const [locations, setLocations] = useState(['All Locations']);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Auto-advance carousel
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    const fetchVendors = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(VENDORS_API_URL);
+        const vendorData = response.data || [];
 
-  // Handle scroll effect for navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+        setVendors(vendorData);
+        
+        const uniqueLocations = Array.from(
+          new Set(
+            vendorData
+              .flatMap(vendor => vendor.operating_regions.split(','))
+              .map(location => location.trim())
+          )
+        );
+        setLocations(['All Locations', ...uniqueLocations]);
+      } catch (err) {
+        setError('Failed to load vendors. Please try again later.');
+        console.error('Vendor fetch error:', err);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    fetchVendors();
   }, []);
 
-  // Featured menus data
-  const menus = [
-    {
-      id: 1,
-      title: "Royal Feast",
-      description: "A curated selection of royal Indian delicacies",
-      items: ["Hyderabadi Biryani", "Rogan Josh", "Galouti Kebab"]
-    },
-    {
-      id: 2,
-      title: "Contemporary Fusion",
-      description: "Modern interpretations of classic dishes",
-      items: ["Indo-Chinese Tapas", "Tandoori Sushi", "Curry Bowl"]
-    },
-    {
-      id: 3,
-      title: "Traditional Heritage",
-      description: "Time-honored recipes passed through generations",
-      items: ["Village Style Curry", "Hand-made Breads", "Desert Platter"]
-    }
-  ];
+  useEffect(() => {
+    const filterVendors = () => {
+      const filtered = vendors.filter(vendor => {
+        const matchesName = vendor.company_name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+        
+        const matchesLocation = 
+          selectedLocation === 'All Locations' ||
+          vendor.operating_regions
+            .split(',')
+            .map(loc => loc.trim())
+            .includes(selectedLocation);
+        
+        return matchesName && matchesLocation;
+      });
 
- const stats = [
-  { value: "10+", label: "Years of Experience" },
-  { value: "158,598", label: "Happy Customers" },
-  { value: "10,000+", label: "Unique Menus/Dishes" },
-  { value: "450", label: "Staff Members" },
-];
+      setFilteredVendors(filtered);
+    };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % images.length);
+    filterVendors();
+  }, [vendors, searchTerm, selectedLocation]);
+
+  const handleLocationChange = (event) => {
+    setSelectedLocation(event.target.value);
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const renderVendorCard = (vendor) => (
+    <Link
+      to={`/vendor/${vendor.id}`}
+      key={vendor.id}
+      className="shadow-md hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg overflow-hidden flex flex-col"
+    >
+      <img
+        src={`https://bookmycater.freewebhostmost.com/${vendor.event_photos}`}
+        alt={`${vendor.company_name} event`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = DEFAULT_IMAGE_PATH;
+        }}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-2">
+          {vendor.company_name}
+        </h2>
+        <p className="text-gray-600 flex items-center mb-2">
+          <FaMapMarkerAlt className="mr-2 text-blue-500" />
+          {vendor.business_address}
+        </p>
+        <p className="text-green-700 font-semibold">
+          Starting from: ₹{vendor.pricing_per_event.toLocaleString()}
+        </p>
+        <div className="mt-3 flex items-center">
+          <FaStar className="text-yellow-500 mr-1" />
+          <span className="text-gray-700 font-medium">
+            {vendor.average_rating} Rating
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Hero Section with Carousel */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Carousel */}
-        <div className="absolute inset-0 w-full h-full">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                currentSlide === index ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <div className="absolute inset-0 bg-black/40 z-10 " /> {/* Overlay */}
-              <img
-                src={image.url}
-                alt={image.title}
-                className="w-full h-full object-cover"
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-3xl font-extrabold mb-6 text-gray-800 text-center">
+        Catering Vendor Marketplace
+      </h1>
+
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+            <div className="flex items-center relative w-full md:w-2/3">
+              <FaSearch className="absolute left-4 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Search vendors..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-12 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
-          ))}
-            
-          {/* Carousel Controls */}
-          <button 
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors"
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
-          <button 
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
-            
-          {/* Carousel Indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  currentSlide === index ? "bg-white" : "bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-        
-        {/* Hero Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
-            <h1 className="text-6xl md:text-7xl font-bold">
-              Crafting Culinary
-              <br />
-              Experiences
-            </h1>
-            <p className="text-xl max-w-2xl mx-auto text-gray-100">
-              Where tradition meets innovation in every dish we serve. 
-              Creating memorable moments through exceptional catering.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <button className="bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition-colors">
-                Book Now
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors">
-                View Menu
-              </button>
+
+            <div className="w-full md:w-1/3">
+              <select
+                value={selectedLocation}
+                onChange={handleLocationChange}
+                className="w-full border border-gray-300 bg-white text-gray-800 rounded-lg py-2 px-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                {locations.map((location) => (
+                  <option key={location} value={location}>
+                    {location}
+                  </option>
+                ))}
+              </select>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Featured Menus */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Curated Menus</h2>
-            <p className="text-gray-600">Discover our specially crafted selections</p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {menus.map((menu) => (
-              <motion.div
-                key={menu.id}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
-                onMouseEnter={() => setActiveMenu(menu.id)}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold">{menu.title}</h3>
-                  <p className="text-gray-600">{menu.description}</p>
-                  <ul className="space-y-2">
-                    {menu.items.map((item, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <Utensils className="w-4 h-4 text-green-600" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredVendors.length > 0 ? (
+              filteredVendors.map(renderVendorCard)
+            ) : (
+              <div className="col-span-full text-center text-gray-500">
+                No vendors found. Try adjusting your search criteria.
+              </div>
+            )}
           </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="text-center"
-              >
-                <div className="text-4xl font-bold mb-2">{stat.value}</div>
-                <div className="text-green-100">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-24 px-4 bg-gray-50">
-  <div className="max-w-7xl mx-auto">
-    {/* Header Section */}
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4 ">Our Services</h2>
-      <p className="text-gray-600">
-        Comprehensive catering solutions for every occasion
-      </p>
-    </div>
-
-    {/* Services Grid */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-      {[
-        {
-          icon: <Users className="w-12 h-12 text-green-600" />,
-          title: "Corporate Services",
-        },
-        {
-          icon: <ChefHat className="w-12 h-12 text-green-600" />,
-          title: "Wedding Services",
-        },
-        {
-          icon: <Calendar className="w-12 h-12 text-green-600" />,
-          title: "Events",
-        },
-        {
-          icon: <MapPin className="w-12 h-12 text-green-600" />,
-          title: "Venues",
-        },
-      ].map((service, index) => (
-        <div
-          key={index}
-          className="flex flex-col items-center "
-        >
-          <div className="mb-4">{service.icon}</div>
-          <h3 className="text-lg font-semibold text-gray-800">
-            {service.title}
-          </h3>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-    
-     
+        </>
+      )}
     </div>
   );
 };
 
-export default Homepage;
+export default HomePage;
