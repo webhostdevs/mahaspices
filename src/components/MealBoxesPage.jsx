@@ -6,7 +6,7 @@ const MealBoxesPage = () => {
     {
       name: "3-Course Pack",
       description: "Perfect for individual meals with a balanced selection",
-      price: "$12.99",
+      price: "₹300",
       courses: 3,
       image: "https://new.caterninja.com/PackedMealBox/3cp.png",
       includes: [
@@ -18,7 +18,7 @@ const MealBoxesPage = () => {
     {
       name: "5-Course Pack",
       description: "Great for small gatherings with diverse flavors",
-      price: "$19.99",
+      price: "₹450",
       courses: 5,
       image: "https://new.caterninja.com/PackedMealBox/5cp.png",
       includes: [
@@ -32,7 +32,7 @@ const MealBoxesPage = () => {
     {
       name: "8-Course Pack",
       description: "Ultimate dining experience with gourmet selections",
-      price: "$29.99",
+      price: "₹550",
       courses: 8,
       image: "https://new.caterninja.com/PackedMealBox/8cp.png",
       includes: [
