@@ -171,40 +171,72 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Featured Menus */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Curated Menus</h2>
-            <p className="text-gray-600">Discover our specially crafted selections</p>
+      {/* Curated Menus */}
+<section className="py-24 px-4">
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold mb-4">Curated Menus</h2>
+      <p className="text-gray-600">
+        Discover our specially crafted selections
+      </p>
+    </div>
+
+    {/* Menu Boxes */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[
+        {
+          id: 1,
+          title: "Mealbox",
+          description: "Personalized mealboxes for your daily cravings.",
+          image:
+            "https://images.unsplash.com/photo-1598514981986-4b52016f2fe2?w=400&h=300&fit=crop",
+          link: "/mealbox",
+        },
+        {
+          id: 2,
+          title: "Delivery",
+          description: "Fast and fresh delivery, straight to your door.",
+          image:
+            "https://images.unsplash.com/photo-1556911220-e15b30f5f2d2?w=400&h=300&fit=crop",
+          link: "/menu",
+        },
+        {
+          id: 3,
+          title: "Catering",
+          description: "Exceptional catering for your special occasions.",
+          image:
+            "https://images.unsplash.com/photo-1565294124525-9e9b9d0ebcdb?w=400&h=300&fit=crop",
+          link: "/menu",
+        },
+      ].map((box) => (
+        <motion.div
+          key={box.id}
+          whileHover={{ y: -10 }}
+          className="relative bg-white rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-shadow"
+          onClick={() => (window.location.href = box.link)} // Navigate on click
+        >
+          {/* Image */}
+          <img
+            src={box.image}
+            alt={box.title}
+            className="w-full h-48 object-cover"
+          />
+
+          {/* Content */}
+          <div className="p-6 space-y-4">
+            <h3 className="text-2xl font-bold text-gray-800">{box.title}</h3>
+            <p className="text-gray-600">{box.description}</p>
+            <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 transition">
+              Know More
+            </button>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {menus.map((menu) => (
-              <motion.div
-                key={menu.id}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
-                onMouseEnter={() => setActiveMenu(menu.id)}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold">{menu.title}</h3>
-                  <p className="text-gray-600">{menu.description}</p>
-                  <ul className="space-y-2">
-                    {menu.items.map((item, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <Utensils className="w-4 h-4 text-green-600" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
