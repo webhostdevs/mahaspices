@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Utensils, 
   ChefHat, 
@@ -190,7 +191,7 @@ const Homepage = () => {
           title: "Mealbox",
           description: "Personalized mealboxes for your daily cravings.",
           image:
-            "https://images.unsplash.com/photo-1598514981986-4b52016f2fe2?w=400&h=300&fit=crop",
+            "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
           link: "/mealbox",
         },
         {
@@ -198,7 +199,7 @@ const Homepage = () => {
           title: "Delivery",
           description: "Fast and fresh delivery, straight to your door.",
           image:
-            "https://images.unsplash.com/photo-1556911220-e15b30f5f2d2?w=400&h=300&fit=crop",
+            "https://craftmyplate.com/wp-content/uploads/2024/03/Frame-1000005361-1-1024x703.png",
           link: "/menu",
         },
         {
@@ -206,7 +207,7 @@ const Homepage = () => {
           title: "Catering",
           description: "Exceptional catering for your special occasions.",
           image:
-            "https://images.unsplash.com/photo-1565294124525-9e9b9d0ebcdb?w=400&h=300&fit=crop",
+            "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
           link: "/menu",
         },
       ].map((box) => (
