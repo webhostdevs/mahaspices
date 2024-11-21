@@ -214,17 +214,19 @@ const Homepage = () => {
         <motion.div
           key={box.id}
           whileHover={{ y: -10 }}
-          className="relative bg-white rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-shadow"
+          className="relative bg-white rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-shadow flex flex-col"
         >
           {/* Image */}
-          <img
-            src={box.image}
-            alt={box.title}
-            className="w-full h-48 object-cover"
-          />
+          <div className="w-full">
+            <img
+              src={box.image}
+              alt={box.title}
+              className="w-full h-auto aspect-square object-cover"
+            />
+          </div>
 
           {/* Content */}
-          <div className="p-6 space-y-4">
+          <div className="p-6 space-y-4 flex-1">
             <h3 className="text-2xl font-bold text-gray-800">{box.title}</h3>
             <p className="text-gray-600">{box.description}</p>
             <Link
@@ -239,7 +241,7 @@ const Homepage = () => {
     </div>
   </div>
 </section>
-      
+
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
         <div className="max-w-7xl mx-auto px-4">
