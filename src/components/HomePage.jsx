@@ -168,12 +168,7 @@ const Homepage = () => {
                 View Menu
               </button>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Curated Menus */}
-<section className="py-24 px-4">
+            <section className="py-24 px-4">
   <div className="max-w-7xl mx-auto">
     {/* Header */}
     <div className="text-center mb-16">
@@ -241,6 +236,13 @@ const Homepage = () => {
     </div>
   </div>
 </section>
+          </motion.div>
+          
+        </div>
+      </section>
+
+      {/* Curated Menus */}
+
 
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
