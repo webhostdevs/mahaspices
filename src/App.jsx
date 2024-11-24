@@ -12,6 +12,7 @@ import MenuItemForm from './components/MenuItemForm';
 import AddCategory from './components/AddCategory';
 import MealBoxesPage from './components/MealBoxesPage';
 import DeliveryMenu from './components/DeliveryMenu';
+import MealBox from './components/MealBox';
 
 
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/category" element={<AddCategory />} />
             <Route path="/mealbox" element={<MealBoxesPage />} />
             <Route path="/deliverymenu" element={<DeliveryMenu />} />
+            <Route path="/mealbox" element={<MealBox />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
