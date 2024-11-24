@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 const menuCategories = {
   veg: [
@@ -58,10 +55,18 @@ const menuItems = {
 };
 
 const DeliveryMenu = () => {
+  const [guestCount, setGuestCount] = useState('');
   const [menuType, setMenuType] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState({});
   const [showAlert, setShowAlert] = useState(false);
+
+  const handleGuestCountSubmit = (e) => {
+    e.preventDefault();
+    if (guestCount > 0) {
+      setGuestCount(parseInt(guestCount));
+    }
+  };
 
   const handleMenuTypeSelect = (type) => {
     setMenuType(type);
@@ -72,38 +77,72 @@ const DeliveryMenu = () => {
     setSelectedCategory(categoryId);
   };
 
+  const isItemSelected = (item) => {
+    const categoryItems = selectedItems[selectedCategory] || [];
+    return categoryItems.some(selectedItem => selectedItem.id === item.id);
+  };
+
   const handleAddItem = (item) => {
     const currentCategoryItems = selectedItems[selectedCategory] || [];
     const categoryLimit = menuCategories[menuType].find(cat => cat.id === selectedCategory).limit;
 
-    if (currentCategoryItems.length >= categoryLimit) {
+    if (currentCategoryItems.length >= categoryLimit && !isItemSelected(item)) {
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000);
     }
 
-    setSelectedItems(prev => ({
-      ...prev,
-      [selectedCategory]: [...(prev[selectedCategory] || []), item]
-    }));
+    if (!isItemSelected(item)) {
+      setSelectedItems(prev => ({
+        ...prev,
+        [selectedCategory]: [...(prev[selectedCategory] || []), item]
+      }));
+    }
   };
 
+  // Guest count selection screen
+  if (guestCount === '') {
+    return (
+      <div className="flex flex-col items-center gap-4 p-8">
+        <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
+        <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
+          <input
+            type="number"
+            min="1"
+            value={guestCount}
+            onChange={(e) => setGuestCount(e.target.value)}
+            className="border rounded px-4 py-2"
+            placeholder="Enter number of guests"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600"
+          >
+            Continue
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  // Menu type selection screen
   if (!menuType) {
     return (
       <div className="flex flex-col items-center gap-4 p-8">
         <h1 className="text-2xl font-bold mb-4">Select Menu Type</h1>
         <div className="flex gap-4">
-          <Button 
+          <button 
             onClick={() => handleMenuTypeSelect('veg')}
-            className="px-8 py-4 text-lg"
+            className="bg-blue-500 text-white px-8 py-4 rounded hover:bg-blue-600"
           >
             Vegetarian
-          </Button>
-          <Button 
+          </button>
+          <button 
             onClick={() => handleMenuTypeSelect('nonveg')}
-            className="px-8 py-4 text-lg"
+            className="bg-blue-500 text-white px-8 py-4 rounded hover:bg-blue-600"
           >
             Non-Vegetarian
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -111,32 +150,37 @@ const DeliveryMenu = () => {
 
   return (
     <div className="p-4">
+      <div className="mb-4">
+        <p className="text-lg font-bold">Number of Guests: {guestCount}</p>
+      </div>
+      
       {/* Categories Navigation */}
       <div className="flex gap-2 overflow-x-auto pb-4 mb-4">
         {menuCategories[menuType].map((category) => (
-          <Button
+          <button
             key={category.id}
             onClick={() => handleCategorySelect(category.id)}
-            variant={selectedCategory === category.id ? "default" : "outline"}
-            className="whitespace-nowrap"
+            className={`px-4 py-2 rounded whitespace-nowrap ${
+              selectedCategory === category.id
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 hover:bg-gray-300'
+            }`}
           >
             {category.name}
-          </Button>
+          </button>
         ))}
       </div>
 
       {/* Alert for limit exceeded */}
       {showAlert && (
-        <Alert className="mb-4">
-          <AlertTitle>Additional Charge Notice</AlertTitle>
-          <AlertDescription>
-            You've exceeded the limit for this category. Additional charges will apply.
-          </AlertDescription>
-        </Alert>
+        <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded">
+          <h3 className="font-bold">Additional Charge Notice</h3>
+          <p>You've exceeded the limit for this category. Additional charges will apply.</p>
+        </div>
       )}
 
       {/* Selected Items Summary */}
-      <div className="mb-4 p-4 bg-gray-100 rounded-lg">
+      <div className="mb-4 p-4 bg-gray-100 rounded">
         <h2 className="font-bold mb-2">Selected Items:</h2>
         {Object.entries(selectedItems).map(([category, items]) => (
           <div key={category}>
@@ -153,25 +197,29 @@ const DeliveryMenu = () => {
       {/* Menu Items Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {menuItems[menuType][selectedCategory]?.map((item) => (
-          <Card key={item.id} className="overflow-hidden">
+          <div key={item.id} className="border rounded-lg overflow-hidden">
             <img
               src={item.image}
               alt={item.name}
               className="w-full h-48 object-cover"
             />
-            <CardContent className="p-4">
+            <div className="p-4">
               <h3 className="font-bold">{item.name}</h3>
               <p className="text-gray-600">${item.price}</p>
-            </CardContent>
-            <CardFooter className="p-4">
-              <Button 
+            </div>
+            <div className="p-4">
+              <button 
                 onClick={() => handleAddItem(item)}
-                className="w-full"
+                className={`w-full py-2 rounded ${
+                  isItemSelected(item)
+                    ? 'bg-green-500 text-white'
+                    : 'bg-blue-500 text-white hover:bg-blue-600'
+                }`}
               >
-                Add to Order
-              </Button>
-            </CardFooter>
-          </Card>
+                {isItemSelected(item) ? 'Added' : 'Add to Order'}
+              </button>
+            </div>
+          </div>
         ))}
       </div>
     </div>
