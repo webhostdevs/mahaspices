@@ -117,7 +117,7 @@ const Homepage = () => {
                       title: "Delivery",
                       description: "Fast and fresh delivery, straight to your door.",
                       image: "https://craftmyplate.com/wp-content/uploads/2024/03/Frame-1000005361-1-1024x703.png",
-                      link: "/menu",
+                      link: "/deliverymenu",
                     },
                     {
                       id: 3,
