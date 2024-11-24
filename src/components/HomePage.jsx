@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'; 
 import {
   Utensils,
   ChefHat,
@@ -68,12 +69,14 @@ const Homepage = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleKnowMoreClick = (link) => {
     if (isFormFilled) {
-      window.location.href = link; // Redirect directly if form is filled
+      navigate(link); 
     } else {
       setRedirectLink(link);
-      setShowForm(true); // Show form modal
+      setShowForm(true);
     }
   };
 
@@ -205,7 +208,7 @@ const Homepage = () => {
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Fill out the form</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
             <div className="mb-4">
               <input
                 type="text"
@@ -213,7 +216,7 @@ const Homepage = () => {
                 placeholder="Name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 rounded text-black"
               />
             </div>
             <div className="mb-4">
@@ -223,7 +226,7 @@ const Homepage = () => {
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 rounded text-black"
               />
             </div>
             <div className="mb-4">
@@ -233,10 +236,10 @@ const Homepage = () => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full p-2 border border-gray-300 rounded text-black"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-4 text-black">
               <input
                 type="text"
                 name="city"
