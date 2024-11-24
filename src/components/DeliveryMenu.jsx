@@ -287,44 +287,44 @@ const handleGuestCountSubmit = (e) => {
 
   // Guest count selection screen
  if (guestCount === '') {
-    return (
-      <div className="flex flex-col items-center gap-4 p-8">
-        <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
-        <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <input
-              type="number"
-              min="10"
-              value={guestCount}
-              onChange={(e) => {
-                const value = parseInt(e.target.value);
-                if (!isNaN(value) && value >= 10) {
-                  setGuestCount(e.target.value);
-                }
-              }}
-              className="border rounded px-4 py-2 w-64"
-              placeholder="Minimum 10 guests"
-              required
-            />
-            {guestCount !== '' && parseInt(guestCount) < 10 && (
-              <p className="text-red-500 text-sm">Minimum 10 guests required</p>
-            )}
-          </div>
-          <button
-            type="submit"
-            disabled={guestCount === '' || parseInt(guestCount) < 10}
-            className={`px-8 py-2 rounded ${
-              guestCount === '' || parseInt(guestCount) < 10
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-blue-500 hover:bg-blue-600'
-            } text-white`}
-          >
-            Continue
-          </button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="flex flex-col items-center gap-4 p-8">
+      <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
+      <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <input
+            type="number"
+            min="10"
+            value={guestCount}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*$/.test(value)) { // Ensures only numeric input
+                setGuestCount(value);
+              }
+            }}
+            className="border rounded px-4 py-2 w-64"
+            placeholder="Minimum 10 guests"
+            required
+          />
+          {guestCount !== '' && parseInt(guestCount) < 10 && (
+            <p className="text-red-500 text-sm">Minimum 10 guests required</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          disabled={guestCount === '' || parseInt(guestCount) < 10}
+          className={`px-8 py-2 rounded ${
+            guestCount === '' || parseInt(guestCount) < 10
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-blue-500 hover:bg-blue-600'
+          } text-white`}
+        >
+          Continue
+        </button>
+      </form>
+    </div>
+  );
+}
 
   // Menu type selection screen
   if (!menuType) {
