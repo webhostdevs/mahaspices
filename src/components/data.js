@@ -1,27 +1,27 @@
 export const menuCategories = {
   veg: [
-    { id: 'beverages', name: 'Beverages', limit: 2 },
-    { id: 'starters', name: 'Starters', limit: 2 },
-    { id: 'salads', name: 'Salads', limit: 1 },
-    { id: 'sweets', name: 'Sweets', limit: 2 },
-    { id: 'breads', name: 'Breads', limit: 3 },
-    { id: 'special-rice', name: 'Special Rice', limit: 1 },
-    { id: 'rice', name: 'Rice', limit: 1 },
-    { id: 'main-course', name: 'Main Course', limit: 2 },
-    { id: 'fries', name: 'Fries', limit: 1 },
-    { id: 'curries', name: 'Curries', limit: 2 }
+    { id: 'beverages', name: 'Beverages', limit: 100 },
+    { id: 'starters', name: 'Starters', limit: 100 },
+    { id: 'salads', name: 'Salads', limit: 100},
+    { id: 'sweets', name: 'Sweets', limit: 100 },
+    { id: 'breads', name: 'Breads', limit: 100 },
+    { id: 'special-rice', name: 'Special Rice', limit: 100},
+    { id: 'rice', name: 'Rice', limit: 100},
+    { id: 'main-course', name: 'Main Course', limit: 100 },
+    { id: 'fries', name: 'Fries', limit: 100},
+    { id: 'curries', name: 'Curries', limit: 100 }
   ],
   nonveg: [
-    { id: 'beverages', name: 'Beverages', limit: 2 },
-    { id: 'starters', name: 'Starters', limit: 2 },
-    { id: 'salads', name: 'Salads', limit: 1 },
-    { id: 'sweets', name: 'Sweets', limit: 2 },
-    { id: 'breads', name: 'Breads', limit: 3 },
-    { id: 'special-rice', name: 'Special Rice', limit: 1 },
-    { id: 'rice', name: 'Rice', limit: 1 },
-    { id: 'main-course', name: 'Main Course', limit: 2 },
-    { id: 'fries', name: 'Fries', limit: 1 },
-    { id: 'curries', name: 'Curries', limit: 2 }
+    { id: 'beverages', name: 'Beverages', limit: 100 },
+    { id: 'starters', name: 'Starters', limit: 100 },
+    { id: 'salads', name: 'Salads', limit: 100},
+    { id: 'sweets', name: 'Sweets', limit: 100 },
+    { id: 'breads', name: 'Breads', limit: 100 },
+    { id: 'special-rice', name: 'Special Rice', limit: 100},
+    { id: 'rice', name: 'Rice', limit: 100},
+    { id: 'main-course', name: 'Main Course', limit: 100 },
+    { id: 'fries', name: 'Fries', limit: 100},
+    { id: 'curries', name: 'Curries', limit: 100 }
   ]
 };
 
