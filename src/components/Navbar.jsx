@@ -20,12 +20,12 @@ const Navbar = () => {
   const menuItems = [
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
-    { title: 'Menu', path: '/menu' },
+    // { title: 'Menu', path: '/menu' },
     { title: 'Services', path: '/services' },
     { title: 'Contact', path: '/contact' },
-    { title: 'admin', path: '/admin' },
-    { title: 'Category', path: '/category' },
-    { title: 'MealBox', path: '/mealboxx' },
+    // { title: 'admin', path: '/admin' },
+    // { title: 'Category', path: '/category' },
+    // { title: 'MealBox', path: '/mealboxx' },
     // { title: 'Mealbox', path: '/mealbox' },
   ];
 
