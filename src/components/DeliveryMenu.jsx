@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Users, Utensils, ChevronRight, Plus, Minus, Leaf, Check, AlertCircle } from 'lucide-react';
+import { menuItems, menuCategories } from './data';
 
 const DeliveryMenu = () => {
   const [guestCount, setGuestCount] = useState('');
