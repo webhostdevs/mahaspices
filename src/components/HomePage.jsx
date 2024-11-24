@@ -39,7 +39,6 @@ const Homepage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -54,20 +53,16 @@ const Homepage = () => {
   };
 
   const handleFormSubmit = () => {
-    if (
-      formData.name &&
-      formData.phone &&
-      formData.email &&
-      formData.city
-    ) {
-      localStorage.setItem("userDetails", JSON.stringify(formData));
-      setIsFormFilled(true);
-      setShowForm(false);
-      window.location.href = redirectLink; // Redirect to the intended link
-    } else {
-      alert("Please fill out all fields.");
-    }
-  };
+  if (formData.name && formData.phone && formData.email && formData.city) {
+    localStorage.setItem("userDetails", JSON.stringify(formData));
+    setIsFormFilled(true);
+    setShowForm(false);
+    navigate(redirectLink);
+  } else {
+    alert("Please fill out all fields.");
+  }
+};
+
 
   const navigate = useNavigate();
 
@@ -205,59 +200,68 @@ const Homepage = () => {
       </section>
 
       {/* Form Modal */}
-      {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
-            <div className="mb-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded text-black"
-              />
-            </div>
-            <div className="mb-4 text-black">
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-                value={formData.city}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <button
-              onClick={handleFormSubmit}
-              className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
+     {showForm && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+      {/* Close button */}
+      <button
+        onClick={() => setShowForm(false)} // Close the modal
+        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+      >
+        &times; {/* X symbol */}
+      </button>
+
+      <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
+      <div className="mb-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded text-black"
+        />
+      </div>
+      <div className="mb-4">
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+          value={formData.phone}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded text-black"
+        />
+      </div>
+      <div className="mb-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded text-black"
+        />
+      </div>
+      <div className="mb-4 text-black">
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleInputChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      <button
+        onClick={handleFormSubmit}
+        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+)}
+
                 
           </motion.div>
         </div>
