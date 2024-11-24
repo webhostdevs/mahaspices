@@ -163,7 +163,7 @@ const Homepage = () => {
                 description: "Personalized mealboxes for your daily cravings.",
                 image:
                   "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
-                link: "/mealbox",
+                link: "/mealboxx",
               },
               {
                 id: 2,
