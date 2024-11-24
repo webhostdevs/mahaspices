@@ -66,7 +66,7 @@ const Homepage = () => {
  const handleFormSubmit = () => {
   if (formData.name && formData.phone && formData.email && formData.city) {
     localStorage.setItem("userDetails", JSON.stringify(formData));
-    const expiryTime = Date.now() + 4 * 60 * 1000; 
+    const expiryTime = Date.now() + 24 * 60 * 60 * 1000; 
     localStorage.setItem("formExpiry", expiryTime);
     setIsFormFilled(true);
     setShowForm(false);
