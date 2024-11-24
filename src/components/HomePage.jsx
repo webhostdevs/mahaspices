@@ -52,12 +52,14 @@ const Homepage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFormSubmit = () => {
+ const handleFormSubmit = () => {
   if (formData.name && formData.phone && formData.email && formData.city) {
     localStorage.setItem("userDetails", JSON.stringify(formData));
+    const expiryTime = Date.now() + 24 * 60 * 60 * 1000; 
+    localStorage.setItem("formExpiry", expiryTime);
     setIsFormFilled(true);
     setShowForm(false);
-    navigate(redirectLink);
+    navigate(redirectLink); 
   } else {
     alert("Please fill out all fields.");
   }
