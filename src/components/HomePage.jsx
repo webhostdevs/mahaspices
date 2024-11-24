@@ -131,9 +131,9 @@ const Homepage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-7"
           >
-            <h1 className="text-6xl md:text-7xl font-bold">
+            <h1 className="text-7xl md:text-6xl font-bold">
               Crafting Culinary
               <br />
               Experiences
