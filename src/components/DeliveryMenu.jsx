@@ -241,12 +241,16 @@ const DeliveryMenu = () => {
   const [selectedItems, setSelectedItems] = useState({});
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleGuestCountSubmit = (e) => {
-    e.preventDefault();
-    if (guestCount > 0) {
-      setGuestCount(parseInt(guestCount));
-    }
-  };
+const handleGuestCountSubmit = (e) => {
+  e.preventDefault();
+  const guests = parseInt(guestCount);
+  if (guests >= 10) {
+    setGuestCount(guests);
+  } else {
+    alert('Please enter at least 10 guests');
+    setGuestCount('');
+  }
+};
 
   const handleMenuTypeSelect = (type) => {
     setMenuType(type);
@@ -282,35 +286,38 @@ const DeliveryMenu = () => {
   };
 
   // Guest count selection screen
- {/* Guest count selection screen */}
-  if (guestCount === '') {
+ if (guestCount === '') {
     return (
       <div className="flex flex-col items-center gap-4 p-8">
         <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
-        <p className="text-red-500 mb-2">Minimum 10 guests required</p>
         <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
-          <input
-            type="number"
-            min="10"
-            value={guestCount}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (value >= 10 || e.target.value === '') {
-                setGuestCount(e.target.value);
-              }
-            }}
-            className="border rounded px-4 py-2"
-            placeholder="Enter number of guests (min. 10)"
-            required
-          />
+          <div className="flex flex-col gap-2">
+            <input
+              type="number"
+              min="10"
+              value={guestCount}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value >= 0) {
+                  setGuestCount(e.target.value);
+                }
+              }}
+              className="border rounded px-4 py-2 w-64"
+              placeholder="Minimum 10 guests"
+              required
+            />
+            {guestCount !== '' && parseInt(guestCount) < 10 && (
+              <p className="text-red-500 text-sm">Minimum 10 guests required</p>
+            )}
+          </div>
           <button
             type="submit"
-            disabled={parseInt(guestCount) < 10}
+            disabled={guestCount === '' || parseInt(guestCount) < 10}
             className={`px-8 py-2 rounded ${
-              parseInt(guestCount) >= 10 
-                ? 'bg-blue-500 text-white hover:bg-blue-600' 
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+              guestCount === '' || parseInt(guestCount) < 10
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-blue-500 hover:bg-blue-600'
+            } text-white`}
           >
             Continue
           </button>
