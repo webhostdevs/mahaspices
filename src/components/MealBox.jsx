@@ -244,7 +244,7 @@ const FoodPackageSelector = () => {
             <button
               onClick={() => setIsVeg(false)}
               className={`px-8 py-3 rounded-full flex items-center gap-2 transition-colors ${
-                !isVeg ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-green-50'
+                !isVeg ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-red-50'
               }`}
             >
               <Utensils size={20} />
