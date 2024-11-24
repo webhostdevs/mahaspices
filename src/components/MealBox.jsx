@@ -29,7 +29,7 @@ const FoodPackageSelector = () => {
           name: 'Classic Veg Feast',
           image: 'https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg',
           description: 'Traditional vegetarian delicacies with premium ingredients',
-          price: '₹999',
+          price: '₹300',
           rating: 4.5,
           time: '45 mins'
         },
@@ -38,7 +38,7 @@ const FoodPackageSelector = () => {
           name: 'Exotic Veg Delight',
           image: 'https://5.imimg.com/data5/SELLER/Default/2024/7/433427466/FL/GI/JO/3869089/3cp-meal-tray-1000x1000.jpeg',
           description: 'International vegetarian cuisine with unique flavors',
-          price: '₹1299',
+          price: '₹299',
           rating: 4.7,
           time: '50 mins'
         },
@@ -47,7 +47,7 @@ const FoodPackageSelector = () => {
           name: 'Green Garden Special',
           image: 'https://neeyog.com/wp-content/uploads/2018/12/IMG_2577-1.png',
           description: 'Fresh and healthy vegetarian specialties',
-          price: '₹1099',
+          price: '₹499',
           rating: 4.6,
           time: '40 mins'
         }
@@ -58,7 +58,7 @@ const FoodPackageSelector = () => {
           name: 'Royal Non-Veg Feast',
           image: 'https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg',
           description: 'Premium non-vegetarian delicacies',
-          price: '₹1499',
+          price: '₹599',
           rating: 4.8,
           time: '55 mins'
         },
@@ -67,7 +67,7 @@ const FoodPackageSelector = () => {
           name: 'Grilled Heaven',
           image: 'https://neeyog.com/wp-content/uploads/2018/12/IMG_2584.png',
           description: 'Perfectly grilled specialties with rich flavors',
-          price: '₹1699',
+          price: '₹699',
           rating: 4.9,
           time: '60 mins'
         }
@@ -80,7 +80,7 @@ const FoodPackageSelector = () => {
           name: 'Premium Veg Banquet',
           image: 'https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg',
           description: 'Luxurious vegetarian spread for special occasions',
-          price: '₹1999',
+          price: '₹1000',
           rating: 4.7,
           time: '60 mins'
         }
@@ -91,7 +91,7 @@ const FoodPackageSelector = () => {
           name: 'Gourmet Non-Veg Feast',
           image: 'https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg',
           description: 'Premium non-vegetarian banquet selection',
-          price: '₹2499',
+          price: '₹1099',
           rating: 4.8,
           time: '65 mins'
         }
@@ -104,7 +104,7 @@ const FoodPackageSelector = () => {
           name: 'Grand Veg Celebration',
           image: 'https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg',
           description: 'Elaborate vegetarian feast for special events',
-          price: '₹2999',
+          price: '₹499',
           rating: 4.9,
           time: '75 mins'
         }
@@ -115,7 +115,7 @@ const FoodPackageSelector = () => {
           name: 'Ultimate Non-Veg Experience',
           image: 'https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg',
           description: 'Exclusive non-vegetarian banquet selection',
-          price: '₹3499',
+          price: '₹499',
           rating: 4.9,
           time: '80 mins'
         }
@@ -281,7 +281,7 @@ const FoodPackageSelector = () => {
                     <span className="text-sm">{peopleCount} people</span>
                   </div>
                   <div className="flex items-center text-green-500 font-semibold">
-                    <DollarSign size={16} className="mr-1" />
+{/*                     <DollarSign size={16} className="mr-1" /> */}
                     <span>{item.price}</span>
                   </div>
                 </div>
