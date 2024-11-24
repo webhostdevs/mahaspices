@@ -196,10 +196,10 @@
 // };
 
 // export default DeliveryMenu;
+
+
+
 import React, { useState } from 'react';
-import { Switch } from '@/components/ui/switch';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Trash2, Plus } from 'lucide-react';
 
 const DeliveryMenu = () => {
@@ -221,9 +221,9 @@ const DeliveryMenu = () => {
     }
   };
 
-  const handleMenuTypeSelect = (isNonVeg) => {
-    setMenuType(isNonVeg ? 'nonveg' : 'veg');
-    const firstCategory = menuCategories[isNonVeg ? 'nonveg' : 'veg'][0]?.id;
+  const handleMenuTypeSelect = (type) => {
+    setMenuType(type);
+    const firstCategory = menuCategories[type][0]?.id;
     setSelectedCategory(firstCategory);
   };
 
@@ -264,65 +264,78 @@ const DeliveryMenu = () => {
   if (guestCount === '' || !menuType) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white p-8">
-        <Card className="max-w-md mx-auto shadow-lg">
-          <CardContent className="p-6">
-            <h1 className="text-3xl font-bold text-green-800 mb-8 text-center">
-              Delivery Menu
-            </h1>
-            
-            <form onSubmit={handleGuestCountSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-green-700">
-                  Number of Guests
-                </label>
-                <Input
-                  type="number"
-                  min="10"
-                  value={guestCount}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (/^\d*$/.test(value)) {
-                      setGuestCount(value);
-                    }
-                  }}
-                  className="w-full border-green-300 focus:ring-green-500 focus:border-green-500"
-                  placeholder="Minimum 10 guests"
-                  required
-                />
-                {guestCount !== '' && parseInt(guestCount) < 10 && (
-                  <p className="text-red-500 text-sm">Minimum 10 guests required</p>
-                )}
-              </div>
+        <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6">
+          <h1 className="text-3xl font-bold text-green-800 mb-8 text-center">
+            Delivery Menu
+          </h1>
+          
+          <form onSubmit={handleGuestCountSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-green-700">
+                Number of Guests
+              </label>
+              <input
+                type="number"
+                min="10"
+                value={guestCount}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setGuestCount(value);
+                  }
+                }}
+                className="w-full px-4 py-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+                placeholder="Minimum 10 guests"
+                required
+              />
+              {guestCount !== '' && parseInt(guestCount) < 10 && (
+                <p className="text-red-500 text-sm">Minimum 10 guests required</p>
+              )}
+            </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-green-700">
-                  Menu Type
-                </label>
-                <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-700">Vegetarian</span>
-                  <Switch
-                    checked={menuType === 'nonveg'}
-                    onCheckedChange={handleMenuTypeSelect}
-                    className="data-[state=checked]:bg-green-600"
-                  />
-                  <span className="text-green-700">Non-Vegetarian</span>
-                </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-green-700 mb-2">
+                Menu Type
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => handleMenuTypeSelect('veg')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    menuType === 'veg'
+                      ? 'bg-green-600 text-white'
+                      : 'bg-green-100 text-green-800 hover:bg-green-200'
+                  }`}
+                >
+                  Vegetarian
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMenuTypeSelect('nonveg')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    menuType === 'nonveg'
+                      ? 'bg-green-600 text-white'
+                      : 'bg-green-100 text-green-800 hover:bg-green-200'
+                  }`}
+                >
+                  Non-Vegetarian
+                </button>
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={guestCount === '' || parseInt(guestCount) < 10 || !menuType}
-                className={`w-full py-3 rounded-lg font-medium transition-colors ${
-                  guestCount === '' || parseInt(guestCount) < 10 || !menuType
-                    ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-green-600 hover:bg-green-700 text-white'
-                }`}
-              >
-                Continue
-              </button>
-            </form>
-          </CardContent>
-        </Card>
+            <button
+              type="submit"
+              disabled={guestCount === '' || parseInt(guestCount) < 10 || !menuType}
+              className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                guestCount === '' || parseInt(guestCount) < 10 || !menuType
+                  ? 'bg-gray-300 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700 text-white'
+              }`}
+            >
+              Continue
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
@@ -358,44 +371,42 @@ const DeliveryMenu = () => {
 
         {/* Alert */}
         {showAlert && (
-          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg animate-fade-in">
+          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg">
             <h3 className="font-bold">Category Limit Reached</h3>
             <p>You've reached the maximum items for this category.</p>
           </div>
         )}
 
         {/* Selected Items Summary */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
-            <h2 className="text-xl font-bold text-green-800 mb-4">Selected Items</h2>
-            {Object.entries(selectedItems).map(([category, items]) => (
-              <div key={category} className="mb-4 last:mb-0">
-                <h3 className="font-semibold text-green-700">
-                  {category} ({items.length})
-                </h3>
-                <ul className="ml-4 space-y-2">
-                  {items.map(item => (
-                    <li key={item.id} className="flex items-center text-green-600">
-                      <span className="mr-2">•</span>
-                      {item.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h2 className="text-xl font-bold text-green-800 mb-4">Selected Items</h2>
+          {Object.entries(selectedItems).map(([category, items]) => (
+            <div key={category} className="mb-4 last:mb-0">
+              <h3 className="font-semibold text-green-700">
+                {category} ({items.length})
+              </h3>
+              <ul className="ml-4 space-y-2">
+                {items.map(item => (
+                  <li key={item.id} className="flex items-center text-green-600">
+                    <span className="mr-2">•</span>
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         {/* Menu Items Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuItems[menuType][selectedCategory]?.map((item) => (
-            <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+            <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <img
                 src={item.image}
                 alt={item.name}
                 className="w-full h-48 object-cover"
               />
-              <CardContent className="p-4">
+              <div className="p-4">
                 <h3 className="font-bold text-green-800 mb-4">{item.name}</h3>
                 <button 
                   onClick={() => handleAddItem(item)}
@@ -407,18 +418,18 @@ const DeliveryMenu = () => {
                 >
                   {isItemSelected(item) ? (
                     <>
-                      <Trash2 size={20} />
+                      <Trash2 className="w-5 h-5" />
                       Remove
                     </>
                   ) : (
                     <>
-                      <Plus size={20} />
+                      <Plus className="w-5 h-5" />
                       Add to Order
                     </>
                   )}
                 </button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
