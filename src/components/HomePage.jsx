@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { 
-  Utensils, 
-  ChefHat, 
-  Users, 
-  Calendar, 
-  ArrowRight, 
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import {
+  Utensils,
+  ChefHat,
+  Users,
+  Calendar,
+  ArrowRight,
   MapPin,
   Phone,
   Mail,
   ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+  ChevronRight,
+} from "lucide-react";
 
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isFormFilled, setIsFormFilled] = useState(() => {
+    return localStorage.getItem("userDetails") !== null;
+  });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    city: "",
+  });
+  const [showForm, setShowForm] = useState(false);
+  const [redirectLink, setRedirectLink] = useState("");
 
   // Auto-advance carousel
   useEffect(() => {
@@ -32,27 +43,57 @@ const Homepage = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFormSubmit = () => {
+    if (
+      formData.name &&
+      formData.phone &&
+      formData.email &&
+      formData.city
+    ) {
+      localStorage.setItem("userDetails", JSON.stringify(formData));
+      setIsFormFilled(true);
+      setShowForm(false);
+      window.location.href = redirectLink; // Redirect to the intended link
+    } else {
+      alert("Please fill out all fields.");
+    }
+  };
+
+  const handleKnowMoreClick = (link) => {
+    if (isFormFilled) {
+      window.location.href = link; // Redirect directly if form is filled
+    } else {
+      setRedirectLink(link);
+      setShowForm(true); // Show form modal
+    }
+  };
 
   const images = [
     {
       url: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
-      title: "Exquisite Catering"
+      title: "Exquisite Catering",
     },
     {
       url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
-      title: "Fine Dining"
+      title: "Fine Dining",
     },
     {
       url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=400&fit=crop",
-      title: "Special Events"
+      title: "Special Events",
     },
     {
       url: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=1200&h=400&fit=crop",
-      title: "Corporate Functions"
-    }
+      title: "Corporate Functions",
+    },
   ];
 
   const stats = [
@@ -72,7 +113,6 @@ const Homepage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Hero Section with Carousel */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
@@ -100,60 +140,122 @@ const Homepage = () => {
               </button>
             </div>
 
-            {/* Menu Boxes Section - Resized and Repositioned */}
-            <section className="py-12 px-4">
-              <div className="max-w-5xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {[
-                    {
-                      id: 1,
-                      title: "Mealbox",
-                      description: "Personalized mealboxes for your daily cravings.",
-                      image: "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
-                      link: "/mealbox",
-                    },
-                    {
-                      id: 2,
-                      title: "Delivery",
-                      description: "Fast and fresh delivery, straight to your door.",
-                      image: "https://craftmyplate.com/wp-content/uploads/2024/03/Frame-1000005361-1-1024x703.png",
-                      link: "/deliverymenu",
-                    },
-                    {
-                      id: 3,
-                      title: "Catering",
-                      description: "Exceptional catering for your special occasions.",
-                      image: "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
-                      link: "/menu",
-                    },
-                  ].map((box) => (
-                    <motion.div
-                      key={box.id}
-                      whileHover={{ y: -5 }}
-                      className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden h-full"
-                    >
-                      <div className="h-48">
-                        <img
-                          src={box.image}
-                          alt={box.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">{box.title}</h3>
-                        <p className="text-sm text-gray-600 mb-4">{box.description}</p>
-                        <Link
-                          to={box.link}
-                          className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
-                        >
-                          Know More
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
+
+      {/* Menu Boxes Section */}
+      <section className="py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                id: 1,
+                title: "Mealbox",
+                description: "Personalized mealboxes for your daily cravings.",
+                image:
+                  "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
+                link: "/mealbox",
+              },
+              {
+                id: 2,
+                title: "Delivery",
+                description: "Fast and fresh delivery, straight to your door.",
+                image:
+                  "https://craftmyplate.com/wp-content/uploads/2024/03/Frame-1000005361-1-1024x703.png",
+                link: "/deliverymenu",
+              },
+              {
+                id: 3,
+                title: "Catering",
+                description: "Exceptional catering for your special occasions.",
+                image:
+                  "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
+                link: "/menu",
+              },
+            ].map((box) => (
+              <motion.div
+                key={box.id}
+                whileHover={{ y: -5 }}
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden h-full"
+              >
+                <div className="h-48">
+                  <img
+                    src={box.image}
+                    alt={box.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              </div>
-            </section>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    {box.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">{box.description}</p>
+                  <button
+                    onClick={() => handleKnowMoreClick(box.link)}
+                    className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
+                  >
+                    Know More
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Form Modal */}
+      {showForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-4">Fill out the form</h2>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={formData.city}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+            <button
+              onClick={handleFormSubmit}
+              className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
+                
           </motion.div>
         </div>
 
@@ -272,3 +374,6 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+   
+    
