@@ -61,12 +61,14 @@ const DeliveryMenu = () => {
   const [selectedItems, setSelectedItems] = useState({});
   const [showAlert, setShowAlert] = useState(false);
 
+ 
   const handleGuestCountSubmit = (e) => {
-    e.preventDefault();
-    if (guestCount > 0) {
-      setGuestCount(parseInt(guestCount));
-    }
-  };
+  e.preventDefault();
+  if (guestCount > 0) {
+    const guests = parseInt(guestCount);
+    setGuestCount(guests);
+  }
+};
 
   const handleMenuTypeSelect = (type) => {
     setMenuType(type);
@@ -100,30 +102,31 @@ const DeliveryMenu = () => {
   };
 
   // Guest count selection screen
-  if (guestCount === '') {
-    return (
-      <div className="flex flex-col items-center gap-4 p-8">
-        <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
-        <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
-          <input
-            type="number"
-            min="1"
-            value={guestCount}
-            onChange={(e) => setGuestCount(e.target.value)}
-            className="border rounded px-4 py-2"
-            placeholder="Enter number of guests"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600"
-          >
-            Continue
-          </button>
-        </form>
-      </div>
-    );
-  }
+ if (guestCount === '') {
+  return (
+    <div className="flex flex-col items-center gap-4 p-8">
+      <h1 className="text-2xl font-bold mb-4">Enter Number of Guests</h1>
+      <form onSubmit={handleGuestCountSubmit} className="flex flex-col gap-4">
+        <input
+          type="number"
+          min="1"
+          value={guestCount}
+          onChange={(e) => setGuestCount(e.target.value)}
+          className="border rounded px-4 py-2 w-64 text-center text-lg"
+          placeholder="Enter number of guests"
+          required
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600"
+          disabled={!guestCount || guestCount < 1}
+        >
+          Continue
+        </button>
+      </form>
+    </div>
+  );
+}
 
   // Menu type selection screen
   if (!menuType) {
@@ -133,13 +136,13 @@ const DeliveryMenu = () => {
         <div className="flex gap-4">
           <button 
             onClick={() => handleMenuTypeSelect('veg')}
-            className="bg-blue-500 text-white px-8 py-4 rounded hover:bg-blue-600"
+            className="bg-green-500 text-white px-8 py-4 rounded hover:bg-green-600"
           >
             Vegetarian
           </button>
           <button 
             onClick={() => handleMenuTypeSelect('nonveg')}
-            className="bg-blue-500 text-white px-8 py-4 rounded hover:bg-blue-600"
+            className="bg-red-500 text-white px-8 py-4 rounded hover:bg-red-600"
           >
             Non-Vegetarian
           </button>
@@ -205,7 +208,7 @@ const DeliveryMenu = () => {
             />
             <div className="p-4">
               <h3 className="font-bold">{item.name}</h3>
-              <p className="text-gray-600">${item.price}</p>
+           {/*   <p className="text-gray-600">${item.price}</p>   */}
             </div>
             <div className="p-4">
               <button 
