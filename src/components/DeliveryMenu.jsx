@@ -198,7 +198,7 @@ const DeliveryMenu = () => {
                         <div key={item.id} className="flex items-center justify-between bg-green-50 p-3 rounded-lg hover:bg-green-100 transition-colors">
                           <span className="font-medium">{item.name}</span>
                           <div className="flex items-center gap-3">
-                            <input
+{/*                             <input
                               type="number"
                               value={itemGuestCounts[item.id] || ''}
                               onChange={(e) => {
@@ -212,7 +212,7 @@ const DeliveryMenu = () => {
                               }}
                               placeholder="Guests"
                               className="w-24 px-3 py-1 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-transparent"
-                            />
+                            /> */}
                             <button
                               onClick={() => handleAddItem(item)}
                               className="text-red-500 hover:text-red-600 font-medium"
