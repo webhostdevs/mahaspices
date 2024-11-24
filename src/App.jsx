@@ -11,6 +11,7 @@ import MenuDetails from './components/MenuDetails';
 import MenuItemForm from './components/MenuItemForm';
 import AddCategory from './components/AddCategory';
 import MealBoxesPage from './components/MealBoxesPage';
+import DeliveryMenu from './components/DeliveryMenu';
 
 
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/admin" element={<MenuItemForm />} />
             <Route path="/category" element={<AddCategory />} />
             <Route path="/mealbox" element={<MealBoxesPage />} />
+            <Route path="/deliverybox" element={<DeliveryMenu />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
