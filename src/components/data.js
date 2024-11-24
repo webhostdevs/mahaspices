@@ -128,45 +128,45 @@ export const menuItems = {
       { id: 'nsw5', name: 'Rasmalai', price: 7.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }
     ],
     breads: [
-      { id: 'nbr1', name: 'Butter Naan', price: 2.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nbr2', name: 'Garlic Naan', price: 3.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nbr3', name: 'Plain Roti', price: 1.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nbr4', name: 'Laccha Paratha', price: 3.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nbr5', name: 'Missi Roti', price: 2.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }
+      { id: 'nbr1', name: 'Butter Naan', price: 2.99, image: 'https://www.flavoursonplate.com/wp-content/uploads/2019/03/Garlic-butter-naan.jpg' },
+      { id: 'nbr2', name: 'Garlic Naan', price: 3.49, image: 'https://www.flavoursonplate.com/wp-content/uploads/2019/03/Garlic-butter-naan.jpg' },
+      { id: 'nbr3', name: 'Plain Roti', price: 1.99, image: 'https://www.flavoursonplate.com/wp-content/uploads/2019/03/Garlic-butter-naan.jpg' },
+      { id: 'nbr4', name: 'Laccha Paratha', price: 3.99, image: 'https://www.flavoursonplate.com/wp-content/uploads/2019/03/Garlic-butter-naan.jpg' },
+      { id: 'nbr5', name: 'Missi Roti', price: 2.49, image: 'https://www.flavoursonplate.com/wp-content/uploads/2019/03/Garlic-butter-naan.jpg' }
     ],
     'special-rice': [
-      { id: 'nsr1', name: 'Chicken Biryani', price: 14.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nsr2', name: 'Mutton Biryani', price: 16.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nsr3', name: 'Prawn Biryani', price: 15.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nsr4', name: 'Fish Biryani', price: 14.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nsr5', name: 'Egg Biryani', price: 12.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }
+      { id: 'nsr1', name: 'Chicken Biryani', price: 14.99, image: 'https://i.ytimg.com/vi/Ql8h49eP-gA/maxresdefault.jpg' },
+      { id: 'nsr2', name: 'Mutton Biryani', price: 16.99, image: 'https://i.ytimg.com/vi/Ql8h49eP-gA/maxresdefault.jpg' },
+      { id: 'nsr3', name: 'Prawn Biryani', price: 15.99, image: 'https://i.ytimg.com/vi/Ql8h49eP-gA/maxresdefault.jpg' },
+      { id: 'nsr4', name: 'Fish Biryani', price: 14.49, image: 'https://i.ytimg.com/vi/Ql8h49eP-gA/maxresdefault.jpg' },
+      { id: 'nsr5', name: 'Egg Biryani', price: 12.99, image: 'https://i.ytimg.com/vi/Ql8h49eP-gA/maxresdefault.jpg' }
     ],
     rice: [
-      { id: 'nr1', name: 'Chicken Fried Rice', price: 11.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nr2', name: 'Egg Rice', price: 9.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nr3', name: 'Prawn Rice', price: 12.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nr4', name: 'Mixed Fried Rice', price: 11.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
-      { id: 'nr5', name: 'Schezwan Rice', price: 10.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' } ], 
+      { id: 'nr1', name: 'Chicken Fried Rice', price: 11.99, image: 'https://assets.epicurious.com/photos/568eb0bf7dc604b44b5355ee/master/pass/rice.jpg' },
+      { id: 'nr2', name: 'Egg Rice', price: 9.99, image: 'https://assets.epicurious.com/photos/568eb0bf7dc604b44b5355ee/master/pass/rice.jpg' },
+      { id: 'nr3', name: 'Prawn Rice', price: 12.99, image: 'https://assets.epicurious.com/photos/568eb0bf7dc604b44b5355ee/master/pass/rice.jpg' },
+      { id: 'nr4', name: 'Mixed Fried Rice', price: 11.49, image: 'https://assets.epicurious.com/photos/568eb0bf7dc604b44b5355ee/master/pass/rice.jpg' },
+      { id: 'nr5', name: 'Schezwan Rice', price: 10.99, image: 'https://assets.epicurious.com/photos/568eb0bf7dc604b44b5355ee/master/pass/rice.jpg' } ], 
     'main-course': [ 
-      { id: 'nm1', name: 'Butter Chicken', price: 13.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nm2', name: 'Mutton Rogan Josh', price: 15.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nm3', name: 'Chicken Curry', price: 12.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nm4', name: 'Fish Curry', price: 14.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nm5', name: 'Prawn Masala', price: 13.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' } 
+      { id: 'nm1', name: 'Butter Chicken', price: 13.99, image: 'https://publish.purewow.net/wp-content/uploads/sites/2/2018/02/pomegranate-maple-glazed-lamb-chops-recipes-for-two-people.png?fit=675%2C501' }, 
+      { id: 'nm2', name: 'Mutton Rogan Josh', price: 15.99, image: 'https://publish.purewow.net/wp-content/uploads/sites/2/2018/02/pomegranate-maple-glazed-lamb-chops-recipes-for-two-people.png?fit=675%2C501' }, 
+      { id: 'nm3', name: 'Chicken Curry', price: 12.99, image: 'https://publish.purewow.net/wp-content/uploads/sites/2/2018/02/pomegranate-maple-glazed-lamb-chops-recipes-for-two-people.png?fit=675%2C501' }, 
+      { id: 'nm4', name: 'Fish Curry', price: 14.49, image: 'https://publish.purewow.net/wp-content/uploads/sites/2/2018/02/pomegranate-maple-glazed-lamb-chops-recipes-for-two-people.png?fit=675%2C501' }, 
+      { id: 'nm5', name: 'Prawn Masala', price: 13.49, image: 'https://publish.purewow.net/wp-content/uploads/sites/2/2018/02/pomegranate-maple-glazed-lamb-chops-recipes-for-two-people.png?fit=675%2C501' } 
     ],
     fries: [ 
-      { id: 'nf1', name: 'Chicken Nuggets', price: 7.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nf2', name: 'Fish Fingers', price: 8.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nf3', name: 'Crispy Chicken Strips', price: 7.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nf4', name: 'Prawn Tempura', price: 9.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nf5', name: 'Spicy Wings', price: 8.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' } 
+      { id: 'nf1', name: 'Chicken Nuggets', price: 7.49, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/french-fries-recipe.jpg' }, 
+      { id: 'nf2', name: 'Fish Fingers', price: 8.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/french-fries-recipe.jpg' }, 
+      { id: 'nf3', name: 'Crispy Chicken Strips', price: 7.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/french-fries-recipe.jpg' }, 
+      { id: 'nf4', name: 'Prawn Tempura', price: 9.49, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/french-fries-recipe.jpg' }, 
+      { id: 'nf5', name: 'Spicy Wings', price: 8.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2021/04/french-fries-recipe.jpg' } 
     ], 
     curries: [ 
-      { id: 'nc1', name: 'Chicken Korma', price: 13.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nc2', name: 'Mutton Keema', price: 15.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nc3', name: 'Fish Moilee', price: 14.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nc4', name: 'Egg Curry', price: 10.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' }, 
-      { id: 'nc5', name: 'Prawn Curry', price: 13.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' } 
+      { id: 'nc1', name: 'Chicken Korma', price: 13.99, image: 'https://insanelygoodrecipes.com/wp-content/uploads/2022/01/Chicken-Tikka-Masala-in-a-Bowl.jpg' }, 
+      { id: 'nc2', name: 'Mutton Keema', price: 15.49, image: 'https://insanelygoodrecipes.com/wp-content/uploads/2022/01/Chicken-Tikka-Masala-in-a-Bowl.jpg' }, 
+      { id: 'nc3', name: 'Fish Moilee', price: 14.49, image: 'https://insanelygoodrecipes.com/wp-content/uploads/2022/01/Chicken-Tikka-Masala-in-a-Bowl.jpg' }, 
+      { id: 'nc4', name: 'Egg Curry', price: 10.49, image: 'https://insanelygoodrecipes.com/wp-content/uploads/2022/01/Chicken-Tikka-Masala-in-a-Bowl.jpg' }, 
+      { id: 'nc5', name: 'Prawn Curry', price: 13.99, image: 'https://insanelygoodrecipes.com/wp-content/uploads/2022/01/Chicken-Tikka-Masala-in-a-Bowl.jpg' } 
     ]
   }
 };
