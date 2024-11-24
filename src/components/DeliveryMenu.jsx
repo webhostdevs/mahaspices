@@ -298,7 +298,7 @@ const handleGuestCountSubmit = (e) => {
               value={guestCount}
               onChange={(e) => {
                 const value = parseInt(e.target.value);
-                if (!isNaN(value) && value >= 0) {
+                if (!isNaN(value) && value >= 10) {
                   setGuestCount(e.target.value);
                 }
               }}
