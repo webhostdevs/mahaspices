@@ -37,7 +37,7 @@ function App() {
             <Route path="/category" element={<AddCategory />} />
             <Route path="/mealbox" element={<MealBoxesPage />} />
             <Route path="/deliverymenu" element={<DeliveryMenu />} />
-            <Route path="/mealbox" element={<MealBox />} />
+            <Route path="/mealboxx" element={<MealBox />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
