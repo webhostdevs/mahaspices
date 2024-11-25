@@ -28,7 +28,7 @@ export const menuCategories = {
 export const menuItems = {
   veg: {
     beverages: [
-      { id: 'b1', name: 'Mango Lassi', price: 4.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
+      { id: 'b1', name: 'Mango Lassi', price: 4.99, image: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
       { id: 'b2', name: 'Sweet Lassi', price: 3.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
       { id: 'b3', name: 'Masala Chaas', price: 2.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
       { id: 'b4', name: 'Fresh Lime Soda', price: 3.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
@@ -100,7 +100,7 @@ export const menuItems = {
   },
   nonveg: {
      beverages: [
-      { id: 'nb1', name: 'Mango Lassi', price: 4.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
+      { id: 'nb1', name: 'Mango Lassi', price: 4.99, image: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
       { id: 'nb2', name: 'Sweet Lassi', price: 3.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
       { id: 'nb3', name: 'Masala Chaas', price: 2.99, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
       { id: 'nb4', name: 'Fresh Lime Soda', price: 3.49, image: 'https://www.healthyfood.com/wp-content/uploads/2017/03/How-to-choose-fruit-juices-and-drinks.jpg' },
