@@ -20,13 +20,13 @@ const handleConfirmSelection = () => {
       .join('\n');
 
     const message = `
-🍽️ New Menu Selection:
-Package: ${selectedPackage}
-Type: ${isVeg ? 'Vegetarian' : 'Non-Vegetarian'}
+         New Menu Selection:
+         Package: ${selectedPackage}
+         Type: ${isVeg ? 'Vegetarian' : 'Non-Vegetarian'}
 
-Selected Items:
-${menuItems}
-    `.trim();
+         Selected Items:
+           ${menuItems}
+           `.trim();
 
     return encodeURIComponent(message);
   };
