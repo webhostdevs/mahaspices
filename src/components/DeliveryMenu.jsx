@@ -42,9 +42,17 @@ const DeliveryMenu = () => {
     return Object.values(selectedItems).reduce((total, items) => total + items.length, 0);
   };
 
-  const handleCheckout = () => {
-    alert("Order placed successfully! 🎉\nTotal Items: " + getTotalSelectedItems() + "\nGuest Count: " + guestCount);
-  };
+ const handleCheckout = () => {
+  if (!guestCount || !menuType || getTotalSelectedItems() === 0) {
+    alert("Please complete all the steps before placing an order.");
+    return;
+  }
+
+  const message = encodeURIComponent(formatOrderDetails());
+  const whatsappURL = `https://wa.me/917288041656?text=${message}`;
+  window.open(whatsappURL, '_blank');
+};
+
 
   const handleMenuTypeSelect = (type) => {
     setMenuType(type);
