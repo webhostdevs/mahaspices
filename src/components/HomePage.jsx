@@ -82,15 +82,22 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
+  const checkExpiry = () => {
     const expiry = localStorage.getItem("formExpiry");
-    if (expiry && Date.now() < Number(expiry)) {
-      setIsFormFilled(true);
-    } else {
+    if (expiry && Date.now() >= Number(expiry)) {
       localStorage.removeItem("userDetails");
       localStorage.removeItem("formExpiry");
       setIsFormFilled(false);
     }
-  }, []);
+  };
+
+  const interval = setInterval(checkExpiry, 2000);
+
+  checkExpiry();
+
+  return () => clearInterval(interval);
+}, []);
+
   
   useEffect(() => {
     const handleScroll = () => {
