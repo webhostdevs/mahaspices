@@ -61,7 +61,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Visit Us</h3>
-                  <p className="text-gray-600 mt-1">123 Spice Market Street, Hyderabad, Telangana, 500081</p>
+                  <p className="text-gray-600 mt-1">Address: Office: Plot No: 332, & 333, Diamond hills, OPP. Care Hospitals, Hitech City, Old Mumbai Highway, Hyderabad-500 032</p>
                 </div>
               </div>
 
@@ -71,7 +71,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Call Us</h3>
-                  <p className="text-gray-600 mt-1">+91 7330639555</p>
+                  <p className="text-gray-600 mt-1">040-2222 8888 / 969779 8888</p>
                 </div>
               </div>
 
@@ -81,7 +81,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Email Us</h3>
-                  <p className="text-gray-600 mt-1">contact@mahaspice.com</p>
+                  <p className="text-gray-600 mt-1">info@gsrhospitality.com</p>
                 </div>
               </div>
 
