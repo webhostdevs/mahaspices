@@ -94,6 +94,20 @@ const Homepage = () => {
       title: "Exquisite Catering",
     },
     {
+      url: "https://mahaspice.in/images/bg-2.jpg",
+      title: "Exquisite Catering",
+    },
+    
+    {
+      url: "https://mahaspice.in/images/bg-1.jpg",
+      title: "Exquisite Catering",
+    },
+    
+    {
+      url: "https://mahaspice.in/images/bg-3.jpg",
+      title: "Exquisite Catering",
+    },
+    {
       url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
       title: "Fine Dining",
     },
@@ -133,11 +147,12 @@ const Homepage = () => {
             transition={{ duration: 0.8 }}
             className="space-y-7"
           >
-            <h1 className="text-7xl md:text-6xl font-bold">
-              Crafting Culinary
-              <br />
-              Experiences
-            </h1>
+           <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
+                Maha Spice
+                <br />
+                Caterers
+          </h1>
+
             <p className="text-xl max-w-2xl mx-auto text-gray-100">
               Where tradition meets innovation in every dish we serve. 
               Creating memorable moments through exceptional catering.
