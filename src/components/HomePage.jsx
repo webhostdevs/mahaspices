@@ -147,10 +147,10 @@ const Homepage = () => {
             transition={{ duration: 0.8 }}
             className="space-y-7"
           >
+            <br />
+            <br />
            <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
-                Maha Spice
-                <br />
-                Caterers
+                Maha Spice Caterers
           </h1>
 
             <p className="text-xl max-w-2xl mx-auto text-gray-100">
