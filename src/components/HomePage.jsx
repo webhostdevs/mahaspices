@@ -168,9 +168,9 @@ const Homepage = () => {
 
 
       {/* Menu Boxes Section */}
-      <section className="py-12 px-4">
+     <section className="py-12 px-4">
   <div className="max-w-5xl mx-auto">
-    <div className="flex gap-6 overflow-x-auto">
+    <div className="flex flex-wrap gap-6 justify-between">
       {[
         {
           id: 1,
@@ -200,7 +200,7 @@ const Homepage = () => {
         <motion.div
           key={box.id}
           whileHover={{ y: -5 }}
-          className="min-w-[300px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden h-full"
+          className="flex-1 min-w-[200px] max-w-[300px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden"
         >
           <div className="h-48">
             <img
@@ -226,6 +226,7 @@ const Homepage = () => {
     </div>
   </div>
 </section>
+
 
 
       {/* Form Modal */}
