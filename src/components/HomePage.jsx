@@ -81,16 +81,16 @@ const Homepage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const expiry = localStorage.getItem("formExpiry");
-    if (expiry && Date.now() < Number(expiry)) {
-      setIsFormFilled(true);
-    } else {
-      localStorage.removeItem("userDetails");
-      localStorage.removeItem("formExpiry");
-      setIsFormFilled(false);
-    }
-  }, []);
+ useEffect(() => {
+  const expiry = localStorage.getItem("formExpiry");
+  if (expiry && Date.now() < expiry) {
+    setIsFormFilled(true); 
+  } else {
+    localStorage.removeItem("userDetails");
+    localStorage.removeItem("formExpiry");
+    setIsFormFilled(false);
+  }
+}, []);
   
   useEffect(() => {
     const handleScroll = () => {
