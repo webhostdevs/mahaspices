@@ -15,6 +15,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import mlb1 from "./assets/mlb1.jpeg";
+import mlb2 from "./assets/mlb2.jpeg";
+import mlb3 from "./assets/mlb3.jpeg";
+import mlb4 from "./assets/mlb4.jpeg";
+import mlb5 from "./assets/mlb5.jpeg";
+
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,8 +36,13 @@ const Homepage = () => {
   });
   const [showForm, setShowForm] = useState(false);
   const [redirectLink, setRedirectLink] = useState("");
+  const [menuBoxSlides, setMenuBoxSlides] = useState({
+    mealbox: 0,
+    delivery: 0,
+    catering: 0
+  });
 
-  // Auto-advance carousel
+  // Auto-advance main carousel
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
@@ -39,16 +50,44 @@ const Homepage = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Auto-advance menu box carousels
   useEffect(() => {
-  const expiry = localStorage.getItem("formExpiry");
-  if (expiry && Date.now() < expiry) {
-    setIsFormFilled(true); 
-  } else {
-    localStorage.removeItem("userDetails");
-    localStorage.removeItem("formExpiry");
-    setIsFormFilled(false);
-  }
-}, []);
+    const timers = {
+      mealbox: setInterval(() => {
+        setMenuBoxSlides(prev => ({
+          ...prev,
+          mealbox: (prev.mealbox + 1) % 5
+        }));
+      }, 3000),
+      delivery: setInterval(() => {
+        setMenuBoxSlides(prev => ({
+          ...prev,
+          delivery: (prev.delivery + 1) % 3
+        }));
+      }, 3000),
+      catering: setInterval(() => {
+        setMenuBoxSlides(prev => ({
+          ...prev,
+          catering: (prev.catering + 1) % 3
+        }));
+      }, 3000)
+    };
+
+    return () => {
+      Object.values(timers).forEach(timer => clearInterval(timer));
+    };
+  }, []);
+
+  useEffect(() => {
+    const expiry = localStorage.getItem("formExpiry");
+    if (expiry && Date.now() < Number(expiry)) {
+      setIsFormFilled(true);
+    } else {
+      localStorage.removeItem("userDetails");
+      localStorage.removeItem("formExpiry");
+      setIsFormFilled(false);
+    }
+  }, []);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -63,19 +102,18 @@ const Homepage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
- const handleFormSubmit = () => {
-  if (formData.name && formData.phone && formData.email && formData.city) {
-    localStorage.setItem("userDetails", JSON.stringify(formData));
-    const expiryTime = Date.now() + 24 * 60 * 60 * 1000; 
-    localStorage.setItem("formExpiry", expiryTime);
-    setIsFormFilled(true);
-    setShowForm(false);
-    navigate(redirectLink); 
-  } else {
-    alert("Please fill out all fields.");
-  }
-};
-
+  const handleFormSubmit = () => {
+    if (formData.name && formData.phone && formData.email && formData.city) {
+      localStorage.setItem("userDetails", JSON.stringify(formData));
+      const expiryTime = Date.now() + 24 * 60 * 60 * 1000; 
+      localStorage.setItem("formExpiry", expiryTime);
+      setIsFormFilled(true);
+      setShowForm(false);
+      navigate(redirectLink); 
+    } else {
+      alert("Please fill out all fields.");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -89,36 +127,53 @@ const Homepage = () => {
   };
 
   const images = [
-    // {
-    //   url: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
-    //   title: "Exquisite Catering",
-    // },
     {
       url: "https://mahaspice.in/images/bg-2.jpg",
       title: "Exquisite Catering",
     },
-    
     {
       url: "https://mahaspice.in/images/bg-1.jpg",
       title: "Exquisite Catering",
     },
-    
     {
       url: "https://mahaspice.in/images/bg-3.jpg",
       title: "Exquisite Catering",
     },
-    // {
-    //   url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
-    //   title: "Fine Dining",
-    // },
-    // {
-    //   url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=400&fit=crop",
-    //   title: "Special Events",
-    // },
-    // {
-    //   url: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=1200&h=400&fit=crop",
-    //   title: "Corporate Functions",
-    // },
+  ];
+
+  const menuBoxes = [
+    {
+      id: 1,
+      title: "Mealbox",
+      description: "Personalized mealboxes for your daily cravings.",
+      images: [mlb1, mlb2, mlb3, mlb4, mlb5],
+      currentSlide: menuBoxSlides.mealbox,
+      link: "/mealboxx",
+    },
+    {
+      id: 2,
+      title: "Delivery",
+      description: "Fast and fresh delivery, straight to your door.",
+      images: [
+        "https://new.caterninja.com/555.png",
+        "https://new.caterninja.com/556.png",
+        "https://new.caterninja.com/557.png"
+      ],
+      currentSlide: menuBoxSlides.delivery,
+      link: "/deliverymenu",
+    },
+    {
+      id: 3,
+      title: "Catering",
+      description: "Exceptional catering for your special occasions.",
+      images: [
+        "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
+        "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-4.png",
+        "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-5.png"
+      ],
+      currentSlide: menuBoxSlides.catering,
+      link: "/menu",
+    },
   ];
 
   const stats = [
@@ -149,9 +204,9 @@ const Homepage = () => {
           >
             <br />
             <br />
-           <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
-                Maha Spice Caterers
-          </h1>
+            <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
+              Maha Spice Caterers
+            </h1>
 
             <p className="text-xl max-w-2xl mx-auto text-gray-100">
               Where tradition meets innovation in every dish we serve. 
@@ -166,133 +221,107 @@ const Homepage = () => {
               </button>
             </div>
 
+            {/* Menu Boxes Section */}
+            <section className="py-12 px-4">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex flex-col md:flex-row gap-6 justify-between">
+                  {menuBoxes.map((box) => (
+                    <motion.div
+                      key={box.id}
+                      whileHover={{ y: -5 }}
+                      className="flex-1 min-w-[280px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                      onClick={() => handleKnowMoreClick(box.link)}
+                    >
+                      <div className="relative h-48 overflow-hidden">
+                        {box.images.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`${box.title} ${index + 1}`}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                              box.currentSlide === index ? "opacity-100" : "opacity-0"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">
+                          {box.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-4">{box.description}</p>
+                        <button
+                          className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
+                        >
+                          Know More
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-      {/* Menu Boxes Section */}
-     <section className="py-12 px-4">
-  <div className="max-w-5xl mx-auto">
-    <div className="flex flex-wrap gap-3 justify-between">
-      {[
-        {
-          id: 1,
-          title: "Mealbox",
-          description: "Personalized mealboxes for your daily cravings.",
-          image:
-            "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
-          link: "/mealboxx",
-        },
-        {
-          id: 2,
-          title: "Delivery",
-          description: "Fast and fresh delivery, straight to your door.",
-          image:
-            "https://new.caterninja.com/555.png",
-          link: "/deliverymenu",
-        },
-        {
-          id: 3,
-          title: "Catering",
-          description: "Exceptional catering for your special occasions.",
-          image:
-            "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
-          link: "/menu",
-        },
-      ].map((box) => (
-        <motion.div
-          key={box.id}
-          whileHover={{ y: -5 }}
-          className="flex-1 min-w-[150px] max-w-[300px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden"
-        >
-          <div className="h-48">
-            <img
-              src={box.image}
-              alt={box.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="p-4">
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {box.title}
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">{box.description}</p>
-            <button
-              onClick={() => handleKnowMoreClick(box.link)}
-              className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
-            >
-              Know More
-            </button>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
+            {/* Form Modal */}
+            {showForm && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+                  <button
+                    onClick={() => setShowForm(false)}
+                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                  >
+                    &times;
+                  </button>
 
-
-
-      {/* Form Modal */}
-     {showForm && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-      {/* Close button */}
-      <button
-        onClick={() => setShowForm(false)} // Close the modal
-        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-      >
-        &times; {/* X symbol */}
-      </button>
-
-      <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
-      <div className="mb-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
-          className="w-full p-2 border border-gray-300 rounded text-black"
-        />
-      </div>
-      <div className="mb-4">
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleInputChange}
-          className="w-full p-2 border border-gray-300 rounded text-black"
-        />
-      </div>
-      <div className="mb-4">
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleInputChange}
-          className="w-full p-2 border border-gray-300 rounded text-black"
-        />
-      </div>
-      <div className="mb-4 text-black">
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleInputChange}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-      </div>
-      <button
-        onClick={handleFormSubmit}
-        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-      >
-        Submit
-      </button>
-    </div>
-  </div>
-)}
-
-                
+                  <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      name="city"
+                      placeholder="City"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <button
+                    onClick={handleFormSubmit}
+                    className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            )}
           </motion.div>
         </div>
 
