@@ -167,6 +167,7 @@ const Homepage = () => {
       description: "Exceptional catering for your special occasions.",
       images: [
         "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
+        "https://bellydarbar.in/wp-content/uploads/2024/10/steptodown.com840789-1024x768.jpg",
         "https://elements-resized.envatousercontent.com/envato-shoebox/509b/d10d-c7df-4bac-b7c7-946b64109a35/66a76c92cd07aa052a983dc8_withmeta.jpg?w=1600&cf_fit=scale-down&mark-alpha=18&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark4.png&q=85&format=auto&s=af1b90b24790f4dc9c07b4fc1007fa421bac93faa119be50cc8ca7f277738732"
       ],
       currentSlide: menuBoxSlides.catering,
@@ -227,7 +228,7 @@ const Homepage = () => {
                     <motion.div
                       key={box.id}
                       whileHover={{ y: -5 }}
-                      className="flex-1 min-w-[280px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                      className="flex-1 min-w-[150px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
                       <div className="relative h-52 overflow-hidden">
