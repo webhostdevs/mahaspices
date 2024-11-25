@@ -221,44 +221,45 @@ const Homepage = () => {
             </div>
 
             {/* Menu Boxes Section */}
-            <section className="py-12 px-4">
-              <div className="max-w-5xl mx-auto">
-                <div className="flex flex-col md:flex-row gap-6 justify-between">
-                  {menuBoxes.map((box) => (
-                    <motion.div
-                      key={box.id}
-                      whileHover={{ y: -5 }}
-                      className="flex-1 min-w-[150px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
-                      onClick={() => handleKnowMoreClick(box.link)}
-                    >
-                      <div className="relative h-52 overflow-hidden">
-                        {box.images.map((image, index) => (
-                          <img
-                            key={index}
-                            src={image}
-                            alt={`${box.title} ${index + 1}`}
-                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
-                              box.currentSlide === index ? "opacity-100" : "opacity-0"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">
-                          {box.title}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-4">{box.description}</p>
-                        <button
-                          className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
-                        >
-                          Know More
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
+           <section className="py-12 px-4">
+  <div className="max-w-5xl mx-auto">
+    <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center">
+      {menuBoxes.map((box) => (
+        <motion.div
+          key={box.id}
+          whileHover={{ y: -5 }}
+          className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+          onClick={() => handleKnowMoreClick(box.link)}
+        >
+          <div className="relative h-40 sm:h-52 overflow-hidden">
+            {box.images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`${box.title} ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                  box.currentSlide === index ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
+          </div>
+          <div className="p-4">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+              {box.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
+            <button
+              className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
+            >
+              Know More
+            </button>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
             {/* Form Modal */}
             {showForm && (
