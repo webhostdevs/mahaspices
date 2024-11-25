@@ -357,7 +357,7 @@ const FoodPackageSelector = () => {
               <div className="flex items-center border-2 border-gray-200 rounded-lg">
                 <button
                   onClick={decrementPeople}
-                  className="p-3 hover:bg-gray-100 ml-5"
+                  className="p-3 hover:bg-gray-100 ml-8"
                 >
                   <Minus size={20} />
                 </button>
