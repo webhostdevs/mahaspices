@@ -16,17 +16,17 @@ const DeliveryMenu = () => {
     }
   };
   const formatOrderDetails = () => {
-  let message = "🍽️ *New Catering Order*\n\n";
+  let message = " *New Delivery Order*\n\n";
   
   // Add guest count and menu type
-  message += `👥 *Guests:* ${guestCount}\n`;
-  message += `🍴 *Menu Type:* ${menuType === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}\n\n`;
+  message += ` *Guests:* ${guestCount}\n`;
+  message += ` *Menu Type:* ${menuType === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}\n\n`;
   
   // Add selected items by category
   message += "*Selected Items:*\n";
   Object.entries(selectedItems).forEach(([category, items]) => {
     const categoryName = menuCategories[menuType].find(cat => cat.id === category)?.name;
-    message += `\n📋 *${categoryName}*\n`;
+    message += `\n *${categoryName}*\n`;
     items.forEach(item => {
       message += `- ${item.name}\n`;
     });
