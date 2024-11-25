@@ -392,7 +392,7 @@ const FoodPackageSelector = () => {
                 <img
                   src={packageImages[pkg]}
                   alt={`${pkg} Package`}
-                  className="w-full h-32 object-cover rounded-lg mb-4"
+                  className="w-full h-32 object-contain rounded-lg mb-4"
                 />
                 <h3 className="font-semibold text-lg mb-2">{pkg} Package</h3>
                 <p className="text-sm text-gray-600">
@@ -446,7 +446,7 @@ const FoodPackageSelector = () => {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full md:w-48 h-48 object-cover rounded-lg"
+                  className="w-full md:w-48 h-48 object-contain rounded-lg"
                 />
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-2">{item.name}</h3>
