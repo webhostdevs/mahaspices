@@ -266,7 +266,7 @@ const DeliveryMenu = () => {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+                      className="w-full h-48 object-contain group-hover:scale-105 transition-transform"
                     />
                   </div>
                   <div className="p-4">
