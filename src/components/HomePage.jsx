@@ -20,6 +20,8 @@ import mlb2 from "../assets/mlb2.jpeg";
 import mlb3 from "../assets/mlb3.jpeg";
 import mlb4 from "../assets/mlb4.jpeg";
 import mlb5 from "../assets/mlb5.jpeg";
+import dl from "../assets/dl.jpg";
+import dlb from "../assets/dlb.jpg";
 
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -155,10 +157,7 @@ const Homepage = () => {
       title: "Delivery",
       description: "Fast and fresh delivery, straight to your door.",
       images: [
-        "https://new.caterninja.com/555.png",
-        "https://new.caterninja.com/556.png",
-        "https://new.caterninja.com/557.png"
-      ],
+        "https://new.caterninja.com/555.png", dl , dlb ],
       currentSlide: menuBoxSlides.delivery,
       link: "/deliverymenu",
     },
@@ -168,8 +167,7 @@ const Homepage = () => {
       description: "Exceptional catering for your special occasions.",
       images: [
         "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
-        "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-4.png",
-        "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-5.png"
+        "https://elements-resized.envatousercontent.com/envato-shoebox/509b/d10d-c7df-4bac-b7c7-946b64109a35/66a76c92cd07aa052a983dc8_withmeta.jpg?w=1600&cf_fit=scale-down&mark-alpha=18&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark4.png&q=85&format=auto&s=af1b90b24790f4dc9c07b4fc1007fa421bac93faa119be50cc8ca7f277738732"
       ],
       currentSlide: menuBoxSlides.catering,
       link: "/menu",
@@ -238,7 +236,7 @@ const Homepage = () => {
                             key={index}
                             src={image}
                             alt={`${box.title} ${index + 1}`}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
                               box.currentSlide === index ? "opacity-100" : "opacity-0"
                             }`}
                           />
