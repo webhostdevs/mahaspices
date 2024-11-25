@@ -22,6 +22,7 @@ import mlb4 from "../assets/mlb4.jpeg";
 import mlb5 from "../assets/mlb5.jpeg";
 import dl from "../assets/dl.jpg";
 import dlb from "../assets/dlb.png";
+import delbox from "../assets/delbox.png";
 
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -156,8 +157,7 @@ const Homepage = () => {
       id: 2,
       title: "Delivery",
       description: "Fast and fresh delivery, straight to your door.",
-      images: [
-        "https://new.caterninja.com/555.png", dl , dlb ],
+      images: [ delbox, dl , dlb ],
       currentSlide: menuBoxSlides.delivery,
       link: "/deliverymenu",
     },
