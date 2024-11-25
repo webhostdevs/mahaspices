@@ -89,10 +89,10 @@ const Homepage = () => {
   };
 
   const images = [
-    {
-      url: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
-      title: "Exquisite Catering",
-    },
+    // {
+    //   url: "https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&h=400&fit=crop",
+    //   title: "Exquisite Catering",
+    // },
     {
       url: "https://mahaspice.in/images/bg-2.jpg",
       title: "Exquisite Catering",
@@ -107,18 +107,18 @@ const Homepage = () => {
       url: "https://mahaspice.in/images/bg-3.jpg",
       title: "Exquisite Catering",
     },
-    {
-      url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
-      title: "Fine Dining",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=400&fit=crop",
-      title: "Special Events",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=1200&h=400&fit=crop",
-      title: "Corporate Functions",
-    },
+    // {
+    //   url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop",
+    //   title: "Fine Dining",
+    // },
+    // {
+    //   url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=400&fit=crop",
+    //   title: "Special Events",
+    // },
+    // {
+    //   url: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=1200&h=400&fit=crop",
+    //   title: "Corporate Functions",
+    // },
   ];
 
   const stats = [
