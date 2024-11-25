@@ -10,6 +10,38 @@ const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }
     starter: ''
   });
 
+  // Add this function inside the MenuCustomizer component
+const handleConfirmSelection = () => {
+  // Format the selected items into a readable message
+  const formatMessage = () => {
+    const menuItems = Object.entries(selectedItems)
+      .filter(([_, value]) => value) // Remove empty selections
+      .map(([category, item]) => `${category.charAt(0).toUpperCase() + category.slice(1)}: ${item}`)
+      .join('\n');
+
+    const message = `
+🍽️ New Menu Selection:
+Package: ${selectedPackage}
+Type: ${isVeg ? 'Vegetarian' : 'Non-Vegetarian'}
+
+Selected Items:
+${menuItems}
+    `.trim();
+
+    return encodeURIComponent(message);
+  };
+
+  // Create WhatsApp link with the formatted message
+  const whatsappNumber = "917288041656"; // Format: country code (91) + number without '+'
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${formatMessage()}`;
+  
+  // Open WhatsApp in a new tab
+  window.open(whatsappLink, '_blank');
+  
+  // Close the modal
+  onClose();
+};
+
   const menuOptions = {
     'Classic Veg Feast': {
       gravy: ['Paneer Butter Masala', 'Chole Masala', 'Mixed Veg Curry', 'Palak Paneer'],
@@ -130,13 +162,14 @@ const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }
           >
             Cancel
           </button>
-          <button
+         <button
             disabled={getItemsLeft() > 0}
+            onClick={handleConfirmSelection}
             className={`px-6 py-3 rounded-lg text-white ${
               getItemsLeft() > 0 ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'
             }`}
           >
-            Confirm Selection
+             Confirm Selection
           </button>
         </div>
       </div>
@@ -324,7 +357,7 @@ const FoodPackageSelector = () => {
               <div className="flex items-center border-2 border-gray-200 rounded-lg">
                 <button
                   onClick={decrementPeople}
-                  className="p-3 hover:bg-gray-100"
+                  className="p-3 hover:bg-gray-100 ml-5"
                 >
                   <Minus size={20} />
                 </button>
@@ -428,8 +461,8 @@ const FoodPackageSelector = () => {
                       <span>{item.time}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <DollarSign className="text-green-500" size={20} />
-                      <span>{item.price}</span>
+                     
+                      <span className="text-green-500" >{item.price}</span>
                     </div>
                   </div>
                   <button
