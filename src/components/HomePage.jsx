@@ -106,7 +106,12 @@ const Homepage = () => {
   };
 
   const handleFormSubmit = () => {
-    if (formData.name && formData.phone && formData.email && formData.city) {
+    
+  };
+  
+  const handleFormSubmit = (e) => {
+  e.preventDefault();
+if (formData.name && formData.phone && formData.email && formData.city) {
       localStorage.setItem("userDetails", JSON.stringify(formData));
       const expiryTime = Date.now() +   2 * 60 * 1000; 
       localStorage.setItem("formExpiry", expiryTime);
@@ -116,7 +121,29 @@ const Homepage = () => {
     } else {
       alert("Please fill out all fields.");
     }
-  };
+  fetch("https://formspree.io/f/{https://formspree.io/f/manydvog}", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      city: formData.city,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        // alert("Form submitted successfully!");
+        setShowForm(false);
+      } else {
+        alert("Failed to send email. Please try again.");
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+};
+
 
   const navigate = useNavigate();
 
