@@ -21,7 +21,7 @@ import mlb3 from "../assets/mlb3.jpeg";
 import mlb4 from "../assets/mlb4.jpeg";
 import mlb5 from "../assets/mlb5.jpeg";
 import dl from "../assets/dl.jpg";
-import dlb from "../assets/dlb.jpg";
+import dlb from "../assets/dlb.JPG";
 
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
