@@ -169,63 +169,64 @@ const Homepage = () => {
 
       {/* Menu Boxes Section */}
       <section className="py-12 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                id: 1,
-                title: "Mealbox",
-                description: "Personalized mealboxes for your daily cravings.",
-                image:
-                  "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
-                link: "/mealboxx",
-              },
-              {
-                id: 2,
-                title: "Delivery",
-                description: "Fast and fresh delivery, straight to your door.",
-                image:
-                  "https://new.caterninja.com/555.png",
-                link: "/deliverymenu",
-              },
-              {
-                id: 3,
-                title: "Catering",
-                description: "Exceptional catering for your special occasions.",
-                image:
-                  "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
-                link: "/menu",
-              },
-            ].map((box) => (
-              <motion.div
-                key={box.id}
-                whileHover={{ y: -5 }}
-                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden h-full"
-              >
-                <div className="h-48">
-                  <img
-                    src={box.image}
-                    alt={box.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">
-                    {box.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">{box.description}</p>
-                  <button
-                    onClick={() => handleKnowMoreClick(box.link)}
-                    className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
-                  >
-                    Know More
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+  <div className="max-w-5xl mx-auto">
+    <div className="flex gap-6 overflow-x-auto">
+      {[
+        {
+          id: 1,
+          title: "Mealbox",
+          description: "Personalized mealboxes for your daily cravings.",
+          image:
+            "https://new.caterninja.com/PackedMealBox/MealBoxImage.png",
+          link: "/mealboxx",
+        },
+        {
+          id: 2,
+          title: "Delivery",
+          description: "Fast and fresh delivery, straight to your door.",
+          image:
+            "https://new.caterninja.com/555.png",
+          link: "/deliverymenu",
+        },
+        {
+          id: 3,
+          title: "Catering",
+          description: "Exceptional catering for your special occasions.",
+          image:
+            "https://craftmyplate.com/wp-content/uploads/2024/03/Clip-path-group-3.png",
+          link: "/menu",
+        },
+      ].map((box) => (
+        <motion.div
+          key={box.id}
+          whileHover={{ y: -5 }}
+          className="min-w-[300px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden h-full"
+        >
+          <div className="h-48">
+            <img
+              src={box.image}
+              alt={box.title}
+              className="w-full h-full object-cover"
+            />
           </div>
-        </div>
-      </section>
+          <div className="p-4">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              {box.title}
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">{box.description}</p>
+            <button
+              onClick={() => handleKnowMoreClick(box.link)}
+              className="inline-block px-4 py-2 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition"
+            >
+              Know More
+            </button>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Form Modal */}
      {showForm && (
