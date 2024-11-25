@@ -15,11 +15,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import mlb1 from "./assets/mlb1.jpeg";
-import mlb2 from "./assets/mlb2.jpeg";
-import mlb3 from "./assets/mlb3.jpeg";
-import mlb4 from "./assets/mlb4.jpeg";
-import mlb5 from "./assets/mlb5.jpeg";
+import mlb1 from "../assets/mlb1.jpeg";
+import mlb2 from "../assets/mlb2.jpeg";
+import mlb3 from "../assets/mlb3.jpeg";
+import mlb4 from "../assets/mlb4.jpeg";
+import mlb5 from "../assets/mlb5.jpeg";
 
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
