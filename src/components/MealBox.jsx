@@ -1,5 +1,148 @@
 import React, { useState } from 'react';
-import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clock, Award, Star, DollarSign } from 'lucide-react';
+import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clock, Award, Star, DollarSign, X } from 'lucide-react';
+
+const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
+  const [selectedItems, setSelectedItems] = useState({
+    gravy: '',
+    dal: '',
+    bread: '',
+    dessert: '',
+    starter: ''
+  });
+
+  const menuOptions = {
+    'Classic Veg Feast': {
+      gravy: ['Paneer Butter Masala', 'Chole Masala', 'Mixed Veg Curry', 'Palak Paneer'],
+      dal: ['Dal Makhni', 'Dal Tadka', 'Dal Fry', 'Yellow Dal'],
+      bread: ['Naan', 'Roti', 'Peas Pulao', 'Jeera Rice'],
+      dessert: ['Gulab Jamun', 'Rasmalai', 'Ice Cream', 'Kheer'],
+      starter: ['Paneer Tikka', 'Veg Pakora', 'Aloo Tikki', 'Spring Roll']
+    },
+    'Exotic Veg Delight': {
+      gravy: ['Thai Green Curry', 'Mexican Bean Stew', 'Ratatouille', 'Mushroom Stroganoff'],
+      dal: ['Lentil Soup', 'Mediterranean Bean Stew', 'Mexican Bean Bowl', 'Moroccan Lentils'],
+      bread: ['Focaccia', 'Garlic Bread', 'Herb Rice', 'Couscous'],
+      dessert: ['Tiramisu', 'Panna Cotta', 'Churros', 'Baklava'],
+      starter: ['Bruschetta', 'Spring Rolls', 'Falafel', 'Hummus']
+    },
+    'Green Garden Special': {
+      gravy: ['Spinach Curry', 'Broccoli Almondine', 'Garden Vegetable Stew', 'Mushroom Masala'],
+      dal: ['Green Moong Dal', 'Sprouted Lentil Curry', 'Mixed Bean Stew', 'Quinoa Bowl'],
+      bread: ['Multigrain Roti', 'Brown Rice', 'Quinoa Pulao', 'Millet Rice'],
+      dessert: ['Fresh Fruit Platter', 'Sugar-free Kheer', 'Date Halwa', 'Fruit Yogurt'],
+      starter: ['Grilled Vegetables', 'Sprout Salad', 'Roasted Chickpeas', 'Cucumber Rolls']
+    },
+    'Royal Non-Veg Feast': {
+      gravy: ['Butter Chicken', 'Mutton Rogan Josh', 'Chicken Tikka Masala', 'Fish Curry'],
+      dal: ['Dal Makhni', 'Dal Tadka', 'Yellow Dal', 'Dal Fry'],
+      bread: ['Naan', 'Butter Naan', 'Chicken Biryani', 'Jeera Rice'],
+      dessert: ['Gulab Jamun', 'Rasmalai', 'Phirni', 'Zarda'],
+      starter: ['Chicken Tikka', 'Fish Amritsari', 'Seekh Kebab', 'Tandoori Wings']
+    },
+    'Grilled Heaven': {
+      gravy: ['Grilled Chicken Masala', 'BBQ Chicken', 'Pepper Chicken', 'Chicken Afgani'],
+      dal: ['Dal Makhni', 'Yellow Dal Tadka', 'Dal Fry', 'Masoor Dal'],
+      bread: ['Tandoori Roti', 'Butter Naan', 'Chicken Fried Rice', 'Jeera Rice'],
+      dessert: ['Gulab Jamun', 'Ice Cream', 'Rabri', 'Kheer'],
+      starter: ['Tandoori Chicken', 'Malai Tikka', 'Chicken 65', 'Chicken Lollipop']
+    }
+  };
+
+  const getRequiredSelections = () => {
+    switch(packageType) {
+      case '3CP':
+        return ['gravy', 'dal', 'bread'];
+      case '5CP':
+        return ['gravy', 'dal', 'bread', 'dessert', 'starter'];
+      case '8CP':
+        return ['gravy', 'dal', 'bread', 'dessert', 'starter', 'gravy2', 'dal2', 'bread2'];
+      default:
+        return [];
+    }
+  };
+
+  const getItemsLeft = () => {
+    const required = getRequiredSelections().length;
+    const selected = Object.values(selectedItems).filter(item => item).length;
+    return required - selected;
+  };
+
+  const handleSelect = (category, item) => {
+    setSelectedItems(prev => ({
+      ...prev,
+      [category]: item
+    }));
+  };
+
+  const CategorySelector = ({ category, options }) => (
+    <div className="mb-6">
+      <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
+        Select {category}
+      </label>
+      <div className="relative">
+        <select
+          value={selectedItems[category]}
+          onChange={(e) => handleSelect(category, e.target.value)}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none"
+        >
+          <option value="">Click here to select</option>
+          {options.map((item, index) => (
+            <option key={index} value={item}>{item}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+
+  if (!isOpen) return null;
+
+  const requiredSelections = getRequiredSelections();
+  const currentOptions = menuOptions[selectedPackage] || {};
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Curate your menu</h2>
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="mb-6">
+          <p className="text-sm text-gray-600">
+            Please select {requiredSelections.length} items • {getItemsLeft()} selections remaining
+          </p>
+        </div>
+
+        {requiredSelections.map((category, index) => (
+          <CategorySelector
+            key={index}
+            category={category}
+            options={currentOptions[category.replace(/\d+$/, '')] || []}
+          />
+        ))}
+
+        <div className="mt-8 flex justify-end gap-4">
+          <button
+            onClick={onClose}
+            className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={getItemsLeft() > 0}
+            className={`px-6 py-3 rounded-lg text-white ${
+              getItemsLeft() > 0 ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'
+            }`}
+          >
+            Confirm Selection
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const FoodPackageSelector = () => {
   const [selectedDate, setSelectedDate] = useState('');
@@ -7,6 +150,8 @@ const FoodPackageSelector = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedPackage, setSelectedPackage] = useState('3CP');
   const [isVeg, setIsVeg] = useState(true);
+  const [isMenuCustomizerOpen, setIsMenuCustomizerOpen] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -126,6 +271,11 @@ const FoodPackageSelector = () => {
   const incrementPeople = () => setPeopleCount(prev => prev + 1);
   const decrementPeople = () => setPeopleCount(prev => prev > 1 ? prev - 1 : 1);
 
+  const handleCustomizeClick = (item) => {
+    setSelectedMenuItem(item);
+    setIsMenuCustomizerOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -149,36 +299,9 @@ const FoodPackageSelector = () => {
                 min={today}
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500focus:border-transparent"
               />
             </div>
-
-            <div className="relative">
-  {/* Icon positioned at the top-left corner */}
-  <div className="absolute top-3 left-3">
-    <Users className="text-green-500" size={24} />
-  </div>
-  
-  {/* Counter section */}
-  <div className="flex items-center border-2 border-gray-200 rounded-lg pl-10"> 
-    {/* Added padding to the left of the button group to avoid overlap */}
-    <button
-      onClick={decrementPeople}
-      className="p-3 hover:bg-green-50 text-green-500"
-    >
-      <Minus size={20} />
-    </button>
-    <span className="flex-1 text-center text-lg">{peopleCount}</span>
-    <button
-      onClick={incrementPeople}
-      className="p-3 hover:bg-green-50 text-green-500"
-    >
-      <Plus size={20} />
-    </button>
-  </div>
-</div>
-
-
             <div className="relative">
               <div className="absolute top-3 left-3">
                 <MapPin className="text-green-500" size={24} />
@@ -188,112 +311,148 @@ const FoodPackageSelector = () => {
                 onChange={(e) => setSelectedCity(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent appearance-none"
               >
-                <option value="">Select a city</option>
+                <option value="">Select City</option>
                 {cities.map((city) => (
                   <option key={city} value={city}>{city}</option>
                 ))}
               </select>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 2: Package Selection */}
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Package Type Buttons */}
-        <div className="flex justify-center gap-6 mb-12">
-          {['3CP', '5CP', '8CP'].map((pkg) => (
-            <button
-              key={pkg}
-              onClick={() => setSelectedPackage(pkg)}
-              className={`group relative w-40 h-40 rounded-2xl overflow-hidden transition-transform transform hover:scale-105 ${
-                selectedPackage === pkg ? 'ring-4 ring-green-500' : ''
-              }`}
-            >
-              <img
-                src={packageImages[pkg]}
-                alt={`${pkg} Package`}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent group-hover:from-green-900">
-                <div className="absolute bottom-0 w-full p-4">
-                  <span className="text-white text-xl font-bold">{pkg}</span>
-                  <p className="text-green-50 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                    {pkg === '3CP' ? 'Perfect for small gatherings' :
-                     pkg === '5CP' ? 'Ideal for medium events' :
-                     'Best for large celebrations'}
-                  </p>
-                </div>
+            <div className="relative">
+              <div className="absolute top-3 left-3">
+                <Users className="text-green-500" size={24} />
               </div>
-            </button>
-          ))}
-        </div>
-
-        {/* Enhanced Veg/Non-Veg Toggle */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white shadow-md flex rounded-full p-1">
-            <button
-              onClick={() => setIsVeg(true)}
-              className={`px-8 py-3 rounded-full flex items-center gap-2 transition-colors ${
-                isVeg ? 'bg-green-500 text-white' : 'text-gray-600 hover:bg-green-50'
-              }`}
-            >
-              <Leaf size={20} />
-              Veg
-            </button>
-            <button
-              onClick={() => setIsVeg(false)}
-              className={`px-8 py-3 rounded-full flex items-center gap-2 transition-colors ${
-                !isVeg ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-red-50'
-              }`}
-            >
-              <Utensils size={20} />
-              Non-Veg
-            </button>
-          </div>
-        </div>
-
-        {/* Enhanced Package Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {packageData[selectedPackage][isVeg ? 'veg' : 'nonVeg'].map((item) => (
-            <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105">
-              <div className="relative">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-56 object-cover"
-                />
-                <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full flex items-center gap-1">
-                  <Star className="text-yellow-400" size={16} />
-                  <span className="text-sm font-medium">{item.rating}</span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-                <p className="text-gray-600 mb-4">{item.description}</p>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex items-center text-gray-600">
-                    <Clock size={16} className="mr-1" />
-                    <span className="text-sm">{item.time}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <Users size={16} className="mr-1" />
-                    <span className="text-sm">{peopleCount} people</span>
-                  </div>
-                  <div className="flex items-center text-green-500 font-semibold">
-{/*                     <DollarSign size={16} className="mr-1" /> */}
-                    <span>{item.price}</span>
-                  </div>
-                </div>
-                <button className="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
-                  Customize Package
-                  <ChevronRight size={20} />
+              <div className="flex items-center border-2 border-gray-200 rounded-lg">
+                <button
+                  onClick={decrementPeople}
+                  className="p-3 hover:bg-gray-100"
+                >
+                  <Minus size={20} />
+                </button>
+                <span className="flex-1 text-center">{peopleCount} People</span>
+                <button
+                  onClick={incrementPeople}
+                  className="p-3 hover:bg-gray-100"
+                >
+                  <Plus size={20} />
                 </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
+
+      {/* Section 2: Package Type Selection */}
+      <div className="max-w-4xl mx-auto px-4 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Object.keys(packageData).map((pkg) => (
+              <button
+                key={pkg}
+                onClick={() => setSelectedPackage(pkg)}
+                className={`p-4 rounded-xl border-2 transition-all ${
+                  selectedPackage === pkg
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-gray-200 hover:border-green-200'
+                }`}
+              >
+                <img
+                  src={packageImages[pkg]}
+                  alt={`${pkg} Package`}
+                  className="w-full h-32 object-cover rounded-lg mb-4"
+                />
+                <h3 className="font-semibold text-lg mb-2">{pkg} Package</h3>
+                <p className="text-sm text-gray-600">
+                  {pkg === '3CP' ? '3 Course Package' : 
+                   pkg === '5CP' ? '5 Course Package' : 
+                   '8 Course Package'}
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Section 3: Veg/Non-Veg Toggle */}
+      <div className="max-w-4xl mx-auto px-4 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
+          <div className="flex gap-4">
+            <button
+              onClick={() => setIsVeg(true)}
+              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
+              }`}
+            >
+              <Leaf className="mx-auto mb-2" size={24} />
+              <span className="block text-center">Vegetarian</span>
+            </button>
+            <button
+              onClick={() => setIsVeg(false)}
+              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                !isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
+              }`}
+            >
+              <Utensils className="mx-auto mb-2" size={24} />
+              <span className="block text-center">Non-Vegetarian</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Section 4: Menu Items */}
+      <div className="max-w-4xl mx-auto px-4 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Available Packages</h2>
+          <div className="grid grid-cols-1 gap-6">
+            {(packageData[selectedPackage]?.[isVeg ? 'veg' : 'nonVeg'] || []).map((item) => (
+              <div
+                key={item.id}
+                className="flex flex-col md:flex-row gap-6 p-6 border-2 border-gray-200 rounded-xl hover:border-green-200 transition-all"
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full md:w-48 h-48 object-cover rounded-lg"
+                />
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2">{item.name}</h3>
+                  <p className="text-gray-600 mb-4">{item.description}</p>
+                  <div className="flex flex-wrap gap-4 mb-4">
+                    <div className="flex items-center gap-2">
+                      <Star className="text-yellow-400" size={20} />
+                      <span>{item.rating}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="text-gray-400" size={20} />
+                      <span>{item.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="text-green-500" size={20} />
+                      <span>{item.price}</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleCustomizeClick(item)}
+                    className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all flex items-center gap-2"
+                  >
+                    Customize Menu
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <MenuCustomizer
+        isOpen={isMenuCustomizerOpen}
+        onClose={() => setIsMenuCustomizerOpen(false)}
+        packageType={selectedPackage}
+        selectedPackage={selectedMenuItem?.name}
+        isVeg={isVeg}
+      />
     </div>
   );
 };
