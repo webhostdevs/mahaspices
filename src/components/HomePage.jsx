@@ -105,9 +105,7 @@ const Homepage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFormSubmit = () => {
-    
-  };
+ 
   
   const handleFormSubmit = (e) => {
   e.preventDefault();
