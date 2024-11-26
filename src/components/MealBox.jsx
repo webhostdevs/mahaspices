@@ -711,6 +711,7 @@ const FoodPackageSelector = () => {
             isVeg={isVeg}
           />
         </>
+    )}
     </div>
   );
 };
