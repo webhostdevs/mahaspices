@@ -267,6 +267,69 @@ const Homepage = () => {
   </div>
 </section>
 
+{/* Form Modal */}
+{/*             {showForm && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+                  <button
+                    onClick={() => setShowForm(false)}
+                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                  >
+                    &times;
+                  </button>
+
+                  <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      name="city"
+                      placeholder="City"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border border-gray-300 rounded text-black"
+                    />
+                  </div>
+                  <button
+                    onClick={handleFormSubmit}
+                    className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            )} */}
+          </motion.div>
+        </div>
 
             
         {/* Background Carousel */}
