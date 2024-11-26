@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clock, Award, Star, DollarSign, X } from 'lucide-react';
-
+import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clock, Star, Phone, User, MapPinIcon, X } from 'lucide-react';
 const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
   const [selectedItems, setSelectedItems] = useState({
     gravy: '',
@@ -308,8 +307,233 @@ const FoodPackageSelector = () => {
     setSelectedMenuItem(item);
     setIsMenuCustomizerOpen(true);
   };
+const UserInfoModal = ({ isOpen, onSubmit }) => {
+  const today = new Date().toISOString().split('T')[0];
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    location: '',
+    date: '',
+    peopleCount: 1
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const validateForm = () => {
+    const nameValid = formData.name.trim().length > 2;
+    const phoneValid = /^[6-9]\d{9}$/.test(formData.phone);
+    const locationValid = formData.location.trim().length > 0;
+    const dateValid = formData.date !== '';
+    
+    setIsFormValid(nameValid && phoneValid && locationValid && dateValid);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    validateForm();
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setFormData(prev => ({
+      ...prev,
+      phone: value
+    }));
+    validateForm();
+  };
+
+  const incrementPeople = () => {
+    setFormData(prev => ({
+      ...prev,
+      peopleCount: prev.peopleCount + 1
+    }));
+  };
+
+  const decrementPeople = () => {
+    setFormData(prev => ({
+      ...prev,
+      peopleCount: prev.peopleCount > 1 ? prev.peopleCount - 1 : 1
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid) {
+      onSubmit(formData);
+    }
+  };
+
+  if (!isOpen) return null;
 
   return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-xl p-8 max-w-md w-full">
+        <h2 className="text-2xl font-bold mb-6 text-center">Let's Get Started!</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name
+            </label>
+            <div className="relative">
+              <User className="absolute left-3 top-3 text-green-500" size={20} />
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Phone Number
+            </label>
+            <div className="relative">
+              <Phone className="absolute left-3 top-3 text-green-500" size={20} />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handlePhoneChange}
+                placeholder="10-digit mobile number"
+                maxLength="10"
+                className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+            {formData.phone.length > 0 && !/^[6-9]\d{9}$/.test(formData.phone) && (
+              <p className="text-red-500 text-sm mt-1">
+                Please enter a valid 10-digit mobile number starting with 6-9
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Location
+            </label>
+            <div className="relative">
+              <MapPinIcon className="absolute left-3 top-3 text-green-500" size={20} />
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Your current city"
+                className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Event Date
+            </label>
+            <div className="relative">
+              <Calendar className="absolute left-3 top-3 text-green-500" size={20} />
+              <input
+                type="date"
+                name="date"
+                min={today}
+                value={formData.date}
+                onChange={handleChange}
+                className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Number of People
+            </label>
+            <div className="relative flex items-center border-2 border-gray-300 rounded-lg">
+              <button
+                type="button"
+                onClick={decrementPeople}
+                className="p-3 hover:bg-gray-100 ml-8"
+              >
+                <Minus size={20} />
+              </button>
+              <span className="flex-1 text-center">{formData.peopleCount} People</span>
+              <button
+                type="button"
+                onClick={incrementPeople}
+                className="p-3 hover:bg-gray-100"
+              >
+                <Plus size={20} />
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={!isFormValid}
+            className={`w-full py-3 rounded-lg text-white transition-all ${
+              isFormValid 
+                ? 'bg-green-500 hover:bg-green-600' 
+                : 'bg-gray-400 cursor-not-allowed'
+            }`}
+          >
+            Continue
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// Existing FoodPackageSelector and MenuCustomizer components remain the same
+const FoodPackageSelector = () => {
+  const [isUserModalOpen, setIsUserModalOpen] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
+  
+  // Existing state variables
+  const [selectedPackage, setSelectedPackage] = useState('3CP');
+  const [isVeg, setIsVeg] = useState(true);
+  const [isMenuCustomizerOpen, setIsMenuCustomizerOpen] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+
+  const handleUserInfoSubmit = (info) => {
+    setUserInfo(info);
+    setIsUserModalOpen(false);
+  };
+
+  return (
+     <div className="min-h-screen bg-gray-50">
+      <UserInfoModal 
+        isOpen={isUserModalOpen} 
+        onSubmit={handleUserInfoSubmit} 
+      />
+
+      {userInfo && (
+        <>
+          {/* User Info Banner */}
+          <div className="bg-green-500 text-white py-4 mb-8">
+            <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-semibold">Welcome, {userInfo.name}!</h2>
+                <p className="text-green-50">
+                  {userInfo.location} • {userInfo.peopleCount} People • {userInfo.date}
+                </p>
+              </div>
+              <button 
+                onClick={() => setIsUserModalOpen(true)} 
+                className="text-white underline"
+              >
+                Edit Details
+              </button>
+            </div>
+          </div>
+          
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-green-500 text-white py-8 mb-8">
@@ -479,13 +703,14 @@ const FoodPackageSelector = () => {
         </div>
       </div>
 
-      <MenuCustomizer
-        isOpen={isMenuCustomizerOpen}
-        onClose={() => setIsMenuCustomizerOpen(false)}
-        packageType={selectedPackage}
-        selectedPackage={selectedMenuItem?.name}
-        isVeg={isVeg}
-      />
+       <MenuCustomizer
+            isOpen={isMenuCustomizerOpen}
+            onClose={() => setIsMenuCustomizerOpen(false)}
+            packageType={selectedPackage}
+            selectedPackage={selectedMenuItem?.name}
+            isVeg={isVeg}
+          />
+        </>
     </div>
   );
 };
