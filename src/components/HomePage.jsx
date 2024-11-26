@@ -28,22 +28,13 @@ const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isFormFilled, setIsFormFilled] = useState(() => {
-    return localStorage.getItem("userDetails") !== null;
-  });
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    city: "",
-  });
-  const [showForm, setShowForm] = useState(false);
-  const [redirectLink, setRedirectLink] = useState("");
   const [menuBoxSlides, setMenuBoxSlides] = useState({
     mealbox: 0,
     delivery: 0,
     catering: 0
   });
+
+  const navigate = useNavigate();
 
   // Auto-advance main carousel
   useEffect(() => {
@@ -82,24 +73,6 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-  const checkExpiry = () => {
-    const expiry = localStorage.getItem("formExpiry");
-    if (expiry && Date.now() >= Number(expiry)) {
-      localStorage.removeItem("userDetails");
-      localStorage.removeItem("formExpiry");
-      setIsFormFilled(false);
-    }
-  };
-
-  const interval = setInterval(checkExpiry, 2000);
-
-  checkExpiry();
-
-  return () => clearInterval(interval);
-}, []);
-
-  
-  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -107,33 +80,9 @@ const Homepage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFormSubmit = () => {
-    if (formData.name && formData.phone && formData.email && formData.city) {
-      localStorage.setItem("userDetails", JSON.stringify(formData));
-      const expiryTime = Date.now() + 2 * 60 * 1000; 
-      localStorage.setItem("formExpiry", expiryTime);
-      setIsFormFilled(true);
-      setShowForm(false);
-      navigate(redirectLink); 
-    } else {
-      alert("Please fill out all fields.");
-    }
-  };
-
-  const navigate = useNavigate();
-
+  // Simplified navigation handler
   const handleKnowMoreClick = (link) => {
-    if (isFormFilled) {
-      navigate(link); 
-    } else {
-      setRedirectLink(link);
-      setShowForm(true);
-    }
+    navigate(link);
   };
 
   const images = [
@@ -214,123 +163,51 @@ const Homepage = () => {
               Maha Spice Caterers
             </h1>
 
-            <p className="text-xl max-w-2xl mx-auto text-gray-100">
-              Where tradition meets innovation in every dish we serve. 
-              Creating memorable moments through exceptional catering.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <button className="bg-green-600 text-white px-8 py-3 rounded-full font-medium hover:bg-green-700 transition-colors">
-                Book Now
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors">
-                View Menu
-              </button>
-            </div>
+           
 
             {/* Menu Boxes Section */}
-           <section className="py-12 px-4">
-  <div className="max-w-5xl mx-auto">
-    <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center">
-      {menuBoxes.map((box) => (
-        <motion.div
-          key={box.id}
-          whileHover={{ y: -5 }}
-          className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
-          onClick={() => handleKnowMoreClick(box.link)}
-        >
-          <div className="relative h-40 sm:h-52 overflow-hidden">
-            {box.images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`${box.title} ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                  box.currentSlide === index ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            ))}
-          </div>
-          <div className="p-4">
-            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-              {box.title}
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
-            <button
-              className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
-            >
-              Know More
-            </button>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-            {/* Form Modal */}
-            {showForm && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-                  <button
-                    onClick={() => setShowForm(false)}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                  >
-                    &times;
-                  </button>
-
-                  <h2 className="text-2xl font-bold mb-4 text-black">Fill out the form</h2>
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded text-black"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded text-black"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded text-black"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      name="city"
-                      placeholder="City"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded text-black"
-                    />
-                  </div>
-                  <button
-                    onClick={handleFormSubmit}
-                    className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-                  >
-                    Submit
-                  </button>
+            <section className="py-12 px-4">
+              <div className="max-w-5xl mx-auto">
+                <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center">
+                  {menuBoxes.map((box) => (
+                    <motion.div
+                      key={box.id}
+                      whileHover={{ y: -5 }}
+                      className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                      onClick={() => handleKnowMoreClick(box.link)}
+                    >
+                      <div className="relative h-40 sm:h-52 overflow-hidden">
+                        {box.images.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`${box.title} ${index + 1}`}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                              box.currentSlide === index ? "opacity-100" : "opacity-0"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                          {box.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
+                        <button
+                          className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
+                        >
+                          Know More
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
-            )}
+            </section>
           </motion.div>
         </div>
+
+            
 
         {/* Background Carousel */}
         <div className="absolute inset-0 w-full h-full">
