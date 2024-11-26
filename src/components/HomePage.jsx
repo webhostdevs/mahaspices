@@ -269,7 +269,7 @@ const Homepage = () => {
 
 
             {/* Form Modal */}
-            {showForm && (
+{/*             {showForm && (
               <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
                   <button
@@ -330,7 +330,7 @@ const Homepage = () => {
               </div>
             )}
           </motion.div>
-        </div>
+        </div> */}
 
         {/* Background Carousel */}
         <div className="absolute inset-0 w-full h-full">
