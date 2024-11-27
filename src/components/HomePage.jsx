@@ -288,8 +288,15 @@ const Homepage = () => {
               <div key={box.link} onClick={() => handleKnowMoreClick(box.link)} className="p-4 border">
                 <div>
                   {box.images.map((image, index) => (
-                    <img key={index} src={image} alt={`Image ${index + 1}`} className="w-full h-auto" />
-                  ))}
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`${box.title} ${index + 1}`}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                              box.currentSlide === index ? "opacity-100" : "opacity-0"
+                            }`}
+                          />
+                        ))}
                 </div>
           
                 <h3 className="font-bold text-lg">{box.title}</h3>
