@@ -17,7 +17,13 @@ const MenuSelection = () => {
   const [selectedItems, setSelectedItems] = useState({
     snacks: [],
     beverages: [],
-    sweets: []
+    sweets: [],
+    vegFries: [],
+    hotItems: [],
+    liveSweets: [],
+    salad: [],
+    dipsAndSpreads: [],
+
   });
   const [showPrices, setShowPrices] = useState(false);
   const [extraItemAlertOpen, setExtraItemAlertOpen] = useState(false);
