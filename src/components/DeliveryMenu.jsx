@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Users, Utensils, ChevronRight, ShoppingCart, Leaf, Check, AlertCircle, Plus, Minus, Calendar, MapPin, Phone, User, MapPinIcon, X } from 'lucide-react';
 import { menuItems, menuCategories } from './data';
@@ -352,26 +353,25 @@ const DeliveryMenu = () => {
             </div>
           </div>
 
-        {/* Rest of the menu interface */}
-        {parseInt(guestCount) >= 10 && menuType && (
-          <>
-            {/* Categories Navigation */}
-            <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
-              {menuCategories[menuType].map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
-                  className={`px-6 py-3 rounded-xl whitespace-nowrap transition-all transform hover:scale-105 ${
-                    selectedCategory === category.id
-                      ? 'bg-green-500 text-white shadow-lg'
-                      : 'bg-white hover:bg-green-50'
-                  }`}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
-
+          {/* Categories and Menu Items Rendering */}
+          {menuType && (
+            <>
+              {/* Categories Navigation */}
+              <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+                {menuCategories[menuType].map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategorySelect(category.id)}
+                    className={`px-6 py-3 rounded-xl whitespace-nowrap transition-all transform hover:scale-105 ${
+                      selectedCategory === category.id
+                        ? 'bg-green-500 text-white shadow-lg'
+                        : 'bg-white hover:bg-green-50'
+                    }`}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
             {/* Alert */}
             {showAlert && (
               <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center gap-3 animate-fade-in">
