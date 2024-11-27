@@ -166,7 +166,7 @@ const Homepage = () => {
            
 
             {/* Menu Boxes Section */}
-            <section className="py-12 px-4">
+            <section className="py-12 px-4 hidden sm:block"">
               <div className="max-w-4xl mx-auto">
                 <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
                   {menuBoxes.map((box) => (
