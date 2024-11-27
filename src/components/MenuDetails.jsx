@@ -7,13 +7,15 @@ const pricingData = {
   snacks: { basePrice: 70, extraItemPrice: 90 },
   dipsAndSpreads: { basePrice: 50 },
   beverages: { basePrice: 85, extraItemPrice: 130 },
-  salad: { basePrice: 60 },
+  salad: { basePrice: 50 },
   sweets: { basePrice: 75, extraItemPrice: 110 },
   hotItems: { basePrice: 90 },
   vegFries: { basePrice: 75, extraItemPrice: 95 }
 };
-
 const MenuSelection = () => {
+
+
+
   const [selectedItems, setSelectedItems] = useState({
     snacks: [],
     beverages: [],
@@ -66,7 +68,7 @@ const MenuSelection = () => {
     setExtraItemAlertOpen(false);
   };
 
- const calculatePrices = () => {
+  const calculatePrices = () => {
   // Log the data to debug
   console.log('pricingData:', pricingData);
   console.log('selectedItems:', selectedItems);
@@ -102,6 +104,29 @@ const MenuSelection = () => {
 
     return acc;
   }, {});
+
+  // Calculate subtotal, GST, and total price
+  const subtotal = Object.values(prices).reduce(
+    (total, section) => total + section.baseItemsPrice + section.extraItemsPrice, 
+    0
+  );
+
+  // Log the subtotal for debugging
+  console.log('Subtotal:', subtotal);
+
+  const gst = subtotal * 0.18; // 18% GST
+  const totalWithGST = subtotal + gst;
+
+  // Log the final values for debugging
+  console.log('GST:', gst);
+  console.log('Total with GST:', totalWithGST);
+
+  // Return the calculated values
+  return { prices, subtotal, gst, totalWithGST };
+};
+
+
+
   const isFormFilled = () => {
     // Check if minimum required items are selected
     const snacksSelected = selectedItems.snacks.length >= 6;
@@ -189,6 +214,15 @@ const MenuSelection = () => {
             </div>
           ))}
 
+
+
+
+
+
+
+
+
+          
           <button 
             onClick={() => setShowPrices(true)}
             disabled={!isFormFilled()}
