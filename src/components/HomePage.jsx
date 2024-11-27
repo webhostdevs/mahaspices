@@ -166,7 +166,7 @@ const Homepage = () => {
            
 
             {/* Menu Boxes Section */}
-            <section className="py-12 px-4 hidden sm:block"">
+            <section className="py-12 px-4 hidden sm:block">
               <div className="max-w-4xl mx-auto">
                 <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
                   {menuBoxes.map((box) => (
@@ -176,7 +176,8 @@ const Homepage = () => {
                       className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
-                      <div className="relative h-40 sm:h-52 overflow-hidden">
+                      <div className="relative h-40 sm:h-20 overflow-hidden"></div>
+
                         {box.images.map((image, index) => (
                           <img
                             key={index}
