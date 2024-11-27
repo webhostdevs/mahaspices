@@ -176,7 +176,7 @@ const Homepage = () => {
                       className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
-                      <div className="relative h-40 sm:h-20 overflow-hidden"></div>
+                      <div className="relative h-40 sm:h-20 overflow-hidden">
 
                         {box.images.map((image, index) => (
                           <img
