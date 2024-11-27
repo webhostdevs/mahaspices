@@ -279,50 +279,22 @@ const Homepage = () => {
       </section>
 
           {/*       only visible in small devices */}
-               
-{/*             {menuBoxes.map((box) => (
-              <div key={box.link} onClick={() => handleKnowMoreClick(box.link)} className="p-4 border">
-                <div>
-                  {box.images.map((image, index) => (
-                      <img
-                        key={index}
-                        src={image}
-                        alt={`${box.title} ${index + 1}`}
-                        className={`w-full h-auto object-cover transition-opacity duration-500 ${
-                          box.currentSlide === index ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                    ))}
-
-                </div>
-          
-                <h3 className="font-bold text-lg">{box.title}</h3>
-                <p className="text-gray-700">{box.description}</p>
-          
-                <button
-                  onClick={() => handleKnowMoreClick(box.link)}
-                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  Know More
-                </button>
-              </div>
-            ))}
-          </div> */}
-       <section > 
-                <div
-            className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
-            className="block md:hidden" // Visible on smaller devices
-          >
+ 
+             <section > 
+              <div
+                className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
+                className="block md:hidden" // Visible on smaller devices
+              >
                  
                 <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
                   {menuBoxes.map((box) => (
                     <motion.div
                       key={box.id}
                       whileHover={{ y: -5 }}
-                      className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                      className="flex-shrink-0 w-6 sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
-                      <div className="relative h-40 sm:h-52 overflow-hidden">
+                      <div className="relative h-60 sm:h-52 overflow-hidden">
 
                         {box.images.map((image, index) => (
                           <img
