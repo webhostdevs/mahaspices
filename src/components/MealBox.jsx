@@ -123,6 +123,10 @@ const UserInfoModal = ({ isOpen, onSubmit }) => {
   // Move the null check to the top of the component
   if (!isOpen) return null;
   const navigate = useNavigate();
+   const handleCancel = () => {
+    onClose(); 
+    navigate('/');
+  };
 
   const today = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState({
@@ -357,6 +361,7 @@ const handleUserInfoSubmit = (info) => {
 const FoodPackageSelector = () => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
+   const navigate = useNavigate();
   
   // Added missing state variables
   const [selectedDate, setSelectedDate] = useState(today);
@@ -412,6 +417,11 @@ const FoodPackageSelector = () => {
     setIsMenuCustomizerOpen(true);
   };
 
+   const handleUserInfoModalClose = () => {
+    setIsUserModalOpen(false);
+    navigate('/'); // Navigate back to home page when modal is closed
+  };
+
   // Placeholder for MenuCustomizer component
   const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
     if (!isOpen) return null;
@@ -432,6 +442,7 @@ const FoodPackageSelector = () => {
       <UserInfoModal 
         isOpen={isUserModalOpen} 
         onSubmit={handleUserInfoSubmit} 
+        onClose={handleUserInfoModalClose} 
       />
 
       {userInfo && (
