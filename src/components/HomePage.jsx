@@ -24,24 +24,7 @@ import dl from "../assets/dl.jpg";
 import dlb from "../assets/dlb.png";
 import delbox from "../assets/delbox.png";
 
-const RotatingHeadings = () => {
-  const headings = [
-    "Maintaining Food Safety & Hygiene and we serve all type of catering services",
-    "ISO 22000:1800 safety management certification",
-    "We serve hygiene and safe food for all celebrations"
-  ];
 
-  const [currentHeadingIndex, setCurrentHeadingIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeadingIndex((prevIndex) => 
-        (prevIndex + 1) % headings.length
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
   
 const Homepage = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -182,21 +165,7 @@ const Homepage = () => {
           >
             <br />
             <br />
-          <div className="relative h-10 overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.h3
-          key={currentHeadingIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-          className="absolute text-lg sm:text-xl font-bold mb-2 w-full"
-        >
-          {headings[currentHeadingIndex]}
-        </motion.h3>
-      </AnimatePresence>
-    </div>
-           
+            <RotatingHeadings />
 
             {/* Menu Boxes Section */}
             <section className="py-12 px-4 hidden sm:block">
