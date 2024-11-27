@@ -279,11 +279,7 @@ const Homepage = () => {
       </section>
 
           {/*       only visible in small devices */}
-                <section > 
-                <div
-            className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
-            className="block md:hidden" // Visible on smaller devices
-          >
+               
 {/*             {menuBoxes.map((box) => (
               <div key={box.link} onClick={() => handleKnowMoreClick(box.link)} className="p-4 border">
                 <div>
@@ -312,7 +308,12 @@ const Homepage = () => {
               </div>
             ))}
           </div> */}
-                  <div className="max-w-4xl mx-auto">
+       <section > 
+                <div
+            className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
+            className="block md:hidden" // Visible on smaller devices
+          >
+                 
                 <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
                   {menuBoxes.map((box) => (
                     <motion.div
