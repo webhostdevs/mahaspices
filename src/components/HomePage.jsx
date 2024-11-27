@@ -280,7 +280,7 @@ const Homepage = () => {
 
           {/*       only visible in small devices */}
  
-             <section > 
+             <section className=" mx-4 my-4 " > 
               <div
                 className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
                 className="block md:hidden" // Visible on smaller devices
