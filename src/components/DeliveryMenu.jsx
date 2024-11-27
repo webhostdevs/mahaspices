@@ -223,13 +223,17 @@ const DeliveryMenu = () => {
     
     // Add selected items by category
     message += "*Selected Items:*\n";
-    Object.entries(selectedItems).forEach(([category, items]) => {
-      const categoryName = menuCategories[menuType].find(cat => cat.id === category)?.name;
-      message += `\n *${categoryName}*\n`;
-      items.forEach(item => {
-        message += `- ${item.name}\n`;
-      });
+ Object.entries(selectedItems).forEach(([category, items]) => {
+  if (!items || items.length === 0) return;  // Skip if no items
+
+  const categoryName = menuCategories[menuType]?.find(cat => cat.id === category)?.name;
+  if (categoryName) {
+    message += `\n *${categoryName}*\n`;
+    items.forEach(item => {
+      message += `- ${item.name}\n`;
     });
+  }
+});
 
     // Add total items
     message += `\n*Total Items Selected:* ${getTotalSelectedItems()}`;
@@ -252,11 +256,16 @@ const DeliveryMenu = () => {
     window.open(whatsappURL, '_blank');
   };
 
-  const handleMenuTypeSelect = (type) => {
+ const handleMenuTypeSelect = (type) => {
+  if (menuCategories[type]) {  // Ensure menuCategories[type] exists
     setMenuType(type);
     const firstCategory = menuCategories[type][0]?.id;
     setSelectedCategory(firstCategory);
-  };
+  } else {
+    console.error("Invalid menu type selected:", type);
+  }
+};
+
 
   const handleCategorySelect = (categoryId) => {
     setSelectedCategory(categoryId);
@@ -269,7 +278,7 @@ const DeliveryMenu = () => {
 
   const handleAddItem = (item) => {
     const currentCategoryItems = selectedItems[selectedCategory] || [];
-    const categoryLimit = menuCategories[menuType].find(cat => cat.id === selectedCategory).limit;
+    const categoryLimit = menuCategories[menuType]?.find(cat => cat.id === selectedCategory)?.limit || 0;
 
     if (isItemSelected(item)) {
       setSelectedItems(prev => ({
