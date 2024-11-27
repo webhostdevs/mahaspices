@@ -186,7 +186,7 @@ We serve hygiene and safe food for all celebrations
                 key={index}
                 src={image}
                 alt={`${box.title} ${index + 1}`}
-                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
                   box.currentSlide === index ? "opacity-100" : "opacity-0"
                 }`}
               />
