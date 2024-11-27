@@ -176,30 +176,35 @@ const Homepage = () => {
                       className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
-                      <div className="relative h-40 sm:h-52 overflow-hidden">
+                      <div className="relative w-full h-full aspect-w-1 aspect-h-1 overflow-hidden">
+                            {box.images.map((image, index) => (
+                              <img
+                                key={index}
+                                src={image}
+                                alt={`${box.title} ${index + 1}`}
+                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                                  box.currentSlide === index ? "opacity-100" : "opacity-0"
+                                }`}
+                              />
+                            ))}
+                          
+                            {/* Fade effect and content */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50"></div>
+                            
+                           <div className="p-4">
+                                <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                                  {box.title}
+                                </h3>
+                                <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
+                                <button
+                                  className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
+                                >
+                                  Know More
+                                </button>
+                          </div>
+                      </div>
 
-                        {box.images.map((image, index) => (
-                          <img
-                            key={index}
-                            src={image}
-                            alt={`${box.title} ${index + 1}`}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                              box.currentSlide === index ? "opacity-100" : "opacity-0"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                          {box.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
-                        <button
-                          className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
-                        >
-                          Know More
-                        </button>
-                      </div>
+                      
                     </motion.div>
                   ))}
                 </div>
