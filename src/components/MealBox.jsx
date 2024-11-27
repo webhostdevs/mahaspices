@@ -119,7 +119,7 @@ const handleCancel = () => {
   navigate('/');
 };
 
-const UserInfoModal = ({ isOpen, onSubmit }) => {
+const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
   // Move the null check to the top of the component
   if (!isOpen) return null;
   const navigate = useNavigate();
