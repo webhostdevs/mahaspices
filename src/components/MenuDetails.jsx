@@ -66,33 +66,42 @@ const MenuSelection = () => {
     setExtraItemAlertOpen(false);
   };
 
-  const calculatePrices = () => {
-    const prices = Object.keys(selectedItems).reduce((acc, section) => {
-      const sectionLimit = menuSections[section].limit;
-      const baseItems = selectedItems[section].slice(0, sectionLimit);
-      const extraItems = selectedItems[section].slice(sectionLimit);
+ const calculatePrices = () => {
+  // Log the data to debug
+  console.log('pricingData:', pricingData);
+  console.log('selectedItems:', selectedItems);
+  console.log('menuSections:', menuSections);
 
-      acc[section] = {
-        baseItemsCount: baseItems.length,
-        baseItemsPrice: baseItems.length * pricingData[section].basePrice,
-        extraItemsCount: extraItems.length,
-        extraItemsPrice: extraItems.length * pricingData[section].extraItemPrice
-      };
+  const prices = Object.keys(selectedItems).reduce((acc, section) => {
+    // Ensure pricing data exists for the section
+    const sectionData = pricingData[section] || {};
+    const basePrice = sectionData.basePrice || 0;
+    const extraItemPrice = sectionData.extraItemPrice || 0;
 
-      return acc;
-    }, {});
+    // Check if basePrice and extraItemPrice are valid
+    if (basePrice === 0) {
+      console.error(`Missing basePrice for section: ${section}`);
+    }
+    if (extraItemPrice === 0) {
+      console.error(`Missing extraItemPrice for section: ${section}`);
+    }
 
-    const subtotal = Object.values(prices).reduce(
-      (total, section) => total + section.baseItemsPrice + section.extraItemsPrice, 
-      0
-    );
+    // Ensure section exists in selectedItems
+    const sectionLimit = menuSections[section] ? menuSections[section].limit : 0;
+    const selectedItemsForSection = selectedItems[section] || [];
 
-    const gst = subtotal * 0.18; // 18% GST
-    const totalWithGST = subtotal + gst;
+    const baseItems = selectedItemsForSection.slice(0, sectionLimit);
+    const extraItems = selectedItemsForSection.slice(sectionLimit);
 
-    return { prices, subtotal, gst, totalWithGST };
-  };
+    acc[section] = {
+      baseItemsCount: baseItems.length,
+      baseItemsPrice: baseItems.length * basePrice,
+      extraItemsCount: extraItems.length,
+      extraItemsPrice: extraItems.length * extraItemPrice
+    };
 
+    return acc;
+  }, {});
   const isFormFilled = () => {
     // Check if minimum required items are selected
     const snacksSelected = selectedItems.snacks.length >= 6;
