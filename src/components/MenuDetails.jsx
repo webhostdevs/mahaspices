@@ -1,162 +1,248 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
 
-const MenuDetails = () => {
-  const { categoryName } = useParams();
-  const [menuItems, setMenuItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [categoryDetails, setCategoryDetails] = useState(null);
-  const [selectedItems, setSelectedItems] = useState({});
-  const [selectedCount, setSelectedCount] = useState(0);
+const menuSections = {
+  snacks: {
+    title: 'PASS AROUND SNACKS-VEG',
+    limit: 6,
+    items: [
+      'Cheese Balls', 'Cheese Potato Wedges Melt', 'Cheese Tart', 
+      'Cocktail corn samosa', 'Corn Cheese Kabab', 'Corn Fitters', 
+      'Corn Palak Roll', 'Crunchy Baby Corn', 'Cut Mirchi', 
+      'Gold Coin', 'Golden Fried Baby Corn', 'Hara bhara Kabab', 
+      'Masala Potato Fingers', 'Paneer Kesar Tikka', 'Paneer Shashlik', 
+      'Potato Croquettes', 'Veg. Corn Rolls', 'Veg. Seekh Kabab', 
+      'Veg. Shashlik', 'Veg. Tart'
+    ]
+  },
+  beverages: {
+    title: 'BEVERAGES',
+    limit: 1,
+    items: [
+      'Water Melon', 'Pineapple', 'Musk Melon', 'Sugar Cane', 
+      'Coconut Delight', 'Fruit Punch', 'Mango Masti', 'Litchi Punch', 
+      'Grapes Pulpy kulfi', 'Orange Punch', 'Soft drinks'
+    ]
+  },
+  sweets: {
+    title: 'SWEETS',
+    limit: 2,
+    items: [
+      'Badam Halwa', 'Mixed Fruit Halwa', 'Double Ka Meetha', 
+      'Carrot Green Mixed Halwa', 'Qhubani Ka Meetha', 'Junnu', 
+      'Pistabhog', 'Dry Chum Chum', 'Honey Belam Jalebi', 
+      'Pineapple Jalebi', 'Tawa Mix Sweet', 'American Mal Puri', 
+      'Baked Rasgulla', 'Gajrela', 'Basundi'
+    ]
+  }
+};
 
-  useEffect(() => {
-    fetchMenuItems();
-  }, [categoryName]);
+const pricingData = {
+  snacks: { basePrice: 50, extraItemPrice: 75 },
+  beverages: { basePrice: 75, extraItemPrice: 100 },
+  sweets: { basePrice: 60, extraItemPrice: 85 }
+};
 
-  const fetchMenuItems = async () => {
-    try {
-      const response = await fetch(
-        `https://bookmycater.freewebhostmost.com/getMenuItems.php?menuType=${encodeURIComponent(categoryName)}`
-      );
-      const data = await response.json();
+const MenuSelection = () => {
+  const [selectedItems, setSelectedItems] = useState({
+    snacks: [],
+    beverages: [],
+    sweets: []
+  });
+  const [showPrices, setShowPrices] = useState(false);
+  const [extraItemAlertOpen, setExtraItemAlertOpen] = useState(false);
+  const [extraItemSection, setExtraItemSection] = useState('');
+  const [extraItemToAdd, setExtraItemToAdd] = useState('');
 
-      if (data.status === "success") {
-        setMenuItems(data.data.items || []);
-        setCategoryDetails(data.data.category || null);
-      } else {
-        setError(data.message);
-      }
-    } catch (err) {
-      setError("Failed to fetch menu items");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const toggleItemSelection = (section, item) => {
+    const currentSelections = selectedItems[section];
+    const sectionLimit = menuSections[section].limit;
 
-  const toggleSelection = (itemId) => {
-    if (selectedItems[itemId]) {
-      // Deselecting an item
-      setSelectedItems((prev) => {
-        const updated = { ...prev };
-        delete updated[itemId];
-        return updated;
+    // If already selected, deselect
+    if (currentSelections.includes(item)) {
+      setSelectedItems({
+        ...selectedItems,
+        [section]: currentSelections.filter(selected => selected !== item)
       });
-      setSelectedCount((prev) => prev - 1);
+      return;
+    }
+
+    // If within limit, select normally
+    if (currentSelections.length < sectionLimit) {
+      setSelectedItems({
+        ...selectedItems,
+        [section]: [...currentSelections, item]
+      });
     } else {
-      // Attempting to select an item
-      if (selectedCount < 3) {
-        // Within limit
-        setSelectedItems((prev) => ({
-          ...prev,
-          [itemId]: true,
-        }));
-        setSelectedCount((prev) => prev + 1);
-      } else {
-        // Beyond limit - ask for confirmation
-        const confirmExtraCharge = window.confirm(
-          "Limit reached. This item will be charged extra. Do you want to proceed?"
-        );
-        if (confirmExtraCharge) {
-          setSelectedItems((prev) => ({
-            ...prev,
-            [itemId]: true,
-          }));
-          setSelectedCount((prev) => prev + 1);
-        }
-      }
+      // Open alert for extra item
+      setExtraItemSection(section);
+      setExtraItemToAdd(item);
+      setExtraItemAlertOpen(true);
     }
   };
 
-  const getImageUrl = (imageUrl) => {
-    if (imageUrl && !imageUrl.startsWith("http")) {
-      return `https://bookmycater.freewebhostmost.com/${imageUrl}`;
-    }
-    return imageUrl;
+  const handleExtraItemConfirm = () => {
+    const currentSelections = selectedItems[extraItemSection];
+    setSelectedItems({
+      ...selectedItems,
+      [extraItemSection]: [...currentSelections, extraItemToAdd]
+    });
+    setExtraItemAlertOpen(false);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
-      </div>
-    );
-  }
+  const calculatePrices = () => {
+    const prices = Object.keys(selectedItems).reduce((acc, section) => {
+      const sectionLimit = menuSections[section].limit;
+      const baseItems = selectedItems[section].slice(0, sectionLimit);
+      const extraItems = selectedItems[section].slice(sectionLimit);
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-red-500 text-center">
-          <p className="text-xl mb-4">{error}</p>
-          <button
-            onClick={fetchMenuItems}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
+      acc[section] = {
+        baseItemsCount: baseItems.length,
+        baseItemsPrice: baseItems.length * pricingData[section].basePrice,
+        extraItemsCount: extraItems.length,
+        extraItemsPrice: extraItems.length * pricingData[section].extraItemPrice
+      };
+
+      return acc;
+    }, {});
+
+    const subtotal = Object.values(prices).reduce(
+      (total, section) => total + section.baseItemsPrice + section.extraItemsPrice, 
+      0
     );
-  }
+
+    const gst = subtotal * 0.18; // 18% GST
+    const totalWithGST = subtotal + gst;
+
+    return { prices, subtotal, gst, totalWithGST };
+  };
+
+  const isFormFilled = () => {
+    // Check if minimum required items are selected
+    const snacksSelected = selectedItems.snacks.length >= 6;
+    const beveragesSelected = selectedItems.beverages.length >= 1;
+    const sweetsSelected = selectedItems.sweets.length >= 2;
+
+    return snacksSelected && beveragesSelected && sweetsSelected;
+  };
+
+  const renderPriceBreakdown = () => {
+    const { prices, subtotal, gst, totalWithGST } = calculatePrices();
+
+    return (
+        <div className="mt-6 p-4 bg-gray-100 rounded">
+        <ul className="pt-2 space-y-2">
+          <li>
+            <strong>Subtotal:</strong> ₹{subtotal.toFixed(2)}
+          </li>
+          <li>
+            <strong>GST (18%):</strong> ₹{gst.toFixed(2)}
+          </li>
+          <li className="text-lg font-bold">
+            <strong>Total Price:</strong> ₹{totalWithGST.toFixed(2)}
+          </li>
+        </ul>
+        <button
+          onClick={() => {
+            const message = encodeURIComponent(
+              `*Order Summary:*\n\n` +
+              `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
+              `*GST (18%):* ₹${gst.toFixed(2)}\n` +
+              `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
+              `*Selected Items:*\n\n` +
+              Object.entries(selectedItems)
+                .map(
+                  ([section, items]) =>
+                    `*${section.toUpperCase()}:*\n${items
+                      .map((item) => `- ${item}`)
+                      .join("\n") || "- None"}`
+                )
+                .join("\n\n")
+            );
+            window.open(`https://wa.me/7288041656?text=${message}`, "_blank");
+          }}
+          className="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+        >
+          Proceed to Pay
+        </button>
+      </div>
+      
+    );
+  };
 
   return (
-    <div className="bg-white py-10 px-5">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-green-600 mb-4">
-            {categoryDetails?.category_name || categoryName}
-          </h1>
-          {categoryDetails?.description && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              {categoryDetails.description}
-            </p>
-          )}
-        </div>
-
-        {menuItems.some((item) => item.types === "Beverages") && (
-          <h2 className="text-3xl font-bold text-green-600 mb-8 text-center">
-            Beverages
-          </h2>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {menuItems.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
-            >
-              <img
-                src={getImageUrl(item.item_image)}
-                alt={item.item_name}
-                className="w-full h-64 object-cover"
-                onError={(e) => {
-                  e.target.src = "/placeholder.jpg";
-                  e.target.alt = "Item image not found";
-                }}
-              />
-
-              <div className="p-4 flex flex-col items-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.item_name}
-                </h3>
-
-                <button
-                  className={`w-full py-2 rounded transition-colors duration-300 ${
-                    selectedItems[item.id]
-                      ? "bg-blue-600 text-white hover:bg-blue-700"
-                      : "bg-green-600 text-white hover:bg-green-700"
-                  }`}
-                  onClick={() => toggleSelection(item.id)}
-                >
-                  {selectedItems[item.id] ? "Selected" : "Select"}
-                </button>
+    <>
+      <div className="w-full max-w-4xl mx-auto p-6 bg-white shadow-2xl rounded-lg m-5">
+        <h1 className='text-2xl font-bold mb-8 text-green-600 text-center'>Catering Menu</h1>
+        <div>
+          {Object.entries(menuSections).map(([section, { title, limit, items }]) => (
+            <div key={section} className="mb-6">
+              <h3 className="text-lg font-semibold mb-4">
+                {title} (Select {limit} items)
+              </h3>
+              <div className="grid grid-cols-3 gap-2">
+                {items.map(item => (
+                  <div key={item} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id={`${section}-${item}`}
+                      checked={selectedItems[section].includes(item)}
+                      onChange={() => toggleItemSelection(section, item)}
+                    />
+                    <label
+                      htmlFor={`${section}-${item}`}
+                      className="text-sm font-medium"
+                    >
+                      {item}
+                    </label>
+                  </div>
+                ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                Selected: {selectedItems[section].length} / {limit}
+              </p>
             </div>
           ))}
+
+          <button 
+            onClick={() => setShowPrices(true)}
+            disabled={!isFormFilled()}
+            className="mt-4 w-full bg-green-500 text-white py-2 rounded-md"
+          >
+            View Prices
+          </button>
+
+          {showPrices && renderPriceBreakdown()}
         </div>
       </div>
-    </div>
+
+      {/* Extra Item Alert Dialog */}
+      {extraItemAlertOpen && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <h4 className="text-lg font-bold mb-4">Extra Item Charge</h4>
+            <p>
+              You've selected more items than the base package limit. 
+              This item will be charged at a higher rate. Do you want to proceed?
+            </p>
+            <div className="mt-4 flex justify-end space-x-4">
+              <button
+                onClick={() => setExtraItemAlertOpen(false)}
+                className="bg-gray-300 px-4 py-2 rounded-md"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleExtraItemConfirm}
+                className="bg-green-500 text-white px-4 py-2 rounded-md"
+              >
+                Add Item
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default MenuDetails;
+export default MenuSelection;
