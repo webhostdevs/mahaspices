@@ -177,33 +177,35 @@ const Homepage = () => {
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
                       <div className="relative w-full h-full aspect-w-1 aspect-h-1 overflow-hidden">
-                            {box.images.map((image, index) => (
-                              <img
-                                key={index}
-                                src={image}
-                                alt={`${box.title} ${index + 1}`}
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                                  box.currentSlide === index ? "opacity-100" : "opacity-0"
-                                }`}
-                              />
-                            ))}
+  {box.images.map((image, index) => (
+    <img
+      key={index}
+      src={image}
+      alt={`${box.title} ${index + 1}`}
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+        box.currentSlide === index ? "opacity-100" : "opacity-0"
+      }`}
+    />
+  ))}
 
-                      {/* Fade effect */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+  {/* Fade effect */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none"></div>
 
-                          {/* Content (Title, Description, and Button) */}
-                          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
-                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                              {box.title}
-                            </h3>
-                            <p className="text-xs sm:text-sm text-gray-200 mb-4">{box.description}</p>
-                            <button
-                              className="inline-block px-4 py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
-                            >
-                              Know More
-                            </button>
-                          </div>
-                        </div>
+  {/* Content (Title, Description, and Button) */}
+  <div className="absolute bottom-0 left-0 right-0 p-4">
+    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 z-10 relative">
+      {box.title}
+    </h3>
+    <p className="text-xs sm:text-sm text-gray-200 mb-4 z-10 relative">
+      {box.description}
+    </p>
+    <button
+      className="inline-block px-4 py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition z-10 relative"
+    >
+      Know More
+    </button>
+  </div>
+</div>
 
 
                       
