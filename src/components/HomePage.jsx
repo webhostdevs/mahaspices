@@ -291,7 +291,7 @@ const Homepage = () => {
                     <motion.div
                       key={box.id}
                       whileHover={{ y: -5 }}
-                      className="flex-shrink-0 w-6 sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                      className="flex-shrink-0 w-85 sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                       onClick={() => handleKnowMoreClick(box.link)}
                     >
                       <div className="relative h-60 sm:h-52 overflow-hidden">
