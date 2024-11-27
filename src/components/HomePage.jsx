@@ -176,7 +176,7 @@ We serve hygiene and safe food for all celebrations
         <motion.div
           key={box.id}
           whileHover={{ y: -5 }}
-          className="flex-shrink-0 w-[300px] sm:w-[300px] h-[300px] relative rounded-lg shadow-lg overflow-hidden cursor-pointer"
+          className="flex-shrink-0 w-[300px] sm:w-[270px] h-[300px] relative rounded-lg shadow-lg overflow-hidden cursor-pointer"
           onClick={() => handleKnowMoreClick(box.link)}
         >
           {/* Image Slider */}
