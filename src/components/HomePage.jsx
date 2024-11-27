@@ -278,6 +278,34 @@ const Homepage = () => {
         </div>
       </section>
 
+          {/*       only visible in small devices */}
+                
+                <div
+            className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
+            className="block md:hidden" // Visible on smaller devices
+          >
+            {menuBoxes.map((box) => (
+              <div key={box.link} onClick={() => handleKnowMoreClick(box.link)} className="p-4 border">
+                <div>
+                  {box.images.map((image, index) => (
+                    <img key={index} src={image} alt={`Image ${index + 1}`} className="w-full h-auto" />
+                  ))}
+                </div>
+          
+                <h3 className="font-bold text-lg">{box.title}</h3>
+                <p className="text-gray-700">{box.description}</p>
+          
+                <button
+                  onClick={() => handleKnowMoreClick(box.link)}
+                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Know More
+                </button>
+              </div>
+            ))}
+          </div>
+
+
       {/* Services Grid */}
       <section className="py-24 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
