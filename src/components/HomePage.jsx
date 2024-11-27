@@ -279,7 +279,7 @@ const Homepage = () => {
       </section>
 
           {/*       only visible in small devices */}
-                
+                <section > 
                 <div
             className="hidden md:block lg:block xl:block" // Hidden by default on medium and larger devices
             className="block md:hidden" // Visible on smaller devices
@@ -304,6 +304,7 @@ const Homepage = () => {
               </div>
             ))}
           </div>
+        </section >
 
 
       {/* Services Grid */}
