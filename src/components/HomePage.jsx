@@ -162,8 +162,10 @@ const Homepage = () => {
           >
             <br />
             <br />
-           
-
+           <h3>Maintaining Food Safety & Hygiene and we serve all type of catering services</h3>
+{/* ISO 22000:1800 safety management certification
+We serve hygiene and safe food for all celebrations
+*/}
            
 
             {/* Menu Boxes Section */}
@@ -203,7 +205,7 @@ const Homepage = () => {
             <button
               className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
             >
-              Know More
+              Book Now
             </button>
           </div>
         </motion.div>
