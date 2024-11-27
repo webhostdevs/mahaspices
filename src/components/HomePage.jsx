@@ -168,46 +168,39 @@ const Homepage = () => {
             {/* Menu Boxes Section */}
             <section className="py-12 px-4 hidden sm:block">
               <div className="max-w-4xl mx-auto">
-                <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
-                  {menuBoxes.map((box) => (
-                    <motion.div
-                      key={box.id}
-                      whileHover={{ y: -5 }}
-                      className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
-                      onClick={() => handleKnowMoreClick(box.link)}
-                    >
-                     <div className="relative w-full h-full aspect-w-1 aspect-h-1 overflow-hidden">
-                            {box.images.map((image, index) => (
-                              <img
-                                key={index}
-                                src={image}
-                                alt={`${box.title} ${index + 1}`}
-                                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                                  box.currentSlide === index ? "opacity-100" : "opacity-0"
-                                }`}
-                              />
-                            ))}
-                          
-                            {/* Fade effect and content */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50"></div>
-                            
-                           <div className="p-4">
-                                <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                                  {box.title}
-                                </h3>
-                                <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
-                                <button
-                                  className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
-                                >
-                                  Know More
-                                </button>
-                          </div>
-                      </div>
+               <div className="flex flex-wrap gap-4 justify-center">
+  {menuBoxes.map((box) => (
+    <motion.div
+      key={box.id}
+      whileHover={{ y: -5 }}
+      className="relative w-full sm:w-[45%] lg:w-[30%] aspect-square bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+      onClick={() => handleKnowMoreClick(box.link)}
+    >
+      {/* Image Slider */}
+      <div className="relative h-full w-full overflow-hidden">
+        {box.images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`${box.title} ${index + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              box.currentSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+      </div>
 
-                      
-                    </motion.div>
-                  ))}
-                </div>
+      {/* Overlay with Fade Effect */}
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/70 to-transparent p-4 flex flex-col justify-end transition-opacity duration-300 ease-in-out">
+        <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{box.title}</h3>
+        <button className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition">
+          Know More
+        </button>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
               </div>
             </section>
           </motion.div>
