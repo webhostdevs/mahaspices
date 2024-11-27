@@ -167,8 +167,8 @@ const Homepage = () => {
 
             {/* Menu Boxes Section */}
             <section className="py-12 px-4">
-              <div className="max-w-5xl mx-auto">
-                <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center">
+              <div className="max-w-4xl mx-auto">
+                <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
                   {menuBoxes.map((box) => (
                     <motion.div
                       key={box.id}
