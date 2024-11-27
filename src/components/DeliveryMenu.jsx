@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Users, Utensils, ChevronRight, ShoppingCart, Leaf, Check, AlertCircle, Plus, Minus, Calendar, MapPin, Phone, User, MapPinIcon, X } from 'lucide-react';
+import { Users, Utensils, ShoppingCart, Leaf, Check, AlertCircle, X, User, Phone, MapPinIcon, Calendar } from 'lucide-react';
 import { menuItems, menuCategories } from './data';
 
 const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
@@ -12,7 +11,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     phone: '',
     location: '',
     date: '',
-    peopleCount: 1
+    guestCount: ''
   });
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -25,8 +24,9 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     const phoneValid = /^[6-9]\d{9}$/.test(formData.phone);
     const locationValid = formData.location.trim().length > 0;
     const dateValid = formData.date !== '';
+    const guestCountValid = parseInt(formData.guestCount) >= 10;
     
-    const formIsValid = nameValid && phoneValid && locationValid && dateValid;
+    const formIsValid = nameValid && phoneValid && locationValid && dateValid && guestCountValid;
     
     setIsFormValid(formIsValid);
     
@@ -62,20 +62,6 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     }
   };
 
-  const incrementPeople = () => {
-    setFormData(prev => ({
-      ...prev,
-      peopleCount: prev.peopleCount + 1
-    }));
-  };
-
-  const decrementPeople = () => {
-    setFormData(prev => ({
-      ...prev,
-      peopleCount: prev.peopleCount > 1 ? prev.peopleCount - 1 : 1
-    }));
-  };
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-8 max-w-md w-full relative">
@@ -88,9 +74,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
         <h2 className="text-2xl font-bold mb-6 text-center">Let's Get Started!</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
             <div className="relative">
               <User className="absolute left-3 top-3 text-green-500" size={20} />
               <input
@@ -106,9 +90,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
             <div className="relative">
               <Phone className="absolute left-3 top-3 text-green-500" size={20} />
               <input
@@ -130,9 +112,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Location
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
             <div className="relative">
               <MapPinIcon className="absolute left-3 top-3 text-green-500" size={20} />
               <input
@@ -148,9 +128,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Event Date
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Event Date</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-3 text-green-500" size={20} />
               <input
@@ -163,6 +141,28 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
                 required
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Guest Count</label>
+            <div className="relative">
+              <Users className="absolute left-3 top-3 text-green-500" size={20} />
+              <input
+                type="number"
+                name="guestCount"
+                value={formData.guestCount}
+                onChange={handleChange}
+                min="10"
+                placeholder="Minimum 10 guests"
+                className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+            {formData.guestCount && parseInt(formData.guestCount) < 10 && (
+              <p className="text-red-500 text-sm mt-1">
+                Minimum 10 guests required
+              </p>
+            )}
           </div>
 
           <div className="flex space-x-4">
@@ -215,7 +215,8 @@ const DeliveryMenu = () => {
     message += ` *Name:* ${userInfo.name}\n`;
     message += ` *Phone:* ${userInfo.phone}\n`;
     message += ` *Location:* ${userInfo.location}\n`;
-    message += ` *Date:* ${userInfo.date}\n\n`;
+    message += ` *Date:* ${userInfo.date}\n`;
+    message += ` *Guests:* ${userInfo.guestCount}\n\n`;
     
     // Add menu type
     message += ` *Menu Type:* ${menuType === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}\n\n`;
@@ -305,7 +306,7 @@ const DeliveryMenu = () => {
                   <Users className="h-6 w-6 text-green-600" />
                 </div>
                 <span className="text-lg font-semibold text-gray-800">
-                  {userInfo.name} | {userInfo.location}
+                  {userInfo.name} | {userInfo.location} | {userInfo.guestCount} Guests
                 </span>
               </div>
               {getTotalSelectedItems() > 0 && (
