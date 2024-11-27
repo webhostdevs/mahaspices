@@ -292,7 +292,7 @@ const Homepage = () => {
                             key={index}
                             src={image}
                             alt={`${box.title} ${index + 1}`}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                            className={'w-full h-auto object-cover transition-opacity duration-500 ${
                               box.currentSlide === index ? "opacity-100" : "opacity-0"
                             }`}
                           />
