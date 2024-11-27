@@ -1,45 +1,16 @@
 import React, { useState } from 'react';
+import { menuSections } from './cocktaildiamondexotic';
 
-const menuSections = {
-  snacks: {
-    title: 'PASS AROUND SNACKS-VEG',
-    limit: 6,
-    items: [
-      'Cheese Balls', 'Cheese Potato Wedges Melt', 'Cheese Tart', 
-      'Cocktail corn samosa', 'Corn Cheese Kabab', 'Corn Fitters', 
-      'Corn Palak Roll', 'Crunchy Baby Corn', 'Cut Mirchi', 
-      'Gold Coin', 'Golden Fried Baby Corn', 'Hara bhara Kabab', 
-      'Masala Potato Fingers', 'Paneer Kesar Tikka', 'Paneer Shashlik', 
-      'Potato Croquettes', 'Veg. Corn Rolls', 'Veg. Seekh Kabab', 
-      'Veg. Shashlik', 'Veg. Tart'
-    ]
-  },
-  beverages: {
-    title: 'BEVERAGES',
-    limit: 1,
-    items: [
-      'Water Melon', 'Pineapple', 'Musk Melon', 'Sugar Cane', 
-      'Coconut Delight', 'Fruit Punch', 'Mango Masti', 'Litchi Punch', 
-      'Grapes Pulpy kulfi', 'Orange Punch', 'Soft drinks'
-    ]
-  },
-  sweets: {
-    title: 'SWEETS',
-    limit: 2,
-    items: [
-      'Badam Halwa', 'Mixed Fruit Halwa', 'Double Ka Meetha', 
-      'Carrot Green Mixed Halwa', 'Qhubani Ka Meetha', 'Junnu', 
-      'Pistabhog', 'Dry Chum Chum', 'Honey Belam Jalebi', 
-      'Pineapple Jalebi', 'Tawa Mix Sweet', 'American Mal Puri', 
-      'Baked Rasgulla', 'Gajrela', 'Basundi'
-    ]
-  }
-};
+
 
 const pricingData = {
-  snacks: { basePrice: 50, extraItemPrice: 75 },
-  beverages: { basePrice: 75, extraItemPrice: 100 },
-  sweets: { basePrice: 60, extraItemPrice: 85 }
+  snacks: { basePrice: 70, extraItemPrice: 90 },
+  dipsAndSpreads: { basePrice: 50 },
+  beverages: { basePrice: 85, extraItemPrice: 130 },
+  salad: { basePrice: 60 },
+  sweets: { basePrice: 75, extraItemPrice: 110 },
+  hotItems: { basePrice: 90 },
+  vegFries: { basePrice: 75, extraItemPrice: 95 }
 };
 
 const MenuSelection = () => {
