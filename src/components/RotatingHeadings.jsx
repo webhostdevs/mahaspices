@@ -25,9 +25,9 @@ const RotatingHeadings = () => {
       <AnimatePresence mode="wait">
         <motion.h3
           key={currentHeadingIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, x: 100 }}  // Start from right side
+          animate={{ opacity: 1, x: 0 }}    // Move to center
+          exit={{ opacity: 0, x: -100 }}    // Exit to left side
           transition={{ duration: 0.5 }}
           className="absolute text-lg sm:text-xl font-bold mb-2 w-full text-center"
         >
