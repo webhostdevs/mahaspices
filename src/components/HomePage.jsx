@@ -151,6 +151,9 @@ const Homepage = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
+           <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
+              Maha Spice Caterers
+            </h1>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -159,9 +162,7 @@ const Homepage = () => {
           >
             <br />
             <br />
-            <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
-              Maha Spice Caterers
-            </h1>
+           
 
            
 
@@ -173,7 +174,7 @@ const Homepage = () => {
         <motion.div
           key={box.id}
           whileHover={{ y: -5 }}
-          className="flex-shrink-0 w-[200px] sm:w-[250px] h-[300px] relative rounded-lg shadow-lg overflow-hidden cursor-pointer"
+          className="flex-shrink-0 w-[300px] sm:w-[250px] h-[300px] relative rounded-lg shadow-lg overflow-hidden cursor-pointer"
           onClick={() => handleKnowMoreClick(box.link)}
         >
           {/* Image Slider */}
