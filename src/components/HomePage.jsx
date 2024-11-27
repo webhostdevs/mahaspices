@@ -187,22 +187,24 @@ const Homepage = () => {
                                 }`}
                               />
                             ))}
-                          
-                            {/* Fade effect and content */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50"></div>
-                            
-                           <div className="p-4">
-                                <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                                  {box.title}
-                                </h3>
-                                <p className="text-xs sm:text-sm text-gray-600 mb-4">{box.description}</p>
-                                <button
-                                  className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
-                                >
-                                  Know More
-                                </button>
+
+                      {/* Fade effect */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+                          {/* Content (Title, Description, and Button) */}
+                          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/70 to-transparent">
+                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                              {box.title}
+                            </h3>
+                            <p className="text-xs sm:text-sm text-gray-200 mb-4">{box.description}</p>
+                            <button
+                              className="inline-block px-4 py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
+                            >
+                              Know More
+                            </button>
                           </div>
-                      </div>
+                        </div>
+
 
                       
                     </motion.div>
