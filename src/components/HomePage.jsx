@@ -24,15 +24,6 @@ import dl from "../assets/dl.jpg";
 import dlb from "../assets/dlb.png";
 import delbox from "../assets/delbox.png";
 
-const Homepage = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [menuBoxSlides, setMenuBoxSlides] = useState({
-    mealbox: 0,
-    delivery: 0,
-    catering: 0
-  });
 const RotatingHeadings = () => {
   const headings = [
     "Maintaining Food Safety & Hygiene and we serve all type of catering services",
@@ -51,6 +42,17 @@ const RotatingHeadings = () => {
 
     return () => clearInterval(interval);
   }, []);
+  
+const Homepage = () => {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [menuBoxSlides, setMenuBoxSlides] = useState({
+    mealbox: 0,
+    delivery: 0,
+    catering: 0
+  });
+
   
   const navigate = useNavigate();
 
