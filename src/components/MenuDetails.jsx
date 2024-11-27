@@ -155,7 +155,7 @@ const MenuSelection = () => {
         <button
           onClick={() => {
             const message = encodeURIComponent(
-              `*Order Summary:*\n\n` +
+              `* Catering Order Summary:*\n\n` +
               `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
               `*GST (18%):* ₹${gst.toFixed(2)}\n` +
               `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
