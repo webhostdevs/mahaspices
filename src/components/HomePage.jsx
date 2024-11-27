@@ -173,7 +173,7 @@ const Homepage = () => {
                       <motion.div
                         key={box.id}
                         whileHover={{ y: -5 }}
-                        className="relative w-full sm:w-[65%] lg:w-[50%] aspect-square bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+                        className="flex-shrink-0 w-full sm:w-[45%] lg:w-[30%] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
                         onClick={() => handleKnowMoreClick(box.link)}
                       >
                         {/* Image Slider */}
