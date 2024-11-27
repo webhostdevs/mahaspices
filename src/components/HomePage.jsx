@@ -170,11 +170,11 @@ const Homepage = () => {
               <div className="max-w-4xl mx-auto">
                <div className="flex flex-wrap gap-6 justify-center">
   {menuBoxes.map((box) => (
-    <motion.div
-      key={box.id}
-      whileHover={{ y: -5 }}
-      className="relative w-full sm:w-[60%] lg:w-[35%] xl:w-[30%] aspect-square bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
-      onClick={() => handleKnowMoreClick(box.link)}
+   <motion.div
+  key={box.id}
+  whileHover={{ y: -5 }}
+  className="relative w-full sm:w-[60%] lg:w-[35%] xl:w-[30%] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] bg-white/90 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden cursor-pointer"
+  onClick={() => handleKnowMoreClick(box.link)}
     >
       {/* Image Slider */}
       <div className="relative h-full w-full overflow-hidden">
