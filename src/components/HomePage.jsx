@@ -162,7 +162,7 @@ const Homepage = () => {
           >
             <br />
             <br />
-           <h3>Maintaining Food Safety & Hygiene and we serve all type of catering services</h3>
+           <h3  className="text-lg sm:text-xl font-bold mb-2">Maintaining Food Safety & Hygiene and we serve all type of catering services</h3>
 {/* ISO 22000:1800 safety management certification
 We serve hygiene and safe food for all celebrations
 */}
