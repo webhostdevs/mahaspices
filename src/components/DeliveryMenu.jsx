@@ -341,132 +341,73 @@ const DeliveryMenu = () => {
                 onClick={() => handleMenuTypeSelect('nonveg')}
                 className={`group p-4 rounded-xl transition-all transform hover:scale-105 ${
                   menuType === 'nonveg'
-                    ? 'bg-green-500 text-white shadow-lg'
-                    : 'bg-white border-2 border-green-100 hover:border-green-300'
+                    ? 'bg-red-500 text-white shadow-lg'
+                    : 'bg-white border-2 border-red-100 hover:border-red-300'
                 }`}
               >
                 <div className="flex flex-col items-center gap-2">
-                  <Utensils className={`w-8 h-8 ${menuType === 'nonveg' ? 'text-white' : 'text-green-500'}`} />
+                  <Utensils className={`w-8 h-8 ${menuType === 'nonveg' ? 'text-white' : 'text-red-500'}`} />
                   <span className="font-semibold">Non-Vegetarian</span>
                 </div>
               </button>
             </div>
           </div>
 
-          {/* Categories and Menu Items Rendering */}
+          {/* Menu Categories */}
           {menuType && (
-            <>
-              {/* Categories Navigation */}
-              <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Select Category</h2>
+              <div className="flex gap-4 overflow-x-auto">
                 {menuCategories[menuType].map((category) => (
                   <button
                     key={category.id}
                     onClick={() => handleCategorySelect(category.id)}
-                    className={`px-6 py-3 rounded-xl whitespace-nowrap transition-all transform hover:scale-105 ${
+                    className={`px-4 py-2 rounded-full border ${
                       selectedCategory === category.id
-                        ? 'bg-green-500 text-white shadow-lg'
-                        : 'bg-white hover:bg-green-50'
+                        ? 'bg-green-500 text-white border-green-500'
+                        : 'border-gray-300 text-gray-600'
                     }`}
                   >
                     {category.name}
                   </button>
                 ))}
               </div>
-            {/* Alert */}
-            {showAlert && (
-              <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center gap-3 animate-fade-in">
-                <AlertCircle className="text-yellow-500" />
-                <div>
-                  <h3 className="font-semibold text-yellow-800">Category Limit Reached</h3>
-                  <p className="text-yellow-600">Additional items will incur extra charges.</p>
-                </div>
-              </div>
-            )}
+            </div>
+          )}
 
-            {/* Selected Items Summary */}
-            {getTotalSelectedItems() > 0 && (
-              <div className="mb-6 p-6 bg-white rounded-xl shadow-lg transform hover:shadow-xl transition-all">
-                <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <ShoppingCart className="h-6 w-6 text-green-500" />
-                  Selected Items
-                </h2>
-                {Object.entries(selectedItems).map(([category, items]) => (
-                  <div key={category} className="mb-4 last:mb-0">
-                    <h3 className="font-semibold text-green-600 mb-2">
-                      {menuCategories[menuType].find(cat => cat.id === category)?.name} ({items.length})
-                    </h3>
-                    <div className="space-y-2">
-                      {items.map(item => (
-                        <div key={item.id} className="flex items-center justify-between bg-green-50 p-3 rounded-lg hover:bg-green-100 transition-colors">
-                          <span className="font-medium">{item.name}</span>
-                          <div className="flex items-center gap-3">
-{/*                             <input
-                              type="number"
-                              value={itemGuestCounts[item.id] || ''}
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                if (/^\d*$/.test(value)) {
-                                  setItemGuestCounts(prev => ({
-                                    ...prev,
-                                    [item.id]: value
-                                  }));
-                                }
-                              }}
-                              placeholder="Guests"
-                              className="w-24 px-3 py-1 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-transparent"
-                            /> */}
-                            <button
-                              onClick={() => handleAddItem(item)}
-                              className="text-red-500 hover:text-red-600 font-medium"
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+          {/* Menu Items */}
+          {selectedCategory && (
+            <div className="bg-white rounded-2xl shadow-lg p-6 mt-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-4">Select Items</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {menuItems[selectedCategory].map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => handleAddItem(item)}
+                    className={`p-4 rounded-lg border transition-all cursor-pointer ${
+                      isItemSelected(item)
+                        ? 'border-green-500 bg-green-50'
+                        : 'border-gray-300 hover:border-green-500'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-medium">{item.name}</span>
+                      {isItemSelected(item) ? <Check className="text-green-500" /> : <Plus />}
                     </div>
+                    <p className="text-sm text-gray-600">{item.description}</p>
                   </div>
                 ))}
               </div>
-            )}
-
-            {/* Menu Items Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {menuItems[menuType][selectedCategory]?.map((item) => (
-                <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all transform hover:scale-105">
-                  <div className="relative">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-48 object-contain group-hover:scale-105 transition-transform"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold mb-2">{item.name}</h3>
-                    <button 
-                      onClick={() => handleAddItem(item)}
-                      className={`w-full py-3 rounded-lg transition-all flex items-center justify-center gap-2 ${
-                        isItemSelected(item)
-                          ? 'bg-green-100 text-green-600 hover:bg-green-200'
-                          : 'bg-green-500 text-white hover:bg-green-600'
-                      }`}
-                    >
-                      {isItemSelected(item) ? (
-                        <>
-                          <Check size={20} />
-                          Selected
-                        </>
-                      ) : (
-                        'Add to Order'
-                      )}
-                    </button>
-                  </div>
+              {showAlert && (
+                <div className="mt-4 text-red-500">
+                  <AlertCircle className="inline-block w-5 h-5 mr-2" />
+                  Item limit reached for this category.
                 </div>
-              ))}
+              )}
             </div>
-          </>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
