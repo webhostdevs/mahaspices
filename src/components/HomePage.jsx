@@ -155,7 +155,7 @@ const Homepage = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
-           <h1 className="text-7xl md:text-6xl font-bold font-[cursive] text-green-600">
+           <h1 className="text-9xl mb-6 md:text-6xl font-bold font-[cursive] text-green-600">
               Maha Spice Caterers
             </h1>
           <motion.div
@@ -325,7 +325,7 @@ const Homepage = () => {
                         <button
                           className="inline-block px-3 sm:px-4 py-1 sm:py-2 bg-green-600 text-white text-xs sm:text-sm rounded-full hover:bg-green-700 transition"
                         >
-                          Know More
+                          Book Now
                         </button>
                       </div>
                     </motion.div>
