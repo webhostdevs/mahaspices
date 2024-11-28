@@ -155,7 +155,7 @@ const Homepage = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
-           <h1 className="text-7xl relative bottom-6 font-bold font-[cursive] text-green-600">
+           <h1 className="relative bottom-6 font-bold font-[cursive] text-green-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
               Maha Spice Caterers
             </h1>
           <motion.div
@@ -169,9 +169,9 @@ const Homepage = () => {
             <RotatingHeadings />
 
             {/* Menu Boxes Section */}
-            <section className="py-12 px-4 hidden sm:block">
+            <section className="py-12 px-4 hidden md:block">
               <div className="max-w-4xl mx-auto">
-              <div className="flex flex-wrap sm:flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap sm:flex-wrap gap-4 justify-">
       {menuBoxes.map((box) => (
         <motion.div
           key={box.id}
