@@ -214,7 +214,7 @@ const renderSelectedItemsList = () => {
           </button>
         ))}
       </div>  */}
-      Sidebar - 20% width 
+      // Sidebar - 20% width 
 <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
   <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
   <div className="space-y-3">
