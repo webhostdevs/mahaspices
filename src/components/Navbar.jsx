@@ -23,6 +23,7 @@ const Navbar = () => {
     // { title: 'Menu', path: '/menu' },
     { title: 'Services', path: '/services' },
     { title: 'Contact', path: '/contact' },
+    { title: 'Catering', path: '/menu/Silver-Menu' },
     // { title: 'admin', path: '/admin' },
     // { title: 'Category', path: '/category' },
     // { title: 'MealBox', path: '/mealboxx' },
