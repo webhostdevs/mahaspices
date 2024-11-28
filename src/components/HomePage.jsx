@@ -171,7 +171,7 @@ const Homepage = () => {
             {/* Menu Boxes Section */}
             <section className="py-12 px-4 hidden md:block">
               <div className="max-w-4xl mx-auto">
-              <div className="flex flex-wrap sm:flex-wrap gap-4 justify-">
+              <div className="flex flex-wrap sm:flex-wrap gap-4 justify-between">
       {menuBoxes.map((box) => (
         <motion.div
           key={box.id}
