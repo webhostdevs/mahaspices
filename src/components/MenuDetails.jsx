@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { menuSections } from './cocktaildiamondexotic';
-import { User, Mail, Phone, Users, Plus, Minus } from 'lucide-react';
+import { User, Mail, Phone, Users, Plus, Minus, Check, X } from 'lucide-react';
 
 const pricingData = {
   snacks: { basePrice: 70, extraItemPrice: 90 },
@@ -27,7 +27,7 @@ const MenuSelection = () => {
   const [extraItemSection, setExtraItemSection] = useState('');
   const [extraItemToAdd, setExtraItemToAdd] = useState('');
   const [selectedSection, setSelectedSection] = useState(null);
-    const [selectedItemsModal, setSelectedItemsModal] = useState(false);
+  const [validationAlert, setValidationAlert] = useState(null);
 
   const [userDetails, setUserDetails] = useState({
     fullName: '',
@@ -80,7 +80,6 @@ const MenuSelection = () => {
   };
 
   useEffect(() => {
-    // Apply discount based on guest count
     const discountTiers = [
       { minGuests: 20, discountPercentage: 5 },
       { minGuests: 50, discountPercentage: 10 },
@@ -144,143 +143,79 @@ const MenuSelection = () => {
     };
   };
 
-  const isFormFilled = () => {
-    const snacksSelected = (selectedItems.snacks || []).length >= 6;
-    const beveragesSelected = (selectedItems.beverages || []).length >= 1;
-    const sweetsSelected = (selectedItems.sweets || []).length >= 2;
+  const validateAndShowPrices = () => {
+    const validationErrors = [];
 
-    return (
-      userDetails.fullName && 
-      userDetails.email && 
-      userDetails.phoneNumber && 
-      snacksSelected && 
-      beveragesSelected && 
-      sweetsSelected
-    );
+    // Check form fields
+    if (!userDetails.fullName) validationErrors.push("Please enter full name");
+    if (!userDetails.email) validationErrors.push("Please enter email");
+    if (!userDetails.phoneNumber) validationErrors.push("Please enter phone number");
+
+    // Check section selections
+    Object.entries(menuSections).forEach(([section, { title, limit }]) => {
+      const selectedCount = (selectedItems[section] || []).length;
+      if (selectedCount < limit) {
+        validationErrors.push(`Please select ${limit} items for ${title}`);
+      }
+    });
+
+    if (validationErrors.length > 0) {
+      setValidationAlert({
+        type: 'error',
+        messages: validationErrors
+      });
+      return;
+    }
+
+    setShowPrices(true);
+    setValidationAlert(null);
   };
 
   const { subtotal, gst, discountAmount, totalWithGST, discountPercentage } = calculatePrices();
 
-const renderSelectedItemsList = () => {
-    return (
-      <div className="bg-white p-4 rounded-lg shadow-md mt-4">
-        <h4 className="text-lg font-bold mb-4 text-green-700">Selected Items</h4>
-        {Object.entries(selectedItems).map(([section, items]) => {
-          if (items.length === 0) return null;
-          return (
-            <div key={section} className="mb-3">
-              <h5 className="font-semibold text-green-600 capitalize">
-                {section.replace(/([A-Z])/g, ' $1').toLowerCase()}
-              </h5>
-              <ul className="list-disc list-inside text-sm">
-                {items.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-        <button
-          onClick={() => setSelectedItemsModal(false)}
-          className="mt-4 w-full bg-green-500 text-white py-2 rounded-md"
-        >
-          Close
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar - 20% width*/}
-{/*       <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
+      {/* Sidebar */}
+      <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
         <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
-        {Object.entries(menuSections).map(([section, { title, limit }]) => (
-          <button
-            key={section}
-            className={`w-full text-left px-4 py-3 mb-2 rounded-md transition-colors ${
-              selectedSection === section 
-                ? 'bg-green-500 text-white' 
-                : 'hover:bg-green-100'
-            }`}
-            onClick={() => setSelectedSection(section)}
-          >
-            <div className="flex justify-between items-center">
-              <span>{title}</span>
-              <span className="text-sm">
-                {(selectedItems[section] || []).length}/{limit}
-              </span>
-            </div>
-          </button>
-        ))}
-      </div>  */}
-      
-<div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
-  <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
-  <div className="space-y-3">
-    {Object.entries(menuSections).map(([section, { title, limit }]) => {
-      const selectedItemsCount = (selectedItems[section] || []).length;
-      const isLimitReached = selectedItemsCount >= limit;
+        <div className="space-y-3">
+          {Object.entries(menuSections).map(([section, { title, limit }]) => {
+            const selectedItemsCount = (selectedItems[section] || []).length;
+            const isLimitReached = selectedItemsCount >= limit;
 
-      return (
-        <div
-          key={section}
-          className={`flex items-center justify-between px-4 py-3 rounded-md transition-colors ${
-            selectedSection === section
-              ? 'bg-green-500 text-white'
-              : 'hover:bg-green-100'
-          }`}
-          onClick={() => setSelectedSection(section)}
-        >
-          <div className="flex items-center space-x-3">
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                isLimitReached
-                  ? 'bg-green-500 text-white'
-                  : 'bg-green-100 text-green-700'
-              }`}
-            >
-              {isLimitReached ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              ) : (
-                <span className="font-medium">{selectedItemsCount}/{limit}</span>
-              )}
-            </div>
-            <span className="font-medium">{title}</span>
-          </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`h-5 w-5 ${
-              selectedSection === section ? 'text-white' : 'text-green-500'
-            }`}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
+            return (
+              <div
+                key={section}
+                className={`flex items-center justify-between px-4 py-3 rounded-md transition-colors ${
+                  selectedSection === section
+                    ? 'bg-green-500 text-white'
+                    : 'hover:bg-green-100'
+                }`}
+                onClick={() => setSelectedSection(section)}
+              >
+                <div className="flex items-center space-x-3">
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                      isLimitReached
+                        ? 'bg-green-500 text-white'
+                        : 'bg-green-100 text-green-700'
+                    }`}
+                  >
+                    {isLimitReached ? (
+                      <Check className="h-6 w-6" />
+                    ) : (
+                      <span className="font-medium">{selectedItemsCount}/{limit}</span>
+                    )}
+                  </div>
+                  <span className="font-medium">{title}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      );
-    })}
-  </div>
-</div>
-      
+      </div>
 
-      {/* Middle Section - 50% width */}
+      {/* Middle Section */}
       <div className="w-1/2 p-8 overflow-y-auto relative">
         {/* User Details Form */}
         <div className="mb-6 bg-white p-6 rounded-lg shadow-md border border-green-100">
@@ -354,8 +289,10 @@ const renderSelectedItemsList = () => {
               Group Discount: {discount}% applied for {userDetails.guestCount} guests
             </div>
           )}
+        {/* </div> */}
         </div>
 
+        {/* Section Items Selection */}
         {selectedSection ? (
           <div>
             <h3 className="text-2xl font-semibold mb-6">
@@ -388,101 +325,136 @@ const renderSelectedItemsList = () => {
               {menuSections[selectedSection].limit}
             </p>
 
-            {selectedSection && (
-              <button
-                onClick={() => setShowPrices(true)}
-                disabled={!isFormFilled()}
-                className="mt-6 w-full bg-green-500 text-white py-3 rounded-md disabled:bg-green-300"
-              >
-                View Prices
-              </button>
-            )}
+            <button
+              onClick={validateAndShowPrices}
+              className="mt-6 w-full bg-green-500 text-white py-3 rounded-md"
+            >
+              View Prices
+            </button>
           </div>
         ) : (
           <div className="text-center text-gray-500">
             Select a section from the sidebar to view items
           </div>
         )}
-      </div>
 
-       {/* Price Summary - Sticky Top Right, 15% width */}
-      <div className="w-1/10 p-4 bg-green-50 fixed top-35 right-5  overflow-y-auto">
-        <div className="sticky top-10 bg-green-50 z-10">
-          <h3 className="text-lg font-bold mb-4 text-green-700">Order Summary</h3>
-          
-          {showPrices && (
-            <div className="space-y-4">
-              <div className="bg-white p-4 rounded-lg shadow-md">
-              <button
-                  onClick={() => setSelectedItemsModal(true)}
-                  className="w-full bg-green-100 text-green-700 py-2 rounded-md mb-2"
-                >
-                  Review Selected Items
-                </button>
-                <div className="flex justify-between mb-2">
-                  <span>Subtotal:</span>
-                  <span>₹{subtotal.toFixed(2)}</span>
+         {/* Validation Alert */}
+      {validationAlert && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <div className="text-red-700">
+              {validationAlert.messages.map((message, index) => (
+                <div key={index} className="flex items-center mb-2">
+                  <X className="mr-2 text-red-500" size={18} />
+                  {message}
                 </div>
-                <div className="flex justify-between mb-2">
-                  <span>GST (18%):</span>
-                  <span>₹{gst.toFixed(2)}</span>
-                </div>
-                {discount > 0 && (
-                  <div className="flex justify-between mb-2 text-green-600">
-                    <span>Group Discount ({discount}%):</span>
-                    <span>-₹{discountAmount.toFixed(2)}</span>
-                  </div>
-                )}
-                <div className="flex justify-between font-bold border-t pt-2">
-                  <span>Total Price:</span>
-                  <span>₹{totalWithGST.toFixed(2)}</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  const message = encodeURIComponent(
-                    `* Catering Order Summary:*\n\n` +
-                    `*Customer Details:*\n` +
-                    `Name: ${userDetails.fullName}\n` +
-                    `Email: ${userDetails.email}\n` +
-                    `Phone: ${userDetails.phoneNumber}\n` +
-                    `Guest Count: ${userDetails.guestCount}\n\n` +
-                    `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
-                    `*GST (18%):* ₹${gst.toFixed(2)}\n` +
-                    (discount > 0 ? `*Group Discount (${discount}%):* -₹${discountAmount.toFixed(2)}\n` : '') +
-                    `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
-                    `*Selected Items:*\n\n` +
-                    Object.entries(selectedItems)
-                      .map(
-                        ([section, items]) =>
-                          `*${section.toUpperCase()}:*\n${(items || [])
-                            .map((item) => `- ${item}`)
-                            .join("\n") || "- None"}`
-                      )
-                      .join("\n\n")
-                  );
-                  window.open(`https://wa.me/917288041656?text=${message}`, "_blank");
-                }}
-                className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700"
-              >
-                Proceed to Pay
-              </button>
+              ))}
             </div>
-          )}
-        </div>
-      </div>
-       {/* Selected Items Modal */}
-      {selectedItemsModal && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
-            {renderSelectedItemsList()}
+            <button
+              onClick={() => setValidationAlert(null)}
+              className="mt-4 w-full bg-red-500 text-white py-2 rounded-md"
+            >
+              Understand
+            </button>
           </div>
         </div>
       )}
+      </div>
 
-      {/* Extra Item Alert */}
-      {extraItemAlertOpen && (
+      {/* Order Summary - Right Side */}
+<div className="w-1/5 p-4 bg-green-50 overflow-scroll">
+  <div className=" bg-green-50 z-10 overflow-scroll">
+    <h3 className="text-lg font-bold mb-4 text-green-700">Order Summary</h3>
+    
+    {/* Always display Selected Items */}
+    <div className="space-y-4">
+      <div className="bg-white p-4 rounded-lg shadow-md overflow-scroll">
+        <h4 className="text-md font-semibold mb-3 text-green-700">Selected Items</h4>
+        {Object.entries(menuSections).map(([section, { title }]) => {
+          const items = selectedItems[section] || [];
+          if (items.length === 0) return null;
+
+          return (
+            <div key={section} className="mb-4 bg-green-50 p-3 rounded-md overflow-scroll">
+              <h5 className="font-semibold text-green-700 mb-2">{title}</h5>
+              {/* Render items as a list */}
+              <ul className="list-disc pl-6 space-y-1">
+                {items.map((item, index) => (
+                  <li key={index} className="text-sm">
+                    {item}{" "}
+                    {items.length > menuSections[section].limit && index >= menuSections[section].limit ? (
+                      <span className="text-xs text-yellow-600 ml-2">Extra</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Display prices only if showPrices is true */}
+      {showPrices && (
+        <div className="border-t mt-4 pt-2">
+          <div className="flex justify-between mb-2">
+            <span>Subtotal:</span>
+            <span>₹{subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between mb-2">
+            <span>GST (18%):</span>
+            <span>₹{gst.toFixed(2)}</span>
+          </div>
+          {discount > 0 && (
+            <div className="flex justify-between mb-2 text-green-600">
+              <span>Group Discount ({discount}%):</span>
+              <span>-₹{discountAmount.toFixed(2)}</span>
+            </div>
+          )}
+          <div className="flex justify-between font-bold border-t pt-2">
+            <span>Total Price:</span>
+            <span>₹{totalWithGST.toFixed(2)}</span>
+          </div>
+          <button
+        onClick={() => {
+          const message = encodeURIComponent(
+            `* Catering Order Summary:*\n\n` +
+            `*Customer Details:*\n` +
+            `Name: ${userDetails.fullName}\n` +
+            `Email: ${userDetails.email}\n` +
+            `Phone: ${userDetails.phoneNumber}\n` +
+            `Guest Count: ${userDetails.guestCount}\n\n` +
+            `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
+            `*GST (18%):* ₹${gst.toFixed(2)}\n` +
+            (discount > 0 ? `*Group Discount (${discount}%):* -₹${discountAmount.toFixed(2)}\n` : '') +
+            `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
+            `*Selected Items:*\n\n` +
+            Object.entries(selectedItems)
+              .map(
+                ([section, items]) =>
+                  `*${section.toUpperCase()}:*\n${(items || [])
+                    .map((item) => `- ${item}`)
+                    .join("\n") || "- None"}`
+              )
+              .join("\n\n")
+          );
+          window.open(`https://wa.me/917288041656?text=${message}`, "_blank");
+        }}
+        className="w-full mt-4 bg-green-600 text-white py-3 rounded hover:bg-green-700"
+      >
+        Proceed to Pay
+      </button>
+        </div>
+        
+      )}
+
+      
+    </div>
+  </div>
+</div>
+
+
+       {/* Extra Item Alert */}
+       {extraItemAlertOpen && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
             <h4 className="text-lg font-bold mb-4">Extra Item Charge</h4>
