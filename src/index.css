@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
-  @media (max-width: 922px) {
+  @media (max-width: 952px) {
     .hidden-below-922 {
       display: none !important;
     }
