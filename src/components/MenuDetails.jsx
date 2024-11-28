@@ -220,7 +220,7 @@ const renderSelectedItemsList = () => {
   <div className="space-y-3">
     {Object.entries(menuSections).map(([section, { title, limit }]) => {
       const selectedItemsCount = (selectedItems[section] || []).length;
-      const isLimitReached = selectedItemsCount === limit;
+      const isLimitReached = selectedItemsCount >= limit;
 
       return (
         <div
