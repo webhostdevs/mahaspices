@@ -155,7 +155,7 @@ const Homepage = () => {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Hero Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
-           <h1 className="text-9xl mb-6 md:text-6xl font-bold font-[cursive] text-green-600">
+           <h1 className="text-9xl relative bottom-6 md:text-6xl font-bold font-[cursive] text-green-600">
               Maha Spice Caterers
             </h1>
           <motion.div
