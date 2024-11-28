@@ -406,8 +406,8 @@ const renderSelectedItemsList = () => {
       </div>
 
        {/* Price Summary - Sticky Top Right, 15% width */}
-      <div className="w-1/10 p-4 bg-green-50 fixed top-0 right-0  overflow-y-auto">
-        <div className="sticky top-0 bg-green-50 z-10">
+      <div className="w-1/10 p-4 bg-green-50 fixed top-35 right-5  overflow-y-auto">
+        <div className="sticky top-10 bg-green-50 z-10">
           <h3 className="text-lg font-bold mb-4 text-green-700">Order Summary</h3>
           
           {showPrices && (
