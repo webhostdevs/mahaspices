@@ -193,7 +193,7 @@ const renderSelectedItemsList = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar - 20% width*/}
-      <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
+{/*       <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
         <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
         {Object.entries(menuSections).map(([section, { title, limit }]) => (
           <button
@@ -213,8 +213,8 @@ const renderSelectedItemsList = () => {
             </div>
           </button>
         ))}
-      </div> 
-      {/* Sidebar - 20% width 
+      </div>  */}
+      Sidebar - 20% width 
 <div className="w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
   <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
   <div className="space-y-3">
@@ -277,7 +277,7 @@ const renderSelectedItemsList = () => {
       );
     })}
   </div>
-</div>*/}
+</div>
       
 
       {/* Middle Section - 50% width */}
