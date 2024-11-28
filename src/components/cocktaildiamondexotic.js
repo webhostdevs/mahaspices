@@ -1,6 +1,6 @@
 const menuSections = {
   snacks: {
-    title: 'SNACKS @ COCKTAIL SERVICE',
+    title: 'SNACKS',
     limit: 6,
     items: [
       'Green Salad',
