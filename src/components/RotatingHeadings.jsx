@@ -21,7 +21,7 @@ const RotatingHeadings = () => {
   }, []);
 
   return (
-    <div className="relative h-10 overflow-hidden">
+    <div className="relative h-20 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.h3
           key={currentHeadingIndex}
