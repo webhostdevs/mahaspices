@@ -169,7 +169,7 @@ const Homepage = () => {
             <RotatingHeadings />
 
             {/* Menu Boxes Section */}
-            <section className="py-12 px-4 hidden md:block"
+            <section className="py-12 px-4 hidden md:block hidden-below-922"
                style={{ '@media (max-width: 932px)': { display: 'none' } }}>
               <div className="max-w-6xl mx-auto">
               <div className="flex flex-wrap sm:flex-wrap gap-6 justify-between">
