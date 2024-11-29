@@ -331,6 +331,59 @@ const MenuSelection = () => {
             >
               View Prices
             </button>
+            {/* Display prices only if showPrices is true */}
+      {showPrices && (
+        <div className="border-t mt-4 pt-2">
+          <div className="flex justify-between mb-2">
+            <span>Subtotal:</span>
+            <span>₹{subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between mb-2">
+            <span>GST (18%):</span>
+            <span>₹{gst.toFixed(2)}</span>
+          </div>
+          {discount > 0 && (
+            <div className="flex justify-between mb-2 text-green-600">
+              <span>Group Discount ({discount}%):</span>
+              <span>-₹{discountAmount.toFixed(2)}</span>
+            </div>
+          )}
+          <div className="flex justify-between font-bold border-t pt-2">
+            <span>Total Price:</span>
+            <span>₹{totalWithGST.toFixed(2)}</span>
+          </div>
+          <button
+        onClick={() => {
+          const message = encodeURIComponent(
+            `* Catering Order Summary:*\n\n` +
+            `*Customer Details:*\n` +
+            `Name: ${userDetails.fullName}\n` +
+            `Email: ${userDetails.email}\n` +
+            `Phone: ${userDetails.phoneNumber}\n` +
+            `Guest Count: ${userDetails.guestCount}\n\n` +
+            `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
+            `*GST (18%):* ₹${gst.toFixed(2)}\n` +
+            (discount > 0 ? `*Group Discount (${discount}%):* -₹${discountAmount.toFixed(2)}\n` : '') +
+            `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
+            `*Selected Items:*\n\n` +
+            Object.entries(selectedItems)
+              .map(
+                ([section, items]) =>
+                  `*${section.toUpperCase()}:*\n${(items || [])
+                    .map((item) => `- ${item}`)
+                    .join("\n") || "- None"}`
+              )
+              .join("\n\n")
+          );
+          window.open(`https://wa.me/917288041656?text=${message}`, "_blank");
+        }}
+        className="w-full mt-4 bg-green-600 text-white py-3 rounded hover:bg-green-700"
+      >
+        Proceed to Pay
+      </button>
+        </div>
+        
+      )}
           </div>
         ) : (
           <div className="text-center text-gray-500">
@@ -393,59 +446,7 @@ const MenuSelection = () => {
         })}
       </div>
 
-      {/* Display prices only if showPrices is true */}
-      {showPrices && (
-        <div className="border-t mt-4 pt-2">
-          <div className="flex justify-between mb-2">
-            <span>Subtotal:</span>
-            <span>₹{subtotal.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between mb-2">
-            <span>GST (18%):</span>
-            <span>₹{gst.toFixed(2)}</span>
-          </div>
-          {discount > 0 && (
-            <div className="flex justify-between mb-2 text-green-600">
-              <span>Group Discount ({discount}%):</span>
-              <span>-₹{discountAmount.toFixed(2)}</span>
-            </div>
-          )}
-          <div className="flex justify-between font-bold border-t pt-2">
-            <span>Total Price:</span>
-            <span>₹{totalWithGST.toFixed(2)}</span>
-          </div>
-          <button
-        onClick={() => {
-          const message = encodeURIComponent(
-            `* Catering Order Summary:*\n\n` +
-            `*Customer Details:*\n` +
-            `Name: ${userDetails.fullName}\n` +
-            `Email: ${userDetails.email}\n` +
-            `Phone: ${userDetails.phoneNumber}\n` +
-            `Guest Count: ${userDetails.guestCount}\n\n` +
-            `*Subtotal:* ₹${subtotal.toFixed(2)}\n` +
-            `*GST (18%):* ₹${gst.toFixed(2)}\n` +
-            (discount > 0 ? `*Group Discount (${discount}%):* -₹${discountAmount.toFixed(2)}\n` : '') +
-            `*Total Price:* ₹${totalWithGST.toFixed(2)}\n\n` +
-            `*Selected Items:*\n\n` +
-            Object.entries(selectedItems)
-              .map(
-                ([section, items]) =>
-                  `*${section.toUpperCase()}:*\n${(items || [])
-                    .map((item) => `- ${item}`)
-                    .join("\n") || "- None"}`
-              )
-              .join("\n\n")
-          );
-          window.open(`https://wa.me/917288041656?text=${message}`, "_blank");
-        }}
-        className="w-full mt-4 bg-green-600 text-white py-3 rounded hover:bg-green-700"
-      >
-        Proceed to Pay
-      </button>
-        </div>
-        
-      )}
+      
 
       
     </div>
