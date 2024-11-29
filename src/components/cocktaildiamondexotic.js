@@ -45,7 +45,7 @@ const menuSections = {
     ]
   },
   beverages: {
-    title: 'BEVERAGES (ANY ONE)',
+    title: 'BEVERAGES',
     limit: 1,
     items: [
       'Water Melon',
@@ -71,7 +71,7 @@ const menuSections = {
     ]
   },
   sweets: {
-    title: 'SWEETS (SELECT ANY TWO)',
+    title: 'SWEETS',
     limit: 2,
     items: [
       'Badam Halwa',
@@ -98,7 +98,7 @@ const menuSections = {
     ]
   },
   hotItems: {
-    title: 'HOTS (ANY ONE)',
+    title: 'HOTS',
     limit: 1,
     items: [
       'Gaare',
@@ -113,7 +113,7 @@ const menuSections = {
     ]
   },
   vegFries: {
-    title: 'VEG FRIES (ANY TWO)',
+    title: 'VEG FRIES',
     limit: 2,
     items: [
       'Aloo Capsicum Masala',
