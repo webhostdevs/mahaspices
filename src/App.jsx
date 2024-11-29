@@ -13,6 +13,7 @@ import AddCategory from './components/AddCategory';
 import MealBoxesPage from './components/MealBoxesPage';
 import DeliveryMenu from './components/DeliveryMenu';
 import MealBox from './components/MealBox';
+import Feedback from './components/Feedback';
 
 
 
@@ -38,6 +39,8 @@ function App() {
             <Route path="/mealbox" element={<MealBoxesPage />} />
             <Route path="/deliverymenu" element={<DeliveryMenu />} />
             <Route path="/mealboxx" element={<MealBox />} />
+            <Route path="/feedback" element={<Feedback />} />
+            
             {/* Add more routes as needed */}
           </Routes>
         </main>
