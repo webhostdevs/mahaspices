@@ -123,7 +123,19 @@ const menuSections = {
       'Aloo, Allam, Green Mirchi Fry',
       'Baby Corn Aloo Ullibonda, Fry'
     ]
-  }
+  },
+  cutlery: {
+  title: 'Cutlery',
+  limit: 6,
+  items: [
+    'Paper Plates',
+    'Plastic Spoons',
+    'Plastic Forks',
+    'Plastic Knives',
+    'Paper Napkins',
+    'Wooden Toothpicks'
+  ]
+}
 };
 
 
