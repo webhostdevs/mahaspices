@@ -13,8 +13,7 @@ import AddCategory from './components/AddCategory';
 import MealBoxesPage from './components/MealBoxesPage';
 import DeliveryMenu from './components/DeliveryMenu';
 import MealBox from './components/MealBox';
-import Feedback from './components/Feedback';
-
+import MenuOrder from './components/MenuOrder';
 
 
 
@@ -23,7 +22,7 @@ function App() {
 
   return (
     <Router futureFlags={{ v7_startTransition: true }}>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-auto flex flex-col">
         <Navbar />
         <main className="flex-grow">
           <Routes>
@@ -39,8 +38,7 @@ function App() {
             <Route path="/mealbox" element={<MealBoxesPage />} />
             <Route path="/deliverymenu" element={<DeliveryMenu />} />
             <Route path="/mealboxx" element={<MealBox />} />
-            <Route path="/feedback" element={<Feedback />} />
-            
+            <Route path="/menu/:categoryName/order" element={<MenuOrder />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
