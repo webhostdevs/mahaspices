@@ -26,7 +26,7 @@ const Navbar = () => {
     // { title: 'Catering', path: '/menu/Silver-Menu' },
     { title: 'Feedback', path: '/feedback' },
     // { title: 'admin', path: '/admin' },
-    // { title: 'Category', path: '/category' },
+    { title: 'Category', path: '/category' },
     // { title: 'MealBox', path: '/mealboxx' },
     // { title: 'Mealbox', path: '/mealbox' },
   ];
