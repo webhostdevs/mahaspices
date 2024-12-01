@@ -6,6 +6,8 @@ import {
   Check, 
   PlusCircle, 
   MinusCircle, 
+  ChevronLeft, 
+  ChevronRight,
   Trash2 
 } from 'lucide-react';
 import { menuItems, menuCategories } from './data'; 
