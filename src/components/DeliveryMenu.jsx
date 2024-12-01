@@ -134,11 +134,11 @@ const DeliveryMenu = () => {
             </div>
 
             {/* Menu Items Grid */}
-            <div className="   grid grid-cols-2 gap-6">
+            <div className="   grid grid-cols-4 gap-6">
               {menuItems[menuType][selectedCategory].map(item => (
                 <div 
                   key={item.id} 
-                  className="bg-white w-1/2 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform"
+                  className="bg-white  rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform"
                 >
                   <img 
                     src={item.image} 
