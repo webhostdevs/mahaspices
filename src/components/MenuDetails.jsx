@@ -265,32 +265,31 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
       <div className="w-full max-w-md p-6 bg-green-100 rounded-lg shadow-sm">
      <h3 className="text-lg font-bold mb-4 text-green-700 text-center">Guest Count</h3>
      <div className="flex items-center justify-center">
-      <button 
-        onClick={() => updateGuestCount("decrement")} 
-        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-l-md transition-colors"
-      >
-        -
-      </button>
-      <input 
-        type="number" 
-        value={userDetails.guestCount} 
-        onChange={(e) => {
-          const value = Math.max(MIN_GUESTS, Math.min(MAX_GUESTS, Number(e.target.value)));
-          setUserDetails(prev => ({...prev, guestCount: value}));
-        }}
-        min={MIN_GUESTS}
-        max={MAX_GUESTS}
-        className="w-full p-20 text-center border rounded-md"               
-        required
-        // className="w-20 p-2 text-center border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 appearance-none [-moz-appearance:textfield]"
-      />
-      <button 
-        onClick={() => updateGuestCount("increment")} 
-        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-r-md transition-colors"
-      >
-        +
-      </button>
-    </div>
+  <button
+    onClick={() => updateGuestCount("decrement")}
+    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-l-md transition-colors"
+  >
+    -
+  </button>
+  <input
+    type="number"
+    value={userDetails.guestCount}
+    onChange={(e) => {
+      const value = Math.max(MIN_GUESTS, Math.min(MAX_GUESTS, Number(e.target.value)));
+      setUserDetails((prev) => ({ ...prev, guestCount: value }));
+    }}
+    min={MIN_GUESTS}
+    max={MAX_GUESTS}
+    className="w-20 p-2 text-center border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 appearance-none"
+    required
+  />
+  <button
+    onClick={() => updateGuestCount("increment")}
+    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-r-md transition-colors"
+  >
+    +
+  </button>
+</div>
     <div className="space-y-2 mt-4">
              <div className="flex justify-between">
                <span>Plate Price:</span>
