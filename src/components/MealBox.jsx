@@ -7,6 +7,7 @@ import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clo
 const today = new Date().toISOString().split('T')[0];
 const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Kolkata', 'Chennai'];
 
+
 const packageData = {
   '3CP': {
     veg: [
@@ -118,7 +119,7 @@ const handleCancel = () => {
   // Navigate to home page
   navigate('/');
 };
-
+  
 const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
   // Move the null check to the top of the component
   if (!isOpen) return null;
@@ -134,21 +135,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     validateForm();
   }, [formData]);
 
-  const validateForm = () => {
-    const nameValid = formData.name.trim().length > 2;
-    const phoneValid = /^[6-9]\d{9}$/.test(formData.phone);
-    const locationValid = formData.location.trim().length > 0;
-    const dateValid = formData.date !== '';
-    
-    const formIsValid = nameValid && phoneValid && locationValid && dateValid;
-    
-    console.log('Form Validation:', {
-      nameValid,
-      phoneValid,
-      locationValid,
-      dateValid,
-      formIsValid
-    });
+ 
     
     setIsFormValid(formIsValid);
     
@@ -162,197 +149,11 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
       [name]: value
     };
     
-    setFormData(updatedFormData);
-  };
+   
 
-  const handlePhoneChange = (e) => {
-    const value = e.target.value.replace(/\D/g, '');
-    const updatedFormData = {
-      ...formData,
-      phone: value
-    };
-    
-    setFormData(updatedFormData);
-    // Added missing validation call
-    validateForm();
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-      onSubmit(formData);
-    }
-  };
-
-  const incrementPeople = () => {
-    setFormData(prev => ({
-      ...prev,
-      peopleCount: prev.peopleCount + 1
-    }));
-  };
-
-  const decrementPeople = () => {
-    setFormData(prev => ({
-      ...prev,
-      peopleCount: prev.peopleCount > 1 ? prev.peopleCount - 1 : 1
-    }));
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-     <div className="bg-white rounded-xl p-8 max-w-md w-full relative">
-  <button
-    onClick={handleCancel}
-    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-all"
-  >
-    <X size={24} />
-  </button>
-  <h2 className="text-2xl font-bold mb-6 text-center">Let's Get Started!</h2>
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Full Name
-      </label>
-      <div className="relative">
-        <User className="absolute left-3 top-3 text-green-500" size={20} />
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter your full name"
-          className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          required
-        />
-      </div>
-    </div>
-
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Phone Number
-      </label>
-      <div className="relative">
-        <Phone className="absolute left-3 top-3 text-green-500" size={20} />
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handlePhoneChange}
-          placeholder="10-digit mobile number"
-          maxLength="10"
-          className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          required
-        />
-      </div>
-      {formData.phone.length > 0 && !/^[6-9]\d{9}$/.test(formData.phone) && (
-        <p className="text-red-500 text-sm mt-1">
-          Please enter a valid 10-digit mobile number starting with 6-9
-        </p>
-      )}
-    </div>
-
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Location
-      </label>
-      <div className="relative">
-        <MapPinIcon className="absolute left-3 top-3 text-green-500" size={20} />
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Your current city"
-          className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          required
-        />
-      </div>
-    </div>
-
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Event Date
-      </label>
-      <div className="relative">
-        <Calendar className="absolute left-3 top-3 text-green-500" size={20} />
-        <input
-          type="date"
-          name="date"
-          min={today}
-          value={formData.date}
-          onChange={handleChange}
-          className="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          required
-        />
-      </div>
-    </div>
-
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Number of People
-      </label>
-      <div className="relative flex items-center border-2 border-gray-300 rounded-lg">
-        <button
-          type="button"
-          onClick={decrementPeople}
-          className="p-3 hover:bg-gray-100 ml-8"
-        >
-          <Minus size={20} />
-        </button>
-        <span className="flex-1 text-center">{formData.peopleCount} People</span>
-        <button
-          type="button"
-          onClick={incrementPeople}
-          className="p-3 hover:bg-gray-100"
-        >
-          <Plus size={20} />
-        </button>
-      </div>
-    </div>
-
-    <div className="flex space-x-4">
-      <button
-        type="button"
-        onClick={handleCancel}
-        className="w-1/2 py-3 rounded-lg border-2 border-gray-300 text-gray-700 transition-all hover:bg-gray-100"
-      >
-        Cancel
-      </button>
-      <button
-        type="submit"
-        disabled={!isFormValid}
-        className={`w-1/2 py-3 rounded-lg text-white transition-all ${
-          isFormValid 
-            ? 'bg-green-500 hover:bg-green-600' 
-            : 'bg-gray-400 cursor-not-allowed'
-        }`}
-      >
-        Continue
-      </button>
-    </div>
-  </form>
-</div>
-    </div>
-  );
-};
-
-const handleUserInfoSubmit = (info) => {
-  if (info === null) {
-    // Handle cancellation (e.g., close modal)
-    setIsUserModalOpen(false);
-  } else {
-    // Handle form submission as before
-    setUserInfo(info);
-    setIsUserModalOpen(false);
-  }
-};
-// Existing FoodPackageSelector and MenuCustomizer components remain the same
 const FoodPackageSelector = () => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(true);
-  const [userInfo, setUserInfo] = useState(null);
+  
    const navigate = useNavigate();
   
   // Added missing state variables
@@ -361,6 +162,7 @@ const FoodPackageSelector = () => {
   const [peopleCount, setPeopleCount] = useState(1);
   const [selectedPackage, setSelectedPackage] = useState('3CP');
   const [isVeg, setIsVeg] = useState(true);
+   const [cart, setCart] = useState({});
   const [isMenuCustomizerOpen, setIsMenuCustomizerOpen] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [selectedMenuItems, setSelectedMenuItems] = useState({});
@@ -389,16 +191,47 @@ const FoodPackageSelector = () => {
     }));
   };
 
+  
+
   const isItemSelected = (itemId) => {
     return selectedMenuItems[itemId] === true;
   };
  
-  const decrementPeople = () => {
-    setPeopleCount(prev => Math.max(1, prev - 1));
+ const addToCart = (item) => {
+    setCart(prevCart => {
+      const currentQuantity = prevCart[item.id] || 0;
+      return {
+        ...prevCart,
+        [item.id]: currentQuantity + 1
+      };
+    });
   };
 
-  const incrementPeople = () => {
-    setPeopleCount(prev => prev + 1);
+  const removeFromCart = (itemId) => {
+    setCart(prevCart => {
+      const updatedCart = { ...prevCart };
+      if (updatedCart[itemId] > 1) {
+        updatedCart[itemId] -= 1;
+      } else {
+        delete updatedCart[itemId];
+      }
+      return updatedCart;
+    });
+  };
+
+  const calculateCartTotal = () => {
+    return Object.entries(cart).reduce((total, [itemId, quantity]) => {
+      const item = Object.values(packageData)
+        .flatMap(category => [...category.veg, ...category.nonVeg])
+        .find(i => i.id === parseInt(itemId));
+      
+      const itemPrice = parseFloat(item.price.replace('₹', ''));
+      return total + (itemPrice * quantity);
+    }, 0);
+  };
+
+  const getTotalCartItems = () => {
+    return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
   };
 
   const handleCustomizeClick = (item) => {
@@ -406,9 +239,7 @@ const FoodPackageSelector = () => {
     setIsMenuCustomizerOpen(true);
   };
 
-
-
-  // Placeholder for MenuCustomizer component
+  
   const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
     if (!isOpen) return null;
     return (
@@ -422,27 +253,29 @@ const FoodPackageSelector = () => {
   };
 
 
-  // Rest of the existing code remains the same
   return (
     <div className="min-h-screen bg-gray-50">
      
 
      {/* Proceed to Checkout Button (Top Right Corner) */}
-      {Object.values(selectedMenuItems).some(item => item === true) && (
-        <div className="fixed top-4 right-4 z-10">
+     {Object.keys(cart).length > 0 && (
+        <div className="fixed top-4 right-4 z-10 flex items-center gap-4">
+          <div className="bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2">
+            <ShoppingCart size={20} className="text-green-500" />
+            <span>{getTotalCartItems()} Items</span>
+            <span className="font-bold">₹{calculateCartTotal()}</span>
+          </div>
           <button
             className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all flex items-center gap-2 shadow-lg"
           >
-            <ShoppingCart size={20} />
-            Proceed to Checkout
+            Checkout
           </button>
         </div>
       )}
 
 
 
-
-               {/* Section 3: Veg/Non-Veg Toggle */}
+{/* Veg/Non-Veg Toggle */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
@@ -469,7 +302,7 @@ const FoodPackageSelector = () => {
         </div>
       </div>
 
-      {/* Section 2: Package Type Selection */}
+      {/* Package Type Selection */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
@@ -501,7 +334,7 @@ const FoodPackageSelector = () => {
         </div>
       </div>
 
-      {/* Section 4: Menu Items */}
+      {/* Menu Items */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Available Packages</h2>
@@ -520,7 +353,6 @@ const FoodPackageSelector = () => {
                   <h3 className="text-xl font-bold mb-2">{item.name}</h3>
                   <p className="text-gray-600 mb-4">{item.description}</p>
                   
-                  {/* Package Description List */}
                   <ul className="list-disc list-inside text-gray-600 mb-4">
                     {packageDescriptions[selectedPackage].map((desc, index) => (
                       <li key={index}>{desc}</li>
@@ -542,16 +374,30 @@ const FoodPackageSelector = () => {
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    <button
-                      onClick={() => handlePackageSelect(item)}
-                      className={`px-6 py-2 rounded-lg transition-all flex items-center gap-2 ${
-                        isItemSelected(item.id)
-                          ? 'bg-green-600 text-white cursor-default'
-                          : 'bg-green-500 text-white hover:bg-green-600'
-                      }`}
-                    >
-                      {isItemSelected(item.id) ? 'Selected' : 'Select Package'}
-                    </button>
+                    {cart[item.id] ? (
+                      <div className="flex items-center border rounded-lg">
+                        <button 
+                          onClick={() => removeFromCart(item.id)}
+                          className="px-3 py-1 bg-gray-100 rounded-l-lg"
+                        >
+                          <Minus size={16} />
+                        </button>
+                        <span className="px-4">{cart[item.id]}</span>
+                        <button 
+                          onClick={() => addToCart(item)}
+                          className="px-3 py-1 bg-gray-100 rounded-r-lg"
+                        >
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => addToCart(item)}
+                        className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
+                      >
+                        Add to Cart
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -559,14 +405,6 @@ const FoodPackageSelector = () => {
           </div>
         </div>
       </div>
-
-      <MenuCustomizer
-        isOpen={isMenuCustomizerOpen}
-        onClose={() => setIsMenuCustomizerOpen(false)}
-        packageType={selectedPackage}
-        selectedPackage={selectedMenuItem?.name}
-        isVeg={isVeg}
-      />
     </div>
   );
 };
