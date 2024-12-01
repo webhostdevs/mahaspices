@@ -404,5 +404,6 @@ const FoodPackageSelector = () => {
     </div>
   );
 };
+  }
 
 export default FoodPackageSelector;
