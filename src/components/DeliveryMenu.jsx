@@ -8,10 +8,10 @@ import {
   MinusCircle, 
   Trash2 
 } from 'lucide-react';
-import { menuItems, menuCategories } from './data'; // Import the menu data
+import { menuItems, menuCategories } from './data'; 
 
 const DeliveryMenu = () => {
-  const [menuType, setMenuType] = useState(null);
+  const [menuType, setMenuType] = useState('veg');
   const [selectedCategory, setSelectedCategory] = useState('beverages');
   const [selectedItems, setSelectedItems] = useState([]);
   const [guestCount, setGuestCount] = useState(1);
