@@ -151,18 +151,11 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     
    
 
-const FoodPackageSelector = () => {
-  const [isUserModalOpen, setIsUserModalOpen] = useState(true);
-  
-   const navigate = useNavigate();
-  
-  // Added missing state variables
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [selectedCity, setSelectedCity] = useState('');
-  const [peopleCount, setPeopleCount] = useState(1);
+const MealBox = () => {
+
   const [selectedPackage, setSelectedPackage] = useState('3CP');
   const [isVeg, setIsVeg] = useState(true);
-   const [cart, setCart] = useState({});
+  const [cart, setCart] = useState({});
   const [isMenuCustomizerOpen, setIsMenuCustomizerOpen] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [selectedMenuItems, setSelectedMenuItems] = useState({});
@@ -406,4 +399,4 @@ const FoodPackageSelector = () => {
 };
   }
 
-export default FoodPackageSelector;
+export default MealBox;
