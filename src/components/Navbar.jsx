@@ -25,6 +25,7 @@ const Navbar = () => {
     { title: 'Contact', path: '/contact' },
     // { title: 'Catering', path: '/menu/Silver-Menu' },
     { title: 'Feedback', path: '/feedback' },
+    { title: 'Custom Order', path: '/customorder' },
     // { title: 'admin', path: '/admin' },
     // { title: 'Category', path: '/category' },
     // { title: 'MealBox', path: '/mealboxx' },
