@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Utensils, ShoppingCart, Leaf, Check, AlertCircle } from 'lucide-react';
+import { Utensils, ShoppingCart, Leaf, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import { menuItems, menuCategories } from './data';
+import { useNavigate } from 'react-router-dom';
 
 const DeliveryMenu = () => {
+  const navigate = useNavigate();
   const [menuType, setMenuType] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedItems, setSelectedItems] = useState({});
@@ -30,15 +32,20 @@ const DeliveryMenu = () => {
     return Object.values(selectedItems).reduce((total, items) => total + items.length, 0);
   };
 
-  const handleCheckout = () => {
+  const handleProceedToCheckout = () => {
     if (!menuType || getTotalSelectedItems() === 0) {
       alert("Please complete all the steps before placing an order.");
       return;
     }
 
-    const message = encodeURIComponent(formatOrderDetails());
-    const whatsappURL = `https://wa.me/917288041656?text=${message}`;
-    window.open(whatsappURL, '_blank');
+    // Pass selected items and menu type to checkout page
+    navigate('/checkout', { 
+      state: { 
+        menuType, 
+        selectedItems,
+        orderDetails: formatOrderDetails()
+      } 
+    });
   };
 
   const handleMenuTypeSelect = (type) => {
@@ -60,15 +67,29 @@ const DeliveryMenu = () => {
     return categoryItems.some(selectedItem => selectedItem.id === item.id);
   };
 
+  const handleRemoveItem = (categoryId, itemToRemove) => {
+    setSelectedItems(prev => {
+      const updatedCategoryItems = (prev[categoryId] || [])
+        .filter(item => item.id !== itemToRemove.id);
+      
+      // If no items left in this category, remove the category
+      const updatedSelectedItems = { ...prev };
+      if (updatedCategoryItems.length === 0) {
+        delete updatedSelectedItems[categoryId];
+      } else {
+        updatedSelectedItems[categoryId] = updatedCategoryItems;
+      }
+      
+      return updatedSelectedItems;
+    });
+  };
+
   const handleAddItem = (item) => {
     const currentCategoryItems = selectedItems[selectedCategory] || [];
     const categoryLimit = menuCategories[menuType]?.find(cat => cat.id === selectedCategory)?.limit || 0;
 
     if (isItemSelected(item)) {
-      setSelectedItems(prev => ({
-        ...prev,
-        [selectedCategory]: currentCategoryItems.filter(i => i.id !== item.id),
-      }));
+      handleRemoveItem(selectedCategory, item);
     } else {
       if (currentCategoryItems.length >= categoryLimit) {
         setShowAlert(true);
@@ -81,6 +102,7 @@ const DeliveryMenu = () => {
     }
   };
 
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white p-4">
       {/* Menu Type Selection */}
@@ -177,32 +199,43 @@ const DeliveryMenu = () => {
           )}
 
           {/* Menu Items Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {menuItems[menuType][selectedCategory]?.map((item) => (
-              <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all transform hover:scale-105">
-                <img src={item.image} alt={item.name} className="w-full h-48 object-contain group-hover:scale-105 transition-transform" />
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-2">{item.name}</h3>
-                  <button
-                    onClick={() => handleAddItem(item)}
-                    className={`w-full py-3 rounded-lg transition-all flex items-center justify-center gap-2 ${
-                      isItemSelected(item) ? 'bg-green-100 text-green-600 hover:bg-green-200' : 'bg-green-500 text-white hover:bg-green-600'
-                    }`}
-                  >
-                    {isItemSelected(item) ? (
-                      <>
-                        <Check size={20} />
-                        Selected
-                      </>
-                    ) : (
-                      'Add to Order'
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {menuItems[menuType][selectedCategory]?.map((item) => (
+          <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all transform hover:scale-105">
+            <img src={item.image} alt={item.name} className="w-full h-48 object-contain group-hover:scale-105 transition-transform" />
+            <div className="p-4">
+              <h3 className="text-lg font-bold mb-2">{item.name}</h3>
+              <button
+                onClick={() => handleAddItem(item)}
+                className={`w-full py-3 rounded-lg transition-all flex items-center justify-center gap-2 ${
+                  isItemSelected(item) ? 'bg-green-100 text-green-600 hover:bg-green-200' : 'bg-green-500 text-white hover:bg-green-600'
+                }`}
+              >
+                {isItemSelected(item) ? (
+                  <>
+                    <Check size={20} />
+                    Selected
+                  </>
+                ) : (
+                  'Add to Order'
+                )}
+              </button>
+            </div>
           </div>
-        </>
+        ))}
+      </div>
+
+      {/* Proceed to Checkout Button */}
+      {getTotalSelectedItems() > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-white shadow-2xl z-50">
+          <button 
+            onClick={handleProceedToCheckout}
+            className="w-full bg-green-600 text-white py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-green-700 transition-colors text-lg font-bold"
+          >
+            Proceed to Checkout
+            <ArrowRight size={24} />
+          </button>
+        </div>
       )}
     </div>
   );
