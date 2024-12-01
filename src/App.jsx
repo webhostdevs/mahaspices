@@ -14,6 +14,7 @@ import DeliveryMenu from './components/DeliveryMenu';
 import MealBox from './components/MealBox';
 import MenuOrder from './components/MenuOrder';
 import Feedback from './components/Feedback';
+import ScrollToTop from './components/ScrollToTop';
 
 
 
@@ -23,6 +24,7 @@ function App() {
   return (
     <Router futureFlags={{ v7_startTransition: true }}>
       <div className="min-h-auto flex flex-col">
+        <ScrollToTop /> 
         <Navbar />
         <main className="flex-grow">
           <Routes>
