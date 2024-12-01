@@ -255,10 +255,8 @@ const FoodPackageSelector = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-     
-
-     {/* Proceed to Checkout Button (Top Right Corner) */}
-     {Object.keys(cart).length > 0 && (
+      {/* Cart Summary and Checkout Button */}
+      {Object.keys(cart).length > 0 && (
         <div className="fixed top-4 right-4 z-10 flex items-center gap-4">
           <div className="bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2">
             <ShoppingCart size={20} className="text-green-500" />
@@ -273,9 +271,7 @@ const FoodPackageSelector = () => {
         </div>
       )}
 
-
-
-{/* Veg/Non-Veg Toggle */}
+      {/* Veg/Non-Veg Toggle */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
@@ -407,6 +403,6 @@ const FoodPackageSelector = () => {
       </div>
     </div>
   );
-};}
+};
 
 export default FoodPackageSelector;
