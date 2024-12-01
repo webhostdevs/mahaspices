@@ -442,7 +442,7 @@ const FoodPackageSelector = () => {
 
 
 
-                {/* Section 3: Veg/Non-Veg Toggle */}
+               {/* Section 3: Veg/Non-Veg Toggle */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
@@ -468,12 +468,6 @@ const FoodPackageSelector = () => {
           </div>
         </div>
       </div>
-
-
-          
-          
-          
-
 
       {/* Section 2: Package Type Selection */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
@@ -506,8 +500,6 @@ const FoodPackageSelector = () => {
           </div>
         </div>
       </div>
-
-
 
       {/* Section 4: Menu Items */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
@@ -560,15 +552,6 @@ const FoodPackageSelector = () => {
                     >
                       {isItemSelected(item.id) ? 'Selected' : 'Select Package'}
                     </button>
-                    
-                    {isItemSelected(item.id) && (
-                      <button
-                        className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all flex items-center gap-2"
-                      >
-                        <ShoppingCart size={20} />
-                        Proceed to Checkout
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
@@ -578,17 +561,14 @@ const FoodPackageSelector = () => {
       </div>
 
       <MenuCustomizer
-            isOpen={isMenuCustomizerOpen}
-            onClose={() => setIsMenuCustomizerOpen(false)}
-            packageType={selectedPackage}
-            selectedPackage={selectedMenuItem?.name}
-            isVeg={isVeg}
-          />
-        </>
-      )}
+        isOpen={isMenuCustomizerOpen}
+        onClose={() => setIsMenuCustomizerOpen(false)}
+        packageType={selectedPackage}
+        selectedPackage={selectedMenuItem?.name}
+        isVeg={isVeg}
+      />
     </div>
   );
 };
 
 export default FoodPackageSelector;
-
