@@ -98,11 +98,12 @@ const ContactForm = () => {
                 </div>
               </div>
             </div>
+             
 
             {/* Embedded Map */}
             <div className="mt-8 h-48 bg-gray-200 rounded-lg overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d310.28323159036495!2d78.57498091875915!3d17.327104381417744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1731527240004!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846625.181386243!2d74.27449407466067!3d16.464461020536127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93ef09ed90b7%3A0x894bf16f752d763f!2sMaha%20Spice%20Caterers-best%20caterers%20in%20Hyderabad%2Cbest%20catering%20services%20in%20Hyderabad!5e1!3m2!1sen!2sin!4v1733045814538!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 allowFullScreen=""
