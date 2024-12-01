@@ -6,14 +6,8 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
   if (!isOpen) return null;
 
   const today = new Date().toISOString().split('T')[0];
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    location: '',
-    date: '',
-    guestCount: ''
-  });
-  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [isFormValid, setIsFormValid] = useState(true);
 
   useEffect(() => {
     validateForm();
