@@ -1,209 +1,226 @@
 import React, { useState } from 'react';
-import { Utensils, ShoppingCart, Leaf, Check, AlertCircle } from 'lucide-react';
-import { menuItems, menuCategories } from './data';
+import { 
+  Utensils, 
+  ShoppingCart, 
+  Leaf, 
+  Check, 
+  PlusCircle, 
+  MinusCircle, 
+  Trash2 
+} from 'lucide-react';
+import { menuItems, menuCategories } from './data'; // Import the menu data
 
 const DeliveryMenu = () => {
   const [menuType, setMenuType] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedItems, setSelectedItems] = useState({});
-  const [showAlert, setShowAlert] = useState(false);
-
-  const formatOrderDetails = () => {
-    let message = " *New Delivery Order*\n\n";
-    message += ` *Menu Type:* ${menuType === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}\n\n`;
-    message += "*Selected Items:*\n";
-    Object.entries(selectedItems).forEach(([category, items]) => {
-      if (!items || items.length === 0) return;
-      const categoryName = menuCategories[menuType]?.find(cat => cat.id === category)?.name;
-      if (categoryName) {
-        message += `\n *${categoryName}*\n`;
-        items.forEach(item => {
-          message += `- ${item.name}\n`;
-        });
-      }
-    });
-    message += `\n*Total Items Selected:* ${getTotalSelectedItems()}`;
-    return message;
-  };
-
-  const getTotalSelectedItems = () => {
-    return Object.values(selectedItems).reduce((total, items) => total + items.length, 0);
-  };
-
-  const handleCheckout = () => {
-    if (!menuType || getTotalSelectedItems() === 0) {
-      alert("Please complete all the steps before placing an order.");
-      return;
-    }
-
-    const message = encodeURIComponent(formatOrderDetails());
-    const whatsappURL = `https://wa.me/917288041656?text=${message}`;
-    window.open(whatsappURL, '_blank');
-  };
+  const [selectedCategory, setSelectedCategory] = useState('beverages');
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [guestCount, setGuestCount] = useState(1);
 
   const handleMenuTypeSelect = (type) => {
-    if (menuCategories[type]) {
-      setMenuType(type);
-      const firstCategory = menuCategories[type][0]?.id;
-      setSelectedCategory(firstCategory);
-    } else {
-      console.error("Invalid menu type selected:", type);
-    }
-  };
-
-  const handleCategorySelect = (categoryId) => {
-    setSelectedCategory(categoryId);
-  };
-
-  const isItemSelected = (item) => {
-    const categoryItems = selectedItems[selectedCategory] || [];
-    return categoryItems.some(selectedItem => selectedItem.id === item.id);
+    setMenuType(type);
+    setSelectedCategory('beverages');
+    setSelectedItems([]);
   };
 
   const handleAddItem = (item) => {
-    const currentCategoryItems = selectedItems[selectedCategory] || [];
-    const categoryLimit = menuCategories[menuType]?.find(cat => cat.id === selectedCategory)?.limit || 0;
-
-    if (isItemSelected(item)) {
-      setSelectedItems(prev => ({
-        ...prev,
-        [selectedCategory]: currentCategoryItems.filter(i => i.id !== item.id),
-      }));
+    const existingItem = selectedItems.find(i => i.id === item.id);
+    if (existingItem) {
+      setSelectedItems(selectedItems.map(i => 
+        i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+      ));
     } else {
-      if (currentCategoryItems.length >= categoryLimit) {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
-      }
-      setSelectedItems(prev => ({
-        ...prev,
-        [selectedCategory]: [...currentCategoryItems, item],
-      }));
+      setSelectedItems([...selectedItems, { ...item, quantity: 1 }]);
     }
   };
 
+  const handleRemoveItem = (itemId) => {
+    const existingItem = selectedItems.find(i => i.id === itemId);
+    if (existingItem.quantity > 1) {
+      setSelectedItems(selectedItems.map(i => 
+        i.id === itemId ? { ...i, quantity: i.quantity - 1 } : i
+      ));
+    } else {
+      setSelectedItems(selectedItems.filter(i => i.id !== itemId));
+    }
+  };
+
+  const calculateTotals = () => {
+    const subtotal = selectedItems.reduce((total, item) => total + (item.price * item.quantity * guestCount), 0);
+    const tax = subtotal * 0.18;
+    const total = subtotal + tax;
+    return { subtotal, tax, total };
+  };
+
+  const { subtotal, tax, total } = calculateTotals();
+
+  // Get categories based on selected menu type
+  const categories = menuType ? menuCategories[menuType].map(cat => cat.id) : [];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white p-4">
-      {/* Menu Type Selection */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 transform hover:shadow-xl transition-all">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Menu Type</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={() => handleMenuTypeSelect('veg')}
-            className={`group p-4 rounded-xl transition-all transform hover:scale-105 ${
-              menuType === 'veg'
-                ? 'bg-green-500 text-white shadow-lg'
-                : 'bg-white border-2 border-green-100 hover:border-green-300'
-            }`}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <Leaf className={`w-8 h-8 ${menuType === 'veg' ? 'text-white' : 'text-green-500'}`} />
-              <span className="font-semibold">Vegetarian</span>
-            </div>
-          </button>
-          <button
-            onClick={() => handleMenuTypeSelect('nonveg')}
-            className={`group p-4 rounded-xl transition-all transform hover:scale-105 ${
-              menuType === 'nonveg'
-                ? 'bg-red-500 text-white shadow-lg'
-                : 'bg-white border-2 border-red-100 hover:border-red-300'
-            }`}
-          >
-            <div className="flex flex-col items-center gap-2">
-              <Utensils className={`w-8 h-8 ${menuType === 'nonveg' ? 'text-white' : 'text-red-500'}`} />
-              <span className="font-semibold">Non-Vegetarian</span>
-            </div>
-          </button>
-        </div>
+    <div className="flex h-screen bg-gray-100">
+      {/* Left Sidebar - Menu Type */}
+      <div className="w-24 bg-white shadow-lg flex flex-col items-center py-8 space-y-4">
+        <button 
+          onClick={() => handleMenuTypeSelect('veg')}
+          className={`p-3 rounded-lg ${menuType === 'veg' ? 'bg-green-500 text-white' : 'hover:bg-green-50'}`}
+        >
+          <Leaf className="w-8 h-8" />
+          <span className="text-xs mt-1">Veg</span>
+        </button>
+        <button 
+          onClick={() => handleMenuTypeSelect('nonveg')}
+          className={`p-3 rounded-lg ${menuType === 'nonveg' ? 'bg-red-500 text-white' : 'hover:bg-red-50'}`}
+        >
+          <Utensils className="w-8 h-8" />
+          <span className="text-xs mt-1">Non-Veg</span>
+        </button>
       </div>
 
-      {menuType && (
-        <>
-          {/* Categories Navigation */}
-          <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
-            {menuCategories[menuType].map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategorySelect(category.id)}
-                className={`px-6 py-3 rounded-xl whitespace-nowrap transition-all transform hover:scale-105 ${
-                  selectedCategory === category.id
-                    ? 'bg-green-500 text-white shadow-lg'
-                    : 'bg-white hover:bg-green-50'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
+      {/* Central Menu Area */}
+      <div className="flex-1 p-8 overflow-y-auto">
+        {!menuType ? (
+          <div className="text-center text-gray-500">
+            Please select a menu type
           </div>
-
-          {/* Alert */}
-          {showAlert && (
-            <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center gap-3 animate-fade-in">
-              <AlertCircle className="text-yellow-500" />
-              <div>
-                <h3 className="font-semibold text-yellow-800">Category Limit Reached</h3>
-                <p className="text-yellow-600">Additional items will incur extra charges.</p>
-              </div>
+        ) : (
+          <>
+            {/* Category Navigation */}
+            <div className="flex space-x-4 mb-6 overflow-x-auto">
+              {categories.map(category => (
+                <button 
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg whitespace-nowrap ${
+                    selectedCategory === category 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-gray-100 hover:bg-gray-200'
+                  }`}
+                >
+                  {menuCategories[menuType].find(cat => cat.id === category)?.name || category}
+                </button>
+              ))}
             </div>
-          )}
 
-          {/* Selected Items Summary */}
-          {getTotalSelectedItems() > 0 && (
-            <div className="mb-6 p-6 bg-white rounded-xl shadow-lg transform hover:shadow-xl transition-all">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <ShoppingCart className="h-6 w-6 text-green-500" />
-                Selected Items
-              </h2>
-              {Object.entries(selectedItems).map(([category, items]) => (
-                <div key={category} className="mb-4 last:mb-0">
-                  <h3 className="font-semibold text-green-600 mb-2">
-                    {menuCategories[menuType].find(cat => cat.id === category)?.name} ({items.length})
-                  </h3>
-                  <div className="space-y-2">
-                    {items.map(item => (
-                      <div key={item.id} className="flex items-center justify-between bg-green-50 p-3 rounded-lg hover:bg-green-100 transition-colors">
-                        <span className="font-medium">{item.name}</span>
-                        <button
-                          onClick={() => handleAddItem(item)}
-                          className="text-red-500 hover:text-red-600 font-medium"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))}
+            {/* Menu Items Grid */}
+            <div className="grid grid-cols-2 gap-6">
+              {menuItems[menuType][selectedCategory].map(item => (
+                <div 
+                  key={item.id} 
+                  className="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform"
+                >
+                  <img 
+                    src={item.image} 
+                    alt={item.name} 
+                    className="w-full h-48 object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Available';
+                    }}
+                  />
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold">{item.name}</h3>
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-green-600 font-semibold">₹{item.price.toFixed(2)}</span>
+                      <button 
+                        onClick={() => handleAddItem(item)}
+                        className="bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600"
+                      >
+                        Add
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+          </>
+        )}
+      </div>
 
-          {/* Menu Items Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {menuItems[menuType][selectedCategory]?.map((item) => (
-              <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-all transform hover:scale-105">
-                <img src={item.image} alt={item.name} className="w-full h-48 object-contain group-hover:scale-105 transition-transform" />
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-2">{item.name}</h3>
-                  <button
-                    onClick={() => handleAddItem(item)}
-                    className={`w-full py-3 rounded-lg transition-all flex items-center justify-center gap-2 ${
-                      isItemSelected(item) ? 'bg-green-100 text-green-600 hover:bg-green-200' : 'bg-green-500 text-white hover:bg-green-600'
-                    }`}
-                  >
-                    {isItemSelected(item) ? (
-                      <>
-                        <Check size={20} />
-                        Selected
-                      </>
-                    ) : (
-                      'Add to Order'
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
+      {/* Right Sidebar - Order Summary */}
+      <div className="w-96 bg-white shadow-lg p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Order Summary</h2>
+          <div className="flex items-center space-x-2">
+            <span>Guests:</span>
+            <div className="flex items-center">
+              <button 
+                onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <MinusCircle />
+              </button>
+              <span className="mx-2">{guestCount}</span>
+              <button 
+                onClick={() => setGuestCount(guestCount + 1)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <PlusCircle />
+              </button>
+            </div>
           </div>
-        </>
-      )}
+        </div>
+
+        {selectedItems.length === 0 ? (
+          <div className="text-center text-gray-500">
+            No items selected
+          </div>
+        ) : (
+          <>
+            {/* Selected Items List */}
+            <div className="space-y-4 mb-6 max-h-96 overflow-y-auto">
+              {selectedItems.map(item => (
+                <div 
+                  key={item.id} 
+                  className="flex justify-between items-center bg-gray-100 p-3 rounded-lg"
+                >
+                  <div>
+                    <span className="font-semibold">{item.name}</span>
+                    <div className="flex items-center space-x-2">
+                      <button 
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="text-red-500 hover:text-red-600"
+                      >
+                        <MinusCircle size={16} />
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button 
+                        onClick={() => handleAddItem(item)}
+                        className="text-green-500 hover:text-green-600"
+                      >
+                        <PlusCircle size={16} />
+                      </button>
+                    </div>
+                  </div>
+                  <span className="font-semibold">₹{(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bill Details */}
+            <div className="space-y-2 border-t pt-4">
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+                <span>₹{subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tax (18%)</span>
+                <span>₹{tax.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between font-bold text-lg">
+                <span>Total</span>
+                <span>₹{total.toFixed(2)}</span>
+              </div>
+            </div>
+
+            {/* Checkout Button */}
+            <button 
+              className="w-full bg-green-500 text-white py-3 rounded-lg mt-6 hover:bg-green-600 transition-colors"
+              disabled={selectedItems.length === 0}
+            >
+              Proceed to Checkout
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
