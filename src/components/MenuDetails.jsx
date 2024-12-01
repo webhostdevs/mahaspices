@@ -264,7 +264,7 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
       <div className="w-full md:w-1/5 p-5 bg-green-50">
       <div className="w-full max-w-md p-6 bg-green-100 rounded-lg shadow-sm">
      <h3 className="text-lg font-bold mb-4 text-green-700 text-center">Guest Count</h3>
-     <div className="flex items-center justify-center space-x-4">
+     <div className="flex items-center justify-center">
       <button 
         onClick={() => updateGuestCount("decrement")} 
         className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-l-md transition-colors"
@@ -280,7 +280,7 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
         }}
         min={MIN_GUESTS}
         max={MAX_GUESTS}
-        className="w-full p-2 text-center border rounded-md"               
+        className="w-full p-20 text-center border rounded-md"               
         required
         // className="w-20 p-2 text-center border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 appearance-none [-moz-appearance:textfield]"
       />
