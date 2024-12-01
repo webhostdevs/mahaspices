@@ -462,6 +462,39 @@ const FoodPackageSelector = () => {
 
 
 
+                {/* Section 3: Veg/Non-Veg Toggle */}
+      <div className="max-w-4xl mx-auto px-4 mb-12">
+        <div className="bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
+          <div className="flex gap-4">
+            <button
+              onClick={() => setIsVeg(true)}
+              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
+              }`}
+            >
+              <Leaf className="mx-auto mb-2" size={24} />
+              <span className="block text-center">Vegetarian</span>
+            </button>
+            <button
+              onClick={() => setIsVeg(false)}
+              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                !isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
+              }`}
+            >
+              <Utensils className="mx-auto mb-2" size={24} />
+              <span className="block text-center">Non-Vegetarian</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+          
+          
+          
+
+
       {/* Section 2: Package Type Selection */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
@@ -494,32 +527,7 @@ const FoodPackageSelector = () => {
         </div>
       </div>
 
-      {/* Section 3: Veg/Non-Veg Toggle */}
-      <div className="max-w-4xl mx-auto px-4 mb-12">
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Meal Preference</h2>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsVeg(true)}
-              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
-                isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
-              }`}
-            >
-              <Leaf className="mx-auto mb-2" size={24} />
-              <span className="block text-center">Vegetarian</span>
-            </button>
-            <button
-              onClick={() => setIsVeg(false)}
-              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
-                !isVeg ? 'border-green-500 bg-green-50' : 'border-gray-200'
-              }`}
-            >
-              <Utensils className="mx-auto mb-2" size={24} />
-              <span className="block text-center">Non-Vegetarian</span>
-            </button>
-          </div>
-        </div>
-      </div>
+
 
       {/* Section 4: Menu Items */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
