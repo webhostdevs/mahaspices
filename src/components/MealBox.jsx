@@ -5,7 +5,6 @@ import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clo
 
 
 const today = new Date().toISOString().split('T')[0];
-const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Kolkata', 'Chennai'];
 
 
 const packageData = {
@@ -115,50 +114,14 @@ const packageImages = {
   '5CP': 'https://new.caterninja.com/PackedMealBox/5cp.png',
   '8CP': 'https://new.caterninja.com/PackedMealBox/8cp.png'
 };
-const handleCancel = () => {
-  // Navigate to home page
-  navigate('/');
-};
+
   
-const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
-  // Move the null check to the top of the component
-  if (!isOpen) return null;
-  const navigate = useNavigate();
-   const handleCancel = () => {
-    onClose(); 
-    navigate('/');
-  };
-
-
-
-  useEffect(() => {
-    validateForm();
-  }, [formData]);
-
- 
-    
-    setIsFormValid(formIsValid);
-    
-    return formIsValid;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const updatedFormData = {
-      ...formData,
-      [name]: value
-    };
-    
+   
    
 
 const MealBox = () => {
 
-  const [selectedPackage, setSelectedPackage] = useState('3CP');
-  const [isVeg, setIsVeg] = useState(true);
-  const [cart, setCart] = useState({});
-  const [isMenuCustomizerOpen, setIsMenuCustomizerOpen] = useState(false);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
-  const [selectedMenuItems, setSelectedMenuItems] = useState({});
+ 
   const packageDescriptions = {
     '3CP': [
       'Perfect for small gatherings',
@@ -177,49 +140,28 @@ const MealBox = () => {
     ]
   };
 
-  const handlePackageSelect = (item) => {
-    setSelectedMenuItems(prev => ({
-      ...prev,
-      [item.id]: !prev[item.id]
-    }));
-  };
+  const [selectedPackage, setSelectedPackage] = useState('3CP');
+  const [isVeg, setIsVeg] = useState(true);
+  const [cart, setCart] = useState({});
+  const navigate = useNavigate();
 
-  
-
-  const isItemSelected = (itemId) => {
-    return selectedMenuItems[itemId] === true;
-  };
- 
- const addToCart = (item) => {
-    setCart(prevCart => {
+  const addToCart = (item) => {
+    setCart((prevCart) => {
       const currentQuantity = prevCart[item.id] || 0;
       return {
         ...prevCart,
-        [item.id]: currentQuantity + 1
+        [item.id]: currentQuantity + 1,
       };
-    });
-  };
-
-  const removeFromCart = (itemId) => {
-    setCart(prevCart => {
-      const updatedCart = { ...prevCart };
-      if (updatedCart[itemId] > 1) {
-        updatedCart[itemId] -= 1;
-      } else {
-        delete updatedCart[itemId];
-      }
-      return updatedCart;
     });
   };
 
   const calculateCartTotal = () => {
     return Object.entries(cart).reduce((total, [itemId, quantity]) => {
       const item = Object.values(packageData)
-        .flatMap(category => [...category.veg, ...category.nonVeg])
-        .find(i => i.id === parseInt(itemId));
-      
+        .flatMap((category) => [...category.veg, ...category.nonVeg])
+        .find((i) => i.id === parseInt(itemId));
       const itemPrice = parseFloat(item.price.replace('₹', ''));
-      return total + (itemPrice * quantity);
+      return total + itemPrice * quantity;
     }, 0);
   };
 
@@ -227,28 +169,10 @@ const MealBox = () => {
     return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
   };
 
-  const handleCustomizeClick = (item) => {
-    setSelectedMenuItem(item);
-    setIsMenuCustomizerOpen(true);
-  };
-
-  
-  const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
-    if (!isOpen) return null;
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-xl">
-          <h2>Customize {selectedPackage} Menu</h2>
-          <button onClick={onClose}>Close</button>
-        </div>
-      </div>
-    );
-  };
-
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Cart Summary and Checkout Button */}
+     <div className="min-h-screen bg-gray-50">
+      {/* Cart Summary */}
       {Object.keys(cart).length > 0 && (
         <div className="fixed top-4 right-4 z-10 flex items-center gap-4">
           <div className="bg-white shadow-lg rounded-full px-4 py-2 flex items-center gap-2">
@@ -257,7 +181,7 @@ const MealBox = () => {
             <span className="font-bold">₹{calculateCartTotal()}</span>
           </div>
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all flex items-center gap-2 shadow-lg"
+            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
           >
             Checkout
           </button>
@@ -291,7 +215,7 @@ const MealBox = () => {
         </div>
       </div>
 
-      {/* Package Type Selection */}
+      {/* Package Selection */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
@@ -312,11 +236,6 @@ const MealBox = () => {
                   className="w-full h-32 object-contain rounded-lg mb-4"
                 />
                 <h3 className="font-semibold text-lg mb-2">{pkg} Package</h3>
-                <p className="text-sm text-gray-600">
-                  {pkg === '3CP' ? '3 Course Package' : 
-                   pkg === '5CP' ? '5 Course Package' : 
-                   '8 Course Package'}
-                </p>
               </button>
             ))}
           </div>
@@ -328,75 +247,31 @@ const MealBox = () => {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Available Packages</h2>
           <div className="grid grid-cols-1 gap-6">
-            {(packageData[selectedPackage]?.[isVeg ? 'veg' : 'nonVeg'] || []).map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col md:flex-row gap-6 p-6 border-2 border-gray-200 rounded-xl hover:border-green-200 transition-all"
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full md:w-48 h-48 object-contain rounded-lg"
-                />
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                  <p className="text-gray-600 mb-4">{item.description}</p>
-                  
-                  <ul className="list-disc list-inside text-gray-600 mb-4">
-                    {packageDescriptions[selectedPackage].map((desc, index) => (
-                      <li key={index}>{desc}</li>
-                    ))}
-                  </ul>
-                  
-                  <div className="flex flex-wrap gap-4 mb-4">
-                    <div className="flex items-center gap-2">
-                      <Star className="text-yellow-400" size={20} />
-                      <span>{item.rating}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="text-gray-400" size={20} />
-                      <span>{item.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-500">{item.price}</span>
-                    </div>
+            {packageData[selectedPackage][isVeg ? 'veg' : 'nonVeg'].map(
+              (item) => (
+                <div
+                  key={item.id}
+                  className="p-4 border rounded-xl flex items-center justify-between"
+                >
+                  <div>
+                    <h3 className="font-semibold">{item.name}</h3>
+                    <p className="text-gray-600">{item.description}</p>
+                    <p className="font-bold">{item.price}</p>
                   </div>
-                  
-                  <div className="flex items-center gap-4">
-                    {cart[item.id] ? (
-                      <div className="flex items-center border rounded-lg">
-                        <button 
-                          onClick={() => removeFromCart(item.id)}
-                          className="px-3 py-1 bg-gray-100 rounded-l-lg"
-                        >
-                          <Minus size={16} />
-                        </button>
-                        <span className="px-4">{cart[item.id]}</span>
-                        <button 
-                          onClick={() => addToCart(item)}
-                          className="px-3 py-1 bg-gray-100 rounded-r-lg"
-                        >
-                          <Plus size={16} />
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => addToCart(item)}
-                        className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
-                      >
-                        Add to Cart
-                      </button>
-                    )}
-                  </div>
+                  <button
+                    onClick={() => addToCart(item)}
+                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
-  }
 
 export default MealBox;
