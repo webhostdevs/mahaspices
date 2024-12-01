@@ -85,20 +85,49 @@ const DeliveryMenu = () => {
         ) : (
           <>
             {/* Category Navigation */}
-            <div className="flex space-x-4 mb-6 overflow-x-auto">
-              {categories.map(category => (
+            <div className="relative flex items-center">
+              {categories.length > 5 && (
                 <button 
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg whitespace-nowrap ${
-                    selectedCategory === category 
-                    ? 'bg-blue-500 text-white' 
-                    : 'bg-gray-100 hover:bg-gray-200'
-                  }`}
+                  onClick={() => {
+                    const container = document.getElementById('categoryContainer');
+                    container.scrollBy({ left: -container.clientWidth * 0.9, behavior: 'smooth' });
+                  }}
+                  className="absolute mb-4 left-0 z-10 bg-white/70 rounded-full p-1 shadow-md hover:bg-gray-100"
                 >
-                  {menuCategories[menuType].find(cat => cat.id === category)?.name || category}
+                  <ChevronLeft className="text-gray-600" size={20} />
                 </button>
-              ))}
+              )}
+              
+              <div 
+                id="categoryContainer"
+                className="flex space-x-4 mx-8  mb-4 overflow-x-auto scroll-smooth no-scrollbar flex-grow"
+              >
+                {categories.map(category => (
+                  <button 
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg whitespace-nowrap shrink-0 ${
+                      selectedCategory === category 
+                      ? 'bg-blue-500 text-white' 
+                      : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                  >
+                    {menuCategories[menuType].find(cat => cat.id === category)?.name || category}
+                  </button>
+                ))}
+              </div>
+            
+              {categories.length > 5 && (
+                <button 
+                  onClick={() => {
+                    const container = document.getElementById('categoryContainer');
+                    container.scrollBy({ left: container.clientWidth * 0.9, behavior: 'smooth' });
+                  }}
+                  className="absolute right-0 mb-4 z-10 bg-white/70 rounded-full p-1 shadow-md hover:bg-gray-100"
+                >
+                  <ChevronRight className="text-gray-600" size={20} />
+                </button>
+              )}
             </div>
 
             {/* Menu Items Grid */}
