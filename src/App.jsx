@@ -15,7 +15,7 @@ import MealBox from './components/MealBox';
 import MenuOrder from './components/MenuOrder';
 import Feedback from './components/Feedback';
 import ScrollToTop from './components/ScrollToTop';
-
+import CustomOrder from './components/CustomOrder';
 
 
 function App() {
@@ -41,6 +41,7 @@ function App() {
             <Route path="/mealboxx" element={<MealBox />} />
             <Route path="/menu/:categoryName/order" element={<MenuOrder />} />
             <Route path="/feedback" element={<Feedback />} />
+            <Route path="/customorder" element={<CustomOrder />} />
             {/* Add more routes as needed */}
           </Routes>
         </main>
