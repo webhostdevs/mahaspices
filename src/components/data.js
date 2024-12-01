@@ -1,29 +1,3 @@
-export const menuCategories = {
-  veg: [
-    { id: 'beverages', name: 'Beverages', limit: 100 },
-    { id: 'starters', name: 'Starters', limit: 100 },
-    { id: 'salads', name: 'Salads', limit: 100},
-    { id: 'sweets', name: 'Sweets', limit: 100 },
-    { id: 'breads', name: 'Breads', limit: 100 },
-    { id: 'special-rice', name: 'Special Rice', limit: 100},
-    { id: 'rice', name: 'Rice', limit: 100},
-    { id: 'main-course', name: 'Main Course', limit: 100 },
-    { id: 'fries', name: 'Fries', limit: 100},
-    { id: 'curries', name: 'Curries', limit: 100 }
-  ],
-  nonveg: [
-    { id: 'beverages', name: 'Beverages', limit: 100 },
-    { id: 'starters', name: 'Starters', limit: 100 },
-    { id: 'salads', name: 'Salads', limit: 100},
-    { id: 'sweets', name: 'Sweets', limit: 100 },
-    { id: 'breads', name: 'Breads', limit: 100 },
-    { id: 'special-rice', name: 'Special Rice', limit: 100},
-    { id: 'rice', name: 'Rice', limit: 100},
-    { id: 'main-course', name: 'Main Course', limit: 100 },
-    { id: 'fries', name: 'Fries', limit: 100},
-    { id: 'curries', name: 'Curries', limit: 100 }
-  ]
-};
 
 export const menuItems = {
   veg: {
@@ -170,3 +144,34 @@ export const menuItems = {
     ]
   }
 };
+
+
+
+
+export const menuCategories = {
+  veg: [
+    { id: 'beverages', name: 'Beverages', limit: 100 },
+    { id: 'starters', name: 'Starters', limit: 100 },
+    { id: 'salads', name: 'Salads', limit: 100},
+    { id: 'sweets', name: 'Sweets', limit: 100 },
+    { id: 'breads', name: 'Breads', limit: 100 },
+    { id: 'special-rice', name: 'Special Rice', limit: 100},
+    { id: 'rice', name: 'Rice', limit: 100},
+    { id: 'main-course', name: 'Main Course', limit: 100 },
+    { id: 'fries', name: 'Fries', limit: 100},
+    { id: 'curries', name: 'Curries', limit: 100 }
+  ],
+  nonveg: [
+    { id: 'beverages', name: 'Beverages', limit: 100 },
+    { id: 'starters', name: 'Starters', limit: 100 },
+    { id: 'salads', name: 'Salads', limit: 100},
+    { id: 'sweets', name: 'Sweets', limit: 100 },
+    { id: 'breads', name: 'Breads', limit: 100 },
+    { id: 'special-rice', name: 'Special Rice', limit: 100},
+    { id: 'rice', name: 'Rice', limit: 100},
+    { id: 'main-course', name: 'Main Course', limit: 100 },
+    { id: 'fries', name: 'Fries', limit: 100},
+    { id: 'curries', name: 'Curries', limit: 100 }
+  ]
+};
+
