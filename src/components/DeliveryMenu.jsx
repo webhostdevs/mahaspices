@@ -134,7 +134,7 @@ const DeliveryMenu = () => {
             </div>
 
             {/* Menu Items Grid */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className=" w-1/2 h-80 grid grid-cols-2 gap-6">
               {menuItems[menuType][selectedCategory].map(item => (
                 <div 
                   key={item.id} 
