@@ -10,7 +10,7 @@ const packageData = {
         name: "Classic Veg Feast",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
-        description: "Traditional vegetarian with premium ingredients",
+        items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹300",
         rating: 4.5,
         time: "45 mins",
@@ -20,7 +20,7 @@ const packageData = {
         name: "Veg Delight Platter",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
-        description: "A delightful assortment of vegetarian dishes",
+        items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹350",
         rating: 4.6,
         time: "50 mins",
@@ -32,7 +32,7 @@ const packageData = {
         name: "Royal Non-Veg Feast",
         image:
           "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
-        description: "Premium non-vegetarian delicacies",
+        items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹599",
         rating: 4.8,
         time: "55 mins",
@@ -42,7 +42,7 @@ const packageData = {
         name: "Non-Veg Gourmet Tray",
         image:
           "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
-        description: "Gourmet non-vegetarian meal for special moments",
+        items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹650",
         rating: 4.7,
         time: "60 mins",
@@ -56,7 +56,7 @@ const packageData = {
         name: "Premium Veg Banquet",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
-        description: "Luxurious vegetarian spread for special occasions",
+        items: ["Biryani", "Papad", "Sambar", "Curd", "Masala Curry"],
         price: "₹1000",
         rating: 4.7,
         time: "60 mins",
@@ -66,7 +66,7 @@ const packageData = {
         name: "Golden Veg Experience",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
-        description: "A royal vegetarian banquet for a grand experience",
+        items: ["Biryani", "Papad", "Sambar", "Curd", "Masala Curry"],
         price: "₹1050",
         rating: 4.8,
         time: "65 mins",
@@ -78,7 +78,7 @@ const packageData = {
         name: "Non-Veg Feast",
         image:
           "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
-        description: "Premium non-vegetarian banquet selection",
+        items: ["Biryani", "Chicken Curry", "Papad", "Sambar", "Curd"],
         price: "₹1099",
         rating: 4.8,
         time: "65 mins",
@@ -88,7 +88,7 @@ const packageData = {
         name: "Deluxe Non-Veg Tray",
         image:
           "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
-        description: "Deluxe non-vegetarian tray for elite dining",
+        items: ["Biryani", "Chicken Curry", "Papad", "Sambar", "Curd"],
         price: "₹1150",
         rating: 4.9,
         time: "70 mins",
@@ -102,7 +102,7 @@ const packageData = {
         name: "Grand Veg Celebration",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
-        description: "Elaborate vegetarian feast for special events",
+        items: ["Biryani", "Papad", "Paneer Curry", "Dal", "Curd", "Salad","Raita","Raitha"],
         price: "₹499",
         rating: 4.9,
         time: "75 mins",
@@ -112,7 +112,7 @@ const packageData = {
         name: "Heritage Veg Platter",
         image:
           "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
-        description: "A traditional vegetarian platter for all occasions",
+        items: ["Biryani", "Papad", "Paneer Curry", "Dal", "Curd", "Salad"],
         price: "₹550",
         rating: 4.9,
         time: "80 mins",
@@ -124,7 +124,14 @@ const packageData = {
         name: "Ultimate Non-Veg Experience",
         image:
           "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
-        description: "Exclusive non-vegetarian banquet selection",
+        items: [
+          "Biryani",
+          "Chicken Curry",
+          "Fish Fry",
+          "Sambar",
+          "Curd",
+          "Salad",
+        ],
         price: "₹499",
         rating: 4.9,
         time: "80 mins",
@@ -134,7 +141,14 @@ const packageData = {
         name: "Majestic Non-Veg Banquet",
         image:
           "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
-        description: "A majestic banquet of non-vegetarian delicacies",
+        items: [
+          "Biryani",
+          "Chicken Curry",
+          "Fish Fry",
+          "Sambar",
+          "Curd",
+          "Salad",
+        ],
         price: "₹600",
         rating: 5.0,
         time: "85 mins",
@@ -282,7 +296,7 @@ const MealBox = () => {
       {/* Veg/Non-Veg Toggle */}
 
       {/* Package Selection */}
-      <div className="max-w-3xl mx-auto px-4 mb-12">
+      <div className="max-w-[850px] mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="z-50 mb-4 flex space-x-6">
             <div className="flex flex-col items-center">
@@ -345,7 +359,7 @@ const MealBox = () => {
         </div>
       </div>
       {/* Rest of the previous component remains the same... */}
-      <div className="max-w-3xl mx-auto px-4 mb-12">
+      <div className="max-w-[850px] mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="grid grid-cols-1 gap-6">
             {packageData[selectedPackage][isVeg ? "veg" : "nonVeg"].map(
@@ -370,21 +384,24 @@ const MealBox = () => {
                       >
                         {item.name}
                       </h3>
-                      
-                      <p className="text-gray-600">{item.description}</p>
+
+                      <p className="text-gray-600 w-15 mb-3">{item.items.join(", ")}</p>
+
                       <div className="flex items-center gap-2 text-gray-600">
-                        <div className={` border-2 ${
+                        <div
+                          className={`border-2 ${
                             isVeg
                               ? "border-green-500 p-1 rounded"
                               : "border-red-500 p-1 rounded"
-                          }`}>
-                        <div
-                          className={`w-3 h-3 rounded-full border-2 ${
-                            isVeg
-                              ? "bg-green-500 border-green-500"
-                              : "bg-red-500 border-red-500"
                           }`}
-                        ></div>
+                        >
+                          <div
+                            className={`w-3 h-3 rounded-full border-2 ${
+                              isVeg
+                                ? "bg-green-500 border-green-500"
+                                : "bg-red-500 border-red-500"
+                            }`}
+                          ></div>
                         </div>
                         <span>{item.price}</span>
                       </div>
