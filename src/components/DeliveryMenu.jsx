@@ -111,7 +111,7 @@ const DeliveryMenu = () => {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-lg whitespace-nowrap shrink-0 ${
                       selectedCategory === category 
-                      ? 'bg-blue-500 text-white' 
+                      ? 'bg-green-500 text-white' 
                       : 'bg-gray-100 hover:bg-gray-200'
                     }`}
                   >
@@ -154,7 +154,7 @@ const DeliveryMenu = () => {
                       <span className="text-green-600 font-semibold">₹{item.price.toFixed(2)}</span>
                       <button 
                         onClick={() => handleAddItem(item)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600"
+                        className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600"
                       >
                         Add
                       </button>
