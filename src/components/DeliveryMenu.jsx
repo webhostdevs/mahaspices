@@ -243,9 +243,7 @@ const DeliveryMenu = () => {
             </>
           )}
         </div>
-      )}
-    </div>
-  );
+      )
 };
 
 export default DeliveryMenu;
