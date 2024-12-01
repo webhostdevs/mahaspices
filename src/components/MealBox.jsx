@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { Users, Utensils, ChevronRight, Plus, Minus, Calendar, MapPin, Leaf, Clock, Star, Phone, User, MapPinIcon, X, ShoppingCart } from 'lucide-react';
 
-// Added missing data and utility functions
+
 const today = new Date().toISOString().split('T')[0];
 const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Kolkata', 'Chennai'];
 
@@ -128,15 +128,7 @@ const UserInfoModal = ({ isOpen, onSubmit, onClose }) => {
     navigate('/');
   };
 
-  const today = new Date().toISOString().split('T')[0];
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    location: '',
-    date: '',
-    peopleCount: 1
-  });
-  const [isFormValid, setIsFormValid] = useState(false);
+
 
   useEffect(() => {
     validateForm();
@@ -400,10 +392,7 @@ const FoodPackageSelector = () => {
   const isItemSelected = (itemId) => {
     return selectedMenuItems[itemId] === true;
   };
-  const handleUserInfoSubmit = (info) => {
-    setUserInfo(info);
-    setIsUserModalOpen(false);
-  };
+ 
   const decrementPeople = () => {
     setPeopleCount(prev => Math.max(1, prev - 1));
   };
@@ -417,10 +406,7 @@ const FoodPackageSelector = () => {
     setIsMenuCustomizerOpen(true);
   };
 
-   const handleUserInfoModalClose = () => {
-    setIsUserModalOpen(false);
-    navigate('/'); // Navigate back to home page when modal is closed
-  };
+
 
   // Placeholder for MenuCustomizer component
   const MenuCustomizer = ({ isOpen, onClose, packageType, selectedPackage, isVeg }) => {
@@ -439,25 +425,19 @@ const FoodPackageSelector = () => {
   // Rest of the existing code remains the same
   return (
     <div className="min-h-screen bg-gray-50">
-      <UserInfoModal 
-        isOpen={isUserModalOpen} 
-        onSubmit={handleUserInfoSubmit} 
-        onClose={handleUserInfoModalClose} 
-      />
+     
 
-      {userInfo && (
-        <>
-          {/* User Info Banner */}
-          <div className="bg-green-500 text-white py-4 mb-8">
-            <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
-              <div>
-                <h2 className="text-xl font-semibold">Welcome, {userInfo.name}!</h2>
-                <p className="text-green-50">
-                  {userInfo.location} • {userInfo.peopleCount} People • {userInfo.date}
-                </p>
-              </div>
-            </div>
-          </div>
+     {/* Proceed to Checkout Button (Top Right Corner) */}
+      {Object.values(selectedMenuItems).some(item => item === true) && (
+        <div className="fixed top-4 right-4 z-10">
+          <button
+            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all flex items-center gap-2 shadow-lg"
+          >
+            <ShoppingCart size={20} />
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
 
 
 
