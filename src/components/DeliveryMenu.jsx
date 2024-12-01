@@ -11,6 +11,7 @@ import {
   Trash2 
 } from 'lucide-react';
 import { menuItems, menuCategories } from './data'; 
+import './del.css';
 
 const DeliveryMenu = () => {
   const [menuType, setMenuType] = useState('veg');
