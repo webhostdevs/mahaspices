@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Utensils, ChevronRight, Plus, Minus, Leaf, Beef } from "lucide-react";
+import { Plus, Minus, Leaf, Beef, ChevronRight } from "lucide-react";
 
 const packageData = {
   "3CP": {
@@ -8,8 +8,7 @@ const packageData = {
       {
         id: 1,
         name: "Classic Veg Feast",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
         items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹300",
         rating: 4.5,
@@ -18,8 +17,7 @@ const packageData = {
       {
         id: 2,
         name: "Veg Delight Platter",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/BX/WK/QF/5331327/3cp-meal-tray-natraj-1000x1000.jpg",
         items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹350",
         rating: 4.6,
@@ -30,8 +28,7 @@ const packageData = {
       {
         id: 4,
         name: "Royal Non-Veg Feast",
-        image:
-          "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
+        image: "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
         items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹599",
         rating: 4.8,
@@ -40,8 +37,7 @@ const packageData = {
       {
         id: 5,
         name: "Non-Veg Gourmet Tray",
-        image:
-          "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
+        image: "https://neeyog.com/wp-content/uploads/2018/12/Screenshot_20190302-103929_Instagram.jpg",
         items: ["Biryani", "Curd", "Masala Curry"],
         price: "₹650",
         rating: 4.7,
@@ -54,8 +50,7 @@ const packageData = {
       {
         id: 6,
         name: "Premium Veg Banquet",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
         items: ["Biryani", "Papad", "Sambar", "Curd", "Masala Curry"],
         price: "₹1000",
         rating: 4.7,
@@ -64,8 +59,7 @@ const packageData = {
       {
         id: 10,
         name: "Golden Veg Experience",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/SELLER/Default/2023/2/JT/IZ/ZG/5331327/5cp-meal-tray-natraj-white-1000x1000.jpg",
         items: ["Biryani", "Papad", "Sambar", "Curd", "Masala Curry"],
         price: "₹1050",
         rating: 4.8,
@@ -76,8 +70,7 @@ const packageData = {
       {
         id: 7,
         name: "Non-Veg Feast",
-        image:
-          "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
         items: ["Biryani", "Chicken Curry", "Papad", "Sambar", "Curd"],
         price: "₹1099",
         rating: 4.8,
@@ -86,8 +79,7 @@ const packageData = {
       {
         id: 11,
         name: "Deluxe Non-Veg Tray",
-        image:
-          "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/ANDROID/Default/2024/4/413078008/VQ/BB/TG/26238021/img-20240406-wa0036-jpg-1000x1000.jpg",
         items: ["Biryani", "Chicken Curry", "Papad", "Sambar", "Curd"],
         price: "₹1150",
         rating: 4.9,
@@ -100,9 +92,8 @@ const packageData = {
       {
         id: 8,
         name: "Grand Veg Celebration",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
-        items: ["Biryani", "Papad", "Paneer Curry", "Dal", "Curd", "Salad","Raita","Raitha"],
+        image: "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
+        items: ["Biryani", "Papad", "Paneer Curry", "Dal", "Curd", "Salad", "Raita"],
         price: "₹499",
         rating: 4.9,
         time: "75 mins",
@@ -110,8 +101,7 @@ const packageData = {
       {
         id: 12,
         name: "Heritage Veg Platter",
-        image:
-          "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
+        image: "https://5.imimg.com/data5/SELLER/Default/2020/12/XT/MO/AF/9784128/8cp-meal-tray-natraj-1000x1000.jpg",
         items: ["Biryani", "Papad", "Paneer Curry", "Dal", "Curd", "Salad"],
         price: "₹550",
         rating: 4.9,
@@ -122,16 +112,8 @@ const packageData = {
       {
         id: 9,
         name: "Ultimate Non-Veg Experience",
-        image:
-          "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
-        items: [
-          "Biryani",
-          "Chicken Curry",
-          "Fish Fry",
-          "Sambar",
-          "Curd",
-          "Salad",
-        ],
+        image: "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
+        items: ["Biryani", "Chicken Curry", "Fish Fry", "Sambar", "Curd", "Salad"],
         price: "₹499",
         rating: 4.9,
         time: "80 mins",
@@ -139,16 +121,8 @@ const packageData = {
       {
         id: 13,
         name: "Majestic Non-Veg Banquet",
-        image:
-          "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
-        items: [
-          "Biryani",
-          "Chicken Curry",
-          "Fish Fry",
-          "Sambar",
-          "Curd",
-          "Salad",
-        ],
+        image: "https://5.imimg.com/data5/ANDROID/Default/2023/10/348991234/QZ/NJ/RI/69120372/product-jpeg-1000x1000.jpg",
+        items: ["Biryani", "Chicken Curry", "Fish Fry", "Sambar", "Curd", "Salad"],
         price: "₹600",
         rating: 5.0,
         time: "85 mins",
@@ -217,7 +191,6 @@ const MealBox = () => {
       return;
     }
 
-    // Prepare cart details for checkout
     const cartDetails = Object.entries(cart).map(([itemId, itemData]) => ({
       id: itemId,
       name: itemData.details.name,
@@ -227,9 +200,9 @@ const MealBox = () => {
     }));
 
     console.log("Proceeding to checkout with:", cartDetails);
+    // You can add navigation or API call here
   };
 
-  // Group cart items by package
   const groupedCartItems = Object.entries(cart).reduce(
     (groups, [itemId, itemData]) => {
       const pkg = itemData.package;
@@ -243,116 +216,56 @@ const MealBox = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Cart Summary */}
-      {Object.keys(cart).length > 0 && (
-        <div className="fixed top-35 right-4 z-10 bg-white shadow-lg rounded-lg p-4 w-84">
-          <h3 className="font-bold mb-2">Cart Summary</h3>
-
-          {/* Group cart items by package */}
-          {Object.entries(groupedCartItems).map(([pkg, items]) => (
-            <div key={pkg} className="mb-4">
-              <div className="flex items-center mb-2">
-                <img
-                  src={packageImages[pkg]}
-                  alt={`${pkg} Package`}
-                  className="w-12 h-12 mr-2 object-contain"
-                />
-                <h4 className="font-semibold">{pkg} Package</h4>
-              </div>
-              {items.map(({ itemId, details, quantity }) => (
-                <div key={itemId} className="flex justify-between mb-1 w-60">
-                  <span>
-                    {details.name} - ({quantity})
-                  </span>
-                  <strong>{details.price}</strong>
-                </div>
-              ))}
-            </div>
-          ))}
-
-          <div className="border-t mt-2 pt-2">
-            <div className="flex justify-between">
-              <span>Subtotal</span>
-              <span>₹{calculateCartTotal()}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>GST (18%)</span>
-              <span>₹{calculateGST()}</span>
-            </div>
-            <div className="flex justify-between font-bold">
-              <span>Total</span>
-              <span>₹{calculateCartTotal() + calculateGST()}</span>
-            </div>
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Left Column for Filters and Package Selection */}
+      <div className="w-1/4 p-6 bg-white shadow-lg">
+        {/* Veg/Non-Veg Toggle */}
+        <div className="mb-6 flex justify-center space-x-6">
+          <div className="flex flex-col items-center">
+            <button
+              onClick={() => setIsVeg(true)}
+              className={`flex items-center justify-center p-2 rounded-xl border-2 ${
+                isVeg ? "border-green-500" : "border-gray-200"
+              }`}
+            >
+              <Leaf color={isVeg ? "green" : "gray"} />
+            </button>
+            <span
+              className={`mt-2 text-sm ${
+                isVeg ? "text-green-500 font-bold" : "text-gray-500"
+              }`}
+            >
+              Veg
+            </span>
           </div>
-          <button
-            className="mt-4 w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
+          <div className="flex flex-col items-center">
+            <button
+              onClick={() => setIsVeg(false)}
+              className={`flex items-center justify-center p-2 rounded-xl border-2 ${
+                !isVeg ? "border-red-500" : "border-gray-200"
+              }`}
+            >
+              <Beef color={!isVeg ? "red" : "gray"} />
+            </button>
+            <span
+              className={`mt-2 text-sm ${
+                !isVeg ? "text-red-500 font-bold" : "text-gray-500"
+              }`}
+            >
+              Non-Veg
+            </span>
+          </div>
         </div>
-      )}
-      {/* Veg/Non-Veg Toggle */}
 
-      {/* Package Selection */}
-      <div className="max-w-[850px] mx-auto px-4 mb-12">
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="z-50 mb-4 flex space-x-6">
-             <div className="flex items-center">
-             {/* Package Selection */}
-<div className="max-w-[850px] mx-auto px-4 mb-12">
-  <div className="bg-white rounded-xl shadow-lg p-8">
-    <div className="z-50 mb-4 flex space-x-6">
-      <div className="flex flex-col items-center">
-        <button
-          onClick={() => setIsVeg(true)}
-          className={`flex border-green-500 items-center justify-center p-2 rounded-xl border-2 transition-all`}
-        >
-          <div className="h-4 w-4 rounded-full bg-green-500"></div>
-        </button>
-        <span
-          className={`mt-2 text-sm transition-all duration-300 ${
-            isVeg
-              ? "border border-b-4 border-green-500 px-4 rounded text-green-500"
-              : "text-gray-500 border-transparent"
-          }`}
-        >
-          Veg
-        </span>
-      </div>
-      <div className="flex flex-col items-center">
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            checked={!isVeg}
-            onChange={() => setIsVeg(!isVeg)}
-            className="sr-only peer"
-          />
-          <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
-        </label>
-        <span
-          className={`mt-2 text-sm transition-all duration-300 ${
-            !isVeg
-              ? "border border-b-4 border-red-500 px-4 rounded text-red-500"
-              : "text-gray-500 border-transparent"
-          }`}
-        >
-          Non-Veg
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-          </div>
-
-          <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Package Selection */}
+        <div className="mb-6">
+          <h2 className="text-xl font-bold mb-4 text-center">Select Package</h2>
+          <div className="space-y-4">
             {Object.keys(packageData).map((pkg) => (
               <button
                 key={pkg}
                 onClick={() => setSelectedPackage(pkg)}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`w-full p-4 rounded-xl border-2 flex items-center justify-between transition-all ${
                   selectedPackage === pkg
                     ? "border-green-500 bg-green-50"
                     : "border-gray-200 hover:border-green-200"
@@ -361,16 +274,20 @@ const MealBox = () => {
                 <img
                   src={packageImages[pkg]}
                   alt={`${pkg} Package`}
-                  className="w-full h-32 object-contain rounded-lg mb-4"
+                  className="w-16 h-16 object-contain rounded-lg"
                 />
-                <h3 className="font-semibold text-lg mb-2">{pkg} Package</h3>
+                <span className="font-semibold">{pkg} Package</span>
+                <ChevronRight 
+                  className={selectedPackage === pkg ? "text-green-500" : "text-gray-400"}
+                />
               </button>
             ))}
           </div>
         </div>
       </div>
-      {/* Rest of the previous component remains the same... */}
-      <div className="max-w-[850px] mx-auto px-4 mb-12">
+
+      {/* Right Column for Menu Items */}
+      <div className="w-3/4 p-6">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="grid grid-cols-1 gap-6">
             {packageData[selectedPackage][isVeg ? "veg" : "nonVeg"].map(
