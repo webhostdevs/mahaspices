@@ -1,142 +1,133 @@
 const menuSections = {
-  snacks: {
-    title: 'SNACKS',
-    limit: 6,
-    items: [
-      'Green Salad',
-      'Sweet American Corn',
-      'Green Peas Masala',
-      'Cheese Balls',
-      'Cheese Potato Wedges Melt',
-      'Cheese Tart',
-      'Cocktail corn samosa',
-      'Corn Cheese Kabab',
-      'Corn Fitters',
-      'Corn Palak Roll',
-      'Crunchy Baby Corn',
-      'Cut Mirchi',
-      'Gold Coin',
-      'Golden Fried Baby Corn',
-      'Hara bhara Kabab',
-      'Masala Potato Fingers',
-      'Paneer Kesar Tikka',
-      'Paneer Shashlik',
-      'Potato Croquettes',
-      'Hangai Rolls',
-      'Smile Hearts',
-      'Veg. Corn Rolls',
-      'Veg. Seekh Kabab',
-      'Veg. Shashlik',
-      'Veg. Tart',
-      'Garden Spring Green Salad',
-      'Boiled Nuts',
-      'Sprouts',
-      'Cucumber Honey Yogurt Dill Salad'
-    ]
-  },
-  dipsAndSpreads: {
-    title: 'DIPS & SPREADS',
-    limit: 2,
-    items: [
-      'Mint Chutney',
-      'Hot Garlic Sauce',
-      'Garlic Mayo',
-      'Tomato Ketchup'
-    ]
-  },
-  beverages: {
-    title: 'BEVERAGES',
+  welcomeDrink: {
+    title: 'Welcome Drink',
     limit: 1,
-    items: [
-      'Water Melon',
-      'Pineapple',
-      'Musk Melon',
-      'Sugar Cane (Min. Gathering)',
-      'Coconut Delight',
-      'Fruit Punch',
-      'Mango Masti',
-      'Litchi Punch',
-      'Grapes Pulpy Kulfi',
-      'Orange Punch',
-      'Soft Drinks'
-    ]
+    items: ['Lime Juice', 'Buttermilk', 'Watermelon', 'Muskmelon', 'Papaya']
+  },
+  welcomeSnacks: {
+    title: 'Welcome Snacks',
+    limit: 1,
+    items: ['Harabhara Kabob', 'Veg Manchuria', 'Smiles Hearts', 'Cheese Balls']
   },
   salad: {
-    title: 'SALAD',
+    title: 'Salad',
+    limit: 1,
+    items: ['Green Salad', 'Sprouts Salad', 'Tossed Salad', 'Garden Salad']
+  },
+  hot: {
+    title: 'Hot',
+    limit: 1,
+    items: ['Mirchi Bajji', 'Artikaka Bajji', 'Pan Leaf Bajji']
+  },
+  roti: {
+    title: 'Roti',
+    limit: 1,
+    items: ['Rumali Roti', 'Pulkha', 'Chapatti', 'Poori']
+  },
+  splRice: {
+    title: 'Special Rice (Basmathi)',
+    limit: 1,
+    items: ['Veg Pulav', 'Veg Biryani', 'Peas Pulav', 'Muttor Pulav']
+  },
+  fry: {
+    title: 'Fry',
+    limit: 1,
+    items: ['Bhendi Fry', 'Donda Fry', 'Kanda Poosa Fry', 'Aloo Vepudu']
+  },
+  vegCurry: {
+    title: 'Veg Curry',
     limit: 1,
     items: [
-      'Garden Spring Green Salad',
-      'Boiled Nuts',
-      'Pineapple'
+      'Gutti Vankai Masala',
+      'Aloo Paneer Curry',
+      'Chole Masala',
+      'Mix Veg Kurma',
+      'Gobi Muttor'
     ]
   },
-  sweets: {
-    title: 'SWEETS',
-    limit: 2,
-    items: [
-      'Badam Halwa',
-      'Mixed Fruit Halwa',
-      'Double Ka Meetha',
-      'Carrot Green Mixed Halwa',
-      'Qhubani Ka Meetha',
-      'Junnu',
-      'Pistabhog',
-      'Dry Chum Chum'
-    ]
-  },
-  liveSweets: {
-    title: 'LIVE SWEETS',
-    limit: 3,
-    items: [
-      'Honey Belam Jalebi',
-      'Pineapple Jalebi',
-      'Tawa Mix Sweet',
-      'American Mal Puri',
-      'Baked Rasgulla',
-      'Gajrela',
-      'Basundi'
-    ]
-  },
-  hotItems: {
-    title: 'HOTS',
+  dal: {
+    title: 'Dal',
     limit: 1,
     items: [
-      'Gaare',
-      'Mini Alsanda Wada',
-      'Nellore Chitti Gaare',
-      'Madras Pakodi (Round)',
-      'Pudina Masala Wada',
-      'Mealmaker Keema Wada',
-      'Veg. Lolly Pop',
-      'Mini Perugu Aawada',
-      'Vamu Mirchi Bajji'
+      'Tomato Dal',
+      'Dosakaya Pappu',
+      'Palak Dal',
+      'Gongura Pappu',
+      'Kaddu Dal'
     ]
   },
-  vegFries: {
-    title: 'VEG FRIES',
-    limit: 2,
+  sambarRasam: {
+    title: 'Sambar or Rasam',
+    limit: 1,
     items: [
-      'Aloo Capsicum Masala',
-      'Aloo Gobi',
-      'Aloo Jeera',
-      'Aloo Methi',
-      'Aloo, Allam, Green Mirchi Fry',
-      'Baby Corn Aloo Ullibonda, Fry'
+      'Tomato Rasam',
+      'Mix Sambar',
+      'Pepper Sambar',
+      'Pappu Charu',
+      'Madras Sambar'
     ]
   },
-  cutlery: {
-  title: 'Cutlery',
-  limit: 6,
-  items: [
-    'Paper Plates',
-    'Plastic Spoons',
-    'Plastic Forks',
-    'Plastic Knives',
-    'Paper Napkins',
-    'Wooden Toothpicks'
-  ]
-}
+  chutney: {
+    title: 'Chutney',
+    limit: 1,
+    items: [
+      'Tomato Chutney',
+      'Cabbage Chutney',
+      'Dosakaya Chutney',
+      'Gongura Chutney'
+    ]
+  },
+  pickel: {
+    title: 'Pickel',
+    limit: 1,
+    items: ['Mango Pickel', 'Dosakaya Pickel', 'Lime Pickel']
+  },
+  sweet: {
+    title: 'Sweet',
+    limit: 1,
+    items: ['Gulabjamoon', 'Chakrapongal', 'Kala Jamoon', 'Carrot Halwa']
+  },
+  iceCream: {
+    title: 'Ice Cream',
+    limit: 1,
+    items: ['Strawberry', 'Vanilla']
+  },
+  nonVegSnacks: {
+    title: 'Non-Veg Snacks (Chicken)',
+    limit: 1,
+    items: [
+      'Pepper Chicken',
+      'Chicken Pakora',
+      'Ginger Chicken',
+      'Chicken Manchuria'
+    ]
+  },
+  nonVegChicken: {
+    title: 'Non-Veg Chicken',
+    limit: 1,
+    items: [
+      'Chicken Dum Biryani',
+      'Chicken Pulav',
+      'Butter Chicken',
+      'Kadhai Chicken'
+    ]
+  },
+  nonVegEgg: {
+    title: 'Non-Veg Egg',
+    limit: 1,
+    items: [
+      'Egg Pulav',
+      'Egg Biryani',
+      'Egg Masala',
+      'Egg Pulusu',
+      'Egg Curry'
+    ]
+  },
+  commonItems: {
+    title: 'Common Items',
+    limit: 5,
+    items: ['Curd', 'Papad', 'Ritha', 'Plain Rice', 'Drinking Water (Serve in Glass)']
+  }
 };
 
-
-export { menuSections};
+export { menuSections };
