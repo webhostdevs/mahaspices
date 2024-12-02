@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { menuSections } from './cocktaildiamondexotic';
-import { useNavigate } from 'react-router-dom';
+import MenuNavbar from './MenuNavbar';
+import { useNavigate, useParams  } from 'react-router-dom';
+import VegNonVegToggle from './Vtoggle';
 
 const BASE_PLATE_PRICE = 299;
 const EXTRA_ITEM_CHARGE = 50;
-const MIN_GUESTS = 50;
+const MIN_GUESTS = 10;
 const MAX_GUESTS = 2000;
 
 
 
 const MenuSelection = () => {
   const navigate = useNavigate();
+  const { categoryName } = useParams();
   const [selectedItems, setSelectedItems] = useState({
     snacks: [],
     beverages: [],
@@ -20,6 +23,18 @@ const MenuSelection = () => {
     salad: [],
     dipsAndSpreads: [],
   });
+
+  const formatHeading = (urlName) => {
+    return urlName
+      .split('-')              
+      .map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()  
+      )
+      .join(' ');            
+  };
+
+  
+  const pageHeading = categoryName ? formatHeading(categoryName) : 'Menu';
 
 
   const [originalPlatePrice, setOriginalPlatePrice] = useState(BASE_PLATE_PRICE);
@@ -177,6 +192,7 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
       return;
     }
     
+    
 
     // Navigate to order page with selected items and basic user details
     navigate('/menu/:categoryName/order', { 
@@ -191,10 +207,15 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
   };
 
   return (
+    <div><MenuNavbar />
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+    
       {/* Sidebar */}
       <div className="w-full md:w-1/5 bg-green-50 p-4 border-r overflow-y-auto">
-        <h2 className="text-xl font-bold mb-6 text-green-700">Catering Menu</h2>
+        <h2 className="text-xl font-bold mb-6 text-green-700">
+          {pageHeading} Catering
+        </h2>
+        <VegNonVegToggle />
         {Object.entries(menuSections).map(([section, { title, limit }]) => {
           const selectedCount = (selectedItems[section] || []).length;
           const extraCount = (extraItems[section] || []).length;
@@ -336,6 +357,7 @@ You need to select ${limit} items (currently selected: ${currentSelectedCount + 
           
         </div>
       </div>
+    </div>
     </div>
   );
 };
