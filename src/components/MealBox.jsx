@@ -299,28 +299,29 @@ const MealBox = () => {
       <div className="max-w-[850px] mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="z-50 mb-4 flex space-x-6">
-            <div className="flex items-center">
-      <button
-        className={`px-4 py-2 rounded-l-md transition-colors ${
-          isVeg
-            ? 'bg-green-500 text-white hover:bg-green-600'
-            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-        }`}
-        onClick={() => setIsVeg(true)}
-      >
-        Veg
-      </button>
-      <button
-        className={`px-4 py-2 rounded-r-md transition-colors ${
-          !isVeg
-            ? 'bg-red-500 text-white hover:bg-red-600'
-            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-        }`}
-        onClick={() => setIsVeg(false)}
-      >
-        Non-Veg
-      </button>
-    </div>
+             <div className="flex items-center">
+              <div className="relative inline-block w-16 align-middle select-none">
+                <input
+                  type="checkbox"
+                  name="toggle"
+                  id="toggle"
+                  checked={isVeg}
+                  onChange={() => setIsVeg(!isVeg)}
+                  className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                />
+                <label
+                  htmlFor="toggle"
+                  className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                ></label>
+              </div>
+              <span
+                className={`ml-2 text-sm font-medium transition-colors ${
+                  isVeg ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {isVeg ? 'Veg' : 'Non-Veg'}
+              </span>
+            </div>
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
