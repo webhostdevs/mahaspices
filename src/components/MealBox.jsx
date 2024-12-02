@@ -299,40 +299,28 @@ const MealBox = () => {
       <div className="max-w-[850px] mx-auto px-4 mb-12">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="z-50 mb-4 flex space-x-6">
-            <div className="flex flex-col items-center">
-              <button
-                onClick={() => setIsVeg(true)}
-                className={`flex border-green-500 items-center justify-center p-2 rounded-xl border-2 transition-all`}
-              >
-                <div className="h-4 w-4 rounded-full bg-green-500"></div>
-              </button>
-              <span
-                className={`mt-2 text-sm transition-all duration-300 ${
-                  isVeg
-                    ? "border border-b-4 border-green-500 px-4 rounded text-green-500"
-                    : "text-gray-500 border-transparent"
-                }`}
-              >
-                Veg
-              </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <button
-                onClick={() => setIsVeg(false)}
-                className={`flex border-red-500 items-center justify-center p-2 rounded-xl border-2 transition-all`}
-              >
-                <div className="h-4 w-4 rounded-full bg-red-500"></div>
-              </button>
-              <span
-                className={`mt-2 text-sm transition-all duration-300 ${
-                  !isVeg
-                    ? "border border-b-4 border-red-500 px-4 rounded text-red-500"
-                    : "text-gray-500 border-transparent"
-                }`}
-              >
-                Non-Veg
-              </span>
-            </div>
+            <div className="flex items-center">
+      <button
+        className={`px-4 py-2 rounded-l-md transition-colors ${
+          isVeg
+            ? 'bg-green-500 text-white hover:bg-green-600'
+            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+        }`}
+        onClick={() => setIsVeg(true)}
+      >
+        Veg
+      </button>
+      <button
+        className={`px-4 py-2 rounded-r-md transition-colors ${
+          !isVeg
+            ? 'bg-red-500 text-white hover:bg-red-600'
+            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+        }`}
+        onClick={() => setIsVeg(false)}
+      >
+        Non-Veg
+      </button>
+    </div>
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
