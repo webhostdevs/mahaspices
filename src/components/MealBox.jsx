@@ -300,24 +300,50 @@ const MealBox = () => {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="z-50 mb-4 flex space-x-6">
              <div className="flex items-center">
-              <div className="flex items-center space-x-4">
-                  <span className={`${menuType === 'veg' ? 'text-green-600' : 'text-gray-500'}`}>
-                    Veg
-                  </span>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={menuType === 'nonveg'}
-                      onChange={() => setMenuType(menuType === 'veg' ? 'nonveg' : 'veg')}
-                      className="sr-only peer"
-                    />
-                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
-                  </label>
-                  <span className={`${menuType === 'nonveg' ? 'text-red-600' : 'text-gray-500'}`}>
-                    Non-Veg
-                  </span>
-                </div>
-          </div>
+             {/* Package Selection */}
+<div className="max-w-[850px] mx-auto px-4 mb-12">
+  <div className="bg-white rounded-xl shadow-lg p-8">
+    <div className="z-50 mb-4 flex space-x-6">
+      <div className="flex flex-col items-center">
+        <button
+          onClick={() => setIsVeg(true)}
+          className={`flex border-green-500 items-center justify-center p-2 rounded-xl border-2 transition-all`}
+        >
+          <div className="h-4 w-4 rounded-full bg-green-500"></div>
+        </button>
+        <span
+          className={`mt-2 text-sm transition-all duration-300 ${
+            isVeg
+              ? "border border-b-4 border-green-500 px-4 rounded text-green-500"
+              : "text-gray-500 border-transparent"
+          }`}
+        >
+          Veg
+        </span>
+      </div>
+      <div className="flex flex-col items-center">
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={!isVeg}
+            onChange={() => setIsVeg(!isVeg)}
+            className="sr-only peer"
+          />
+          <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
+        </label>
+        <span
+          className={`mt-2 text-sm transition-all duration-300 ${
+            !isVeg
+              ? "border border-b-4 border-red-500 px-4 rounded text-red-500"
+              : "text-gray-500 border-transparent"
+          }`}
+        >
+          Non-Veg
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
