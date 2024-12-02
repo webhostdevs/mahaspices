@@ -300,28 +300,23 @@ const MealBox = () => {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="z-50 mb-4 flex space-x-6">
              <div className="flex items-center">
-              <div className="relative inline-block w-16 align-middle select-none">
-                <input
-                  type="checkbox"
-                  name="toggle"
-                  id="toggle"
-                  checked={isVeg}
-                  onChange={() => setIsVeg(!isVeg)}
-                  className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-                />
-                <label
-                  htmlFor="toggle"
-                  className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-                ></label>
-              </div>
-              <span
-                className={`ml-2 text-sm font-medium transition-colors ${
-                  isVeg ? 'text-green-500' : 'text-red-500'
-                }`}
-              >
-                {isVeg ? 'Veg' : 'Non-Veg'}
-              </span>
-            </div>
+              <div className="flex items-center space-x-4">
+                  <span className={`${menuType === 'veg' ? 'text-green-600' : 'text-gray-500'}`}>
+                    Veg
+                  </span>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={menuType === 'nonveg'}
+                      onChange={() => setMenuType(menuType === 'veg' ? 'nonveg' : 'veg')}
+                      className="sr-only peer"
+                    />
+                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
+                  </label>
+                  <span className={`${menuType === 'nonveg' ? 'text-red-600' : 'text-gray-500'}`}>
+                    Non-Veg
+                  </span>
+                </div>
           </div>
 
           <h2 className="text-2xl font-bold mb-6">Select Package Type</h2>
