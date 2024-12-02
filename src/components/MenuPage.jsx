@@ -77,7 +77,7 @@ const MenuPage = () => {
   }
 
   return (
-    <div className="bg-white py-10 px-5">
+    <div className="bg-white py-10 h-screen px-5">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
           Our Menu Categories
