@@ -220,42 +220,51 @@ const MealBox = () => {
       {/* Left Column for Filters and Package Selection */}
       <div className="w-1/4 p-6 bg-white shadow-lg">
         {/* Veg/Non-Veg Toggle */}
-        <div className="mb-6 flex justify-center space-x-6">
-          <div className="flex flex-col items-center">
-            <button
-              onClick={() => setIsVeg(true)}
-              className={`flex items-center justify-center p-2 rounded-xl border-2 ${
-                isVeg ? "border-green-500" : "border-gray-200"
-              }`}
-            >
-              <Leaf color={isVeg ? "green" : "gray"} />
-            </button>
-            <span
-              className={`mt-2 text-sm ${
-                isVeg ? "text-green-500 font-bold" : "text-gray-500"
-              }`}
-            >
-              Veg
-            </span>
+       {/* Veg/Non-Veg Toggle */}
+          <div className="mb-6 flex justify-center space-x-6">
+            <div className="flex flex-col items-center">
+              <button
+                onClick={() => setIsVeg(true)}
+                className={`flex items-center justify-center p-2 rounded-full border-2 border-gray-300 ${
+                  isVeg ? "bg-green-500 border-green-500" : "bg-white"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 rounded-full ${
+                    isVeg ? "bg-white" : "bg-green-500"
+                  }`}
+                />
+              </button>
+              <span
+                className={`mt-2 text-sm ${
+                  isVeg ? "text-green-500 font-bold" : "text-gray-500"
+                }`}
+              >
+                Veg
+              </span>
+            </div>
+            <div className="flex flex-col items-center">
+              <button
+                onClick={() => setIsVeg(false)}
+                className={`flex items-center justify-center p-2 rounded-full border-2 border-gray-300 ${
+                  !isVeg ? "bg-red-500 border-red-500" : "bg-white"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 rounded-full ${
+                    !isVeg ? "bg-white" : "bg-red-500"
+                  }`}
+                />
+              </button>
+              <span
+                className={`mt-2 text-sm ${
+                  !isVeg ? "text-red-500 font-bold" : "text-gray-500"
+                }`}
+              >
+                Non-Veg
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <button
-              onClick={() => setIsVeg(false)}
-              className={`flex items-center justify-center p-2 rounded-xl border-2 ${
-                !isVeg ? "border-red-500" : "border-gray-200"
-              }`}
-            >
-              <Beef color={!isVeg ? "red" : "gray"} />
-            </button>
-            <span
-              className={`mt-2 text-sm ${
-                !isVeg ? "text-red-500 font-bold" : "text-gray-500"
-              }`}
-            >
-              Non-Veg
-            </span>
-          </div>
-        </div>
 
         {/* Package Selection */}
         <div className="mb-6">
