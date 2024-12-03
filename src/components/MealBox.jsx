@@ -697,7 +697,7 @@ const MealBox = () => {
 
       {/* Cart Summary */}
       {Object.keys(cart).length > 0 && (
-        <div className="fixed top-75 right-10 z-10 bg-white shadow-lg rounded-lg p-5 w-84">
+        <div className="fixed top-75 right-10 mt-4 z-10 bg-white shadow-lg rounded-lg p-5 w-84">
           <h3 className="font-bold mb-2">Cart Summary</h3>
 
           {/* Group cart items by package */}
