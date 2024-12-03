@@ -697,7 +697,7 @@ const MealBox = () => {
 
       {/* Cart Summary */}
       {Object.keys(cart).length > 0 && (
-        <div className="fixed top-35 right-4 z-10 bg-white shadow-lg rounded-lg p-4 w-84">
+        <div className="fixed top-55 right-14 z-10 bg-white shadow-lg rounded-lg p-4 w-84">
           <h3 className="font-bold mb-2">Cart Summary</h3>
 
           {/* Group cart items by package */}
@@ -811,7 +811,7 @@ const MealBox = () => {
         </div>
       </div>
       {/* Rest of the previous component remains the same... */}
-      <div className="min-w-[650px] mx-auto   ">
+      <div className="min-w-[750px] mx-auto   ">
         <div className="bg-white rounded-xl shadow-lg p-8  m-9">
           <div className="grid grid-cols-1 gap-6">
             {packageData[selectedPackage][isVeg ? "veg" : "nonVeg"].map(
